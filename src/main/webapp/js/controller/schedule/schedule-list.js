@@ -11,7 +11,7 @@ var requireModules = [
 	'layer',
 	'request',
 	'form-util',
-	'user-api',
+	'schedule-api',
 	'table-util',
 	'btns',
 	'authority',
@@ -32,7 +32,7 @@ layui.use(requireModules, function(
 	layer,
 	request,
 	formUtil,
-	userApi,
+    scheduleApi,
 	tableUtil,
 	btns,
 	authority,
@@ -62,34 +62,45 @@ layui.use(requireModules, function(
             mainTable = MyController.renderTable();
 			MyController.bindEvent();
 		},
-		getQueryCondition: function() {
-			var condition = formUtil.composeData($("#condition"));
-			return condition;
-		},
 		renderTable: function() {
             return $table.render({
-                elem: '#user-list'
+                elem: '#schedule-list'
                 ,height: 'full-100'
-                ,url: userApi.getUrl('getAll').url
+                ,url: scheduleApi.getUrl('scheduleList').url
 				,method: 'post'
-                ,page: true //开启分页
+                ,page: true
                 ,limits:[10,50,100,200]
-                ,cols: [[ //表头
+                ,cols: [[
                     {type:'numbers'},
-                    {field: 'id', title: '用户ID', width:100},
-                    {field: 'userName', title: '账号', width:100},
-                    {field: 'realName', title: '真实姓名', width:100},
-                    {field: 'phone', title: '手机号', width:150},
-                    {field: 'userStatus', title: '状态', width:100, templet: function (d) {
-                        if(d.userStatus == 1){
-                        	return '<span>正常</span>';
-                        } else {
-                        	return '<span>冻结</span>';
-                        }
-                    }},
-                    {field: 'roleName', title: '角色', width:120},
-                    {field: 'lastLoginTime', title: '登录时间', width:160, templet: function (d) {
-						return moment(d.lastLoginTime).format("YYYY-MM-DD HH:mm:ss");
+                    {field: 'companyId', title: '主办方的id', width:100},
+                    {field: 'type', title: '发布人', width:100, templet: function (d) {
+						if(d.type == 1){
+							return '<span>展商</span>';
+						} else {
+							return '<span>主办方</span>';
+						}
+					}},
+                    {field: 'companyName', title: '主办方的名称', width:100},
+                    {field: 'title', title: '主题', width:100},
+                    {field: 'status', title: '状态', width:100, templet: function (d) {
+                            if(d.status == 1){
+                                return '<span>审核通过</span>';
+                            } else if(d.status == 0) {
+                                return '<span>待审</span>';
+                            } else {
+                                return '<span>打回</span>';
+                            }
+                        }},
+                    {field: 'sTime', title: '开始时间', width:160, templet: function (d) {
+                            return moment(d.sTime).format("YYYY-MM-DD HH:mm:ss");
+                        }},
+                    {field: 'eTime', title: '结束时间', width:160, templet: function (d) {
+                            return moment(d.eTime).format("YYYY-MM-DD HH:mm:ss");
+                        }},
+                    {field: 'content', title: '活动内容', width:150},
+                    {field: 'place', title: '活动地点', width:120},
+                    {field: 'cTime', title: '创建时间', width:160, templet: function (d) {
+						return moment(d.cTime).format("YYYY-MM-DD HH:mm:ss");
                     }},
                     {fixed: 'right',width:180, align:'center', toolbar: '#barDemo'}
                 ]]
@@ -99,23 +110,24 @@ layui.use(requireModules, function(
 		add: function() {
 			var index = layer.open({
 				type: 2,
-				title: "添加用户",
-				area: '80%',
+				title: "发布日程",
+                area: ['800px', '450px'],
 				offset: '10%',
 				scrollbar: false,
-				content: webName + '/views/user/user-add.html',
+				content: webName + '/views/schedule/schedule-add.html',
 				success: function(ly, index) {
 					layer.iframeAuto(index);
 				}
 			});
+            // layer.full(index);
 		},
 
 		modify: function(rowdata) {
-			var url = request.composeUrl(webName + '/views/user/user-update.html', rowdata);
+			var url = request.composeUrl(webName + '/views/schedule/schedule-update.html', rowdata);
 			var index = layer.open({
 				type: 2,
-				title: "修改用户",
-				area: '80%',
+				title: "修改日程",
+                area: ['800px', '450px'],
 				offset: '10%',
 				scrollbar: false,
 				content: url,
@@ -123,10 +135,11 @@ layui.use(requireModules, function(
 					layer.iframeAuto(index);
 				}
 			});
+            // layer.full(index);
 		},
 
         view: function(rowdata) {
-            var url = request.composeUrl(webName + '/views/user/user-view.html', rowdata);
+            var url = request.composeUrl(webName + '/views/schedule/schedule-view.html', rowdata);
             var index = layer.open({
                 type: 2,
                 title: "查看用户",
@@ -139,22 +152,6 @@ layui.use(requireModules, function(
                 }
             });
         },
-
-        relateCloud: function(rowdata) {
-            var url = request.composeUrl(webName + '/views/user/user-relate-cloud.html', rowdata);
-            var index = layer.open({
-                type: 2,
-                title: "关联应用账号",
-                area: ['520px', '400px'],
-                offset: '5%',
-                scrollbar: false,
-                content: url,
-                success: function(ly, index) {
-                    // layer.iframeAuto(index);
-                }
-            });
-        },
-
 
 		delete: function(rowdata) {
 			layer.confirm('确认删除数据?', {
@@ -192,17 +189,13 @@ layui.use(requireModules, function(
                     MyController.modify(data);
                 } else if(obj.event === 'row-delete'){//删除
                     MyController.delete(data);
-                } else if(obj.event === 'row-cloud'){//关联账户
-                    MyController.relateCloud(data);
                 }
 
             });
 
 			//点击查询按钮
 			$('#search-btn').on('click', function() {
-                mainTable.reload({
-                    where: MyController.getQueryCondition()
-                });
+                mainTable.reload();
 			});
 
             //点击刷新

@@ -11,7 +11,7 @@ var requireModules = [
 	'layer',
 	'request',
 	'form-util',
-	'user-api',
+	'exhibition-api',
 	'table-util',
 	'btns',
 	'authority',
@@ -32,7 +32,7 @@ layui.use(requireModules, function(
 	layer,
 	request,
 	formUtil,
-	userApi,
+    exhibitionApi,
 	tableUtil,
 	btns,
 	authority,
@@ -62,35 +62,38 @@ layui.use(requireModules, function(
             mainTable = MyController.renderTable();
 			MyController.bindEvent();
 		},
-		getQueryCondition: function() {
-			var condition = formUtil.composeData($("#condition"));
-			return condition;
-		},
+
 		renderTable: function() {
             return $table.render({
-                elem: '#user-list'
+                elem: '#exhibition-list'
                 ,height: 'full-100'
-                ,url: userApi.getUrl('getAll').url
+                ,url: exhibitionApi.getUrl('exhibitionList').url
 				,method: 'post'
                 ,page: true //开启分页
                 ,limits:[10,50,100,200]
                 ,cols: [[ //表头
                     {type:'numbers'},
-                    {field: 'id', title: '用户ID', width:100},
-                    {field: 'userName', title: '账号', width:100},
-                    {field: 'realName', title: '真实姓名', width:100},
-                    {field: 'phone', title: '手机号', width:150},
-                    {field: 'userStatus', title: '状态', width:100, templet: function (d) {
-                        if(d.userStatus == 1){
-                        	return '<span>正常</span>';
-                        } else {
-                        	return '<span>冻结</span>';
-                        }
+                    {field: 'id', title: '展品ID', width:100},
+                    {field: 'name', title: '产品名称', width:100},
+                    {field: 'status', title: '状态', width:100, templet: function (d) {
+                            if(d.status == 1){
+                                return '<span>下架</span>';
+                            } else {
+                                return '<span>上架</span>';
+                            }
+                        }},
+
+                    {field: 'categoryId', title: '分类id', width:100},
+                    {field: 'image', title: '产品图片', width:150},
+                    {field: 'content', title: '产品介绍', width:120},
+                    {field: 'pdfUrl', title: '产品说明书', width:120},
+                    {field: 'pdfName', title: '说明书的名字', width:120},
+                    {field: 'mTime', title: '修改时间', width:160, templet: function (d) {
+						return moment(d.mTime).format("YYYY-MM-DD HH:mm:ss");
                     }},
-                    {field: 'roleName', title: '角色', width:120},
-                    {field: 'lastLoginTime', title: '登录时间', width:160, templet: function (d) {
-						return moment(d.lastLoginTime).format("YYYY-MM-DD HH:mm:ss");
-                    }},
+                    {field: 'cTime', title: '录入时间', width:160, templet: function (d) {
+						return moment(d.cTime).format("YYYY-MM-DD HH:mm:ss");
+					}},
                     {fixed: 'right',width:180, align:'center', toolbar: '#barDemo'}
                 ]]
             });
@@ -99,37 +102,37 @@ layui.use(requireModules, function(
 		add: function() {
 			var index = layer.open({
 				type: 2,
-				title: "添加用户",
-				area: '80%',
-				offset: '10%',
+				title: "添加展品",
+                area: ['800px', '450px'],
+				offset: '5%',
 				scrollbar: false,
-				content: webName + '/views/user/user-add.html',
+				content: webName + '/views/exhibition/exhibition-add.html',
 				success: function(ly, index) {
-					layer.iframeAuto(index);
+					// layer.iframeAuto(index);
 				}
 			});
 		},
 
 		modify: function(rowdata) {
-			var url = request.composeUrl(webName + '/views/user/user-update.html', rowdata);
+			var url = request.composeUrl(webName + '/views/exhibition/exhibition-update.html', rowdata);
 			var index = layer.open({
 				type: 2,
-				title: "修改用户",
-				area: '80%',
-				offset: '10%',
+				title: "修改展品",
+                area: ['800px', '450px'],
+				offset: '5%',
 				scrollbar: false,
 				content: url,
 				success: function(ly, index) {
-					layer.iframeAuto(index);
+					// layer.iframeAuto(index);
 				}
 			});
 		},
 
         view: function(rowdata) {
-            var url = request.composeUrl(webName + '/views/user/user-view.html', rowdata);
+            var url = request.composeUrl(webName + '/views/exhibition/exhibition-view.html', rowdata);
             var index = layer.open({
                 type: 2,
-                title: "查看用户",
+                title: "查看展品",
                 area: '60%',
                 offset: '10%',
                 scrollbar: false,
@@ -139,22 +142,6 @@ layui.use(requireModules, function(
                 }
             });
         },
-
-        relateCloud: function(rowdata) {
-            var url = request.composeUrl(webName + '/views/user/user-relate-cloud.html', rowdata);
-            var index = layer.open({
-                type: 2,
-                title: "关联应用账号",
-                area: ['520px', '400px'],
-                offset: '5%',
-                scrollbar: false,
-                content: url,
-                success: function(ly, index) {
-                    // layer.iframeAuto(index);
-                }
-            });
-        },
-
 
 		delete: function(rowdata) {
 			layer.confirm('确认删除数据?', {
@@ -192,8 +179,6 @@ layui.use(requireModules, function(
                     MyController.modify(data);
                 } else if(obj.event === 'row-delete'){//删除
                     MyController.delete(data);
-                } else if(obj.event === 'row-cloud'){//关联账户
-                    MyController.relateCloud(data);
                 }
 
             });

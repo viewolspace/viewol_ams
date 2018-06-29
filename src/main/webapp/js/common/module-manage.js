@@ -56,14 +56,10 @@ function registeModule(window,modulesYouWanted,otherModules) {
 			'login-api':'api/login-api',
 			'role&authority-api':'api/role&authority-api',
 			'user-api':'api/user-api',
-			'match-api':'api/match-api',
-            'ad-api':'api/ad-api',
-            'api-api':'api/api-api',
-            'api-template-api':'api/api-template-api',
-            'clouduser-api':'api/clouduser-api',
-            'rank-api':'api/rank-api',
-			'select-api':'api/select-api',
-			'resource-api':'api/resource-api'
+			'card-api':'api/card-api',
+            'exhibition-api':'api/exhibition-api',
+            'exhibitor-api':'api/exhibitor-api',
+            'schedule-api':'api/schedule-api'
 		}
 
 		//刨除系统自带modules
