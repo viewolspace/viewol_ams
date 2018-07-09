@@ -20,6 +20,14 @@ layui.define('base-url', function(exports) {
             type: 'POST',
             url: "uploadImg.do"
         } ,
+        "uploadContentImage": {//上传产品介绍富文本图片
+            type: 'POST',
+            url: "uploadContentImage.do"
+        } ,
+        "uploadPdf": {//上传产品pdf
+            type: 'POST',
+            url: "uploadPdf.do"
+        } ,
         "addExhibition": {
             type: 'POST',
             url: "addExhibition.do"
@@ -30,7 +38,16 @@ layui.define('base-url', function(exports) {
         } ,
         "deleteExhibition": {
             url: "deleteExhibition.do"
+        } ,
+        "getExhibitionCategory": {
+            url: "getExhibitionCategory.do"
+        },
+        "getExhibition": {
+            type: 'POST',
+            url: "getExhibition.do"
         }
+
+
 	}
 	var result = $.extend({}, baseApi, url);
 

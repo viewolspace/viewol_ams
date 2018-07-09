@@ -84,10 +84,11 @@ layui.use(requireModules, function(
                         }},
 
                     {field: 'categoryId', title: '分类id', width:100},
-                    {field: 'image', title: '产品图片', width:150},
-                    {field: 'content', title: '产品介绍', width:120},
-                    {field: 'pdfUrl', title: '产品说明书', width:120},
+                    {field: 'image', title: '产品图片', width:150, templet: function (d) {
+                            return "<a href='"+d.image+"' target='_blank'><img src='"+d.image+"' /></a>";
+                        }},
                     {field: 'pdfName', title: '说明书的名字', width:120},
+                    {field: 'pdfUrl', title: '说明书下载地址', width:300},
                     {field: 'mTime', title: '修改时间', width:160, templet: function (d) {
 						return moment(d.mTime).format("YYYY-MM-DD HH:mm:ss");
                     }},
@@ -103,7 +104,7 @@ layui.use(requireModules, function(
 			var index = layer.open({
 				type: 2,
 				title: "添加展品",
-                area: ['800px', '450px'],
+                area: ['900px', '450px'],
 				offset: '5%',
 				scrollbar: false,
 				content: webName + '/views/exhibition/exhibition-add.html',
@@ -118,7 +119,7 @@ layui.use(requireModules, function(
 			var index = layer.open({
 				type: 2,
 				title: "修改展品",
-                area: ['800px', '450px'],
+                area: ['900px', '450px'],
 				offset: '5%',
 				scrollbar: false,
 				content: url,
@@ -154,7 +155,7 @@ layui.use(requireModules, function(
 				});
 				layer.close(index);
 
-				request.request(userApi.getUrl('deleteUser'), {
+				request.request(exhibitionApi.getUrl('deleteExhibition'), {
 					id: rowdata.id
 				}, function() {
 					layer.closeAll('loading');

@@ -60,11 +60,10 @@ public class SysUserDAOImpl extends ViewolMsDAO<SysUser> implements SysUserDAO {
 	}
 
 	@Override
-	public PageHolder<SysUser> querySysUserByPage(int appId, int userId, String realName, int pageIndex, int pageSize) {
+	public PageHolder<SysUser> querySysUserByPage(int userId, String realName, int pageIndex, int pageSize) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("userId", userId);
 		map.put("realName", realName);
-		map.put("appId", appId);
 		return this.pagedQuery("querySysUserByPage", map, pageIndex, pageSize);
 	}
 }

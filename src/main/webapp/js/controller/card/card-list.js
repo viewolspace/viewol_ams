@@ -76,13 +76,15 @@ layui.use(requireModules, function(
                 ,limits:[10,50,100,200]
                 ,cols: [[
                     {type:'numbers'},
-                    {field: 'bUserId', title: '业务员id', width:100},
-                    {field: 'companyId', title: '展商id', width:100},
-                    {field: 'userId', title: '客户id', width:100},
-                    {field: 'userName', title: '客户姓名', width:150},
-                    {field: 'userCompany', title: '客户公司', width:120},
-                    {field: 'userPhone', title: '客户电话', width:120},
-                    {field: 'userPosition', title: '客户职位', width:120},
+                    {field: 'BUserName', title: '业务员', width:100},
+                    {field: 'shortName', title: '展商简称', width:100},
+                    {field: 'fUserId', title: '客户id', width:80},
+                    {field: 'fUserName', title: '客户姓名', width:100},
+                    {field: 'FCompany', title: '客户公司', width:150},
+                    {field: 'fPhone', title: '客户电话', width:120},
+                    {field: 'fPosition', title: '客户职位', width:120},
+                    {field: 'fEmail', title: '客户Email', width:150},
+                    {field: 'FAge', title: '客户年龄', width:100},
                     {field: 'cTime', title: '创建时间', width:160, templet: function (d) {
 						return moment(d.cTime).format("YYYY-MM-DD HH:mm:ss");
                     }}

@@ -39,11 +39,6 @@
 
     <select id="find_all" resultMap="SysRoleResultMap" parameterType="java.lang.Integer">
         select id, name, remark, create_time, code, app_id from sys_role
-        <trim prefix="WHERE" prefixOverrides="AND|OR">
-            <if test="_parameter !=null and _parameter >0">
-                AND app_id = #{appId}
-            </if>
-        </trim>
     </select>
 
 
@@ -56,9 +51,6 @@
         <trim prefix="where" prefixOverrides="AND|OR">
             <if test=" name != null and name != '' ">
                 AND name = #{name}
-            </if>
-            <if test=" appId !=null and appId>0 ">
-                AND app_id = #{appId}
             </if>
         </trim>
     </sql>

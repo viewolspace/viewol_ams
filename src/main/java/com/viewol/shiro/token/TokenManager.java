@@ -25,15 +25,15 @@ public class TokenManager {
 		return getToken()==null?null:getToken().getId();
 	}
 
-	public static Integer getAppId(){
+	public static Integer getCompanyId(){
 		if(getToken()==null){
 			return -1;
 		}
 
-		if(0 == getToken().getAppId()){
+		if(0 == getToken().getCompanyId()){
 			return -1;
 		}
-		return getToken().getAppId();
+		return getToken().getCompanyId();
 	}
 
 	public static Integer getRoleId(){

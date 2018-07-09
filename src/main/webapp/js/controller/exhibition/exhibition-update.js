@@ -12,7 +12,8 @@ var requireModules = [
     'toast',
     'key-bind',
     'layedit',
-    'exhibition-api'
+    'exhibition-api',
+    'upload'
 
 ];
 
@@ -26,35 +27,130 @@ layui.use(requireModules, function (form,
                                     toast,
                                     keyBind,
                                     layedit,
-                                    exhibitionApi) {
+                                    exhibitionApi,
+                                    upload) {
     var $ = layui.jquery;
-    var f = layui.form;
     var layedit = layui.layedit;
+    var f = layui.form;
+    var categoryData ;//分类相关的信息
 
-    var index = layedit.build('ddddddddddd');
-    var data = ajax.getAllUrlParam();
+    var param = ajax.getAllUrlParam();
+    if(!$.isEmptyObject(param)) {
+        formUtil.renderData($('#exhibition-update-form'), param);
+    }
+    $('#imageAvatarId').attr('src', param.image);
+    $('#imageAvatar').val(param.image);
 
-    ajax.request(roleApi.getUrl('getRolesSelect'), null, function (result) {
-        formUtil.renderSelects('#roleId', result.data);
-        if (!$.isEmptyObject(data)) {
-            $('#username').attr('disabled', true);
-            formUtil.renderData($('#sys-user-form'), data);
-        }
-        f.render();
+    /**
+     * 根据产品ID查询产品所属分类
+     */
+    ajax.request(exhibitionApi.getUrl('getExhibitionCategory'), {
+        categoryId: param.categoryId	//展品所属类别ID
+    }, function(result) {
+        categoryData = result.data;
+        $("#categoryName").val(categoryData.categoryNames);
     });
 
 
-    f.on('submit(sys-user-form)', function (data) {
+    //产品介绍富文本编辑初始化
+    var index;
+    layedit.set({
+        uploadImage: {
+            url: exhibitionApi.getUrl('uploadContentImage').url,
+            type: 'POST'
+        }
+    });
 
-        ajax.request(userApi.getUrl('addSysUser'), data.field, function () {
-            toast.success('添加用户成功');
-            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-            parent.layer.close(index); //再执行关闭
-            parent.list.refresh();//刷新列表
-            toast.success('保存成功');
+    ajax.request(exhibitionApi.getUrl('getExhibition'), {
+        id: param.id	//展品所属类别ID
+    }, function(result) {
+        if(result.status == true){
+            $("#content").val(result.data.content);
+            index = layedit.build('content');//产品介绍富文本编辑初始化
+        }
+    });
+
+    //初始化产品分类树
+    $('#choose-category').click(function() {
+        var ids = categoryData?categoryData.ids:'';
+
+        var url = ajax.composeUrl(webName + '/views/exhibition/category-tree.html', {
+            check: true,
+            recheckData: ids,	//前端回显数据
+            type: 2			//分类的类型
+        });
+
+        layer.open({
+            type: 2,
+            title: "选择分类",
+            content:url ,
+            area:['50%','80%'],
+            btn: ['确定了', '取消了'],
+            yes: function(index, layero) {
+                var iframeWin = window[layero.find('iframe')[0]['name']];
+                categoryData = iframeWin.tree.getAuthorityData();
+                layer.close(index);
+                $("#categoryName").val(categoryData.categoryNames);
+            }
 
         });
-        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+    });
+
+    //上传产品图片
+    upload.render({
+        elem: '#imageBtn'
+        ,url: exhibitionApi.getUrl('uploadImg').url
+        ,ext: 'jpg|png|gif|bmp'
+        ,type: 'image'
+        ,before: function(obj){
+            //预读本地文件
+        }
+        ,done: function(res){
+            if(res.status == false){
+                return layer.msg('上传失败');
+            } else {
+                $('#imageAvatarId').attr('src', res.imageUrl);
+                $('#imageAvatar').val(res.imageUrl);
+            }
+        }
+        ,error: function(){
+            return layer.msg('数据请求异常');
+        }
+    });
+
+    //上传pdf
+    upload.render({
+        elem: '#pdfBtn',
+        url: exhibitionApi.getUrl('uploadPdf').url,
+        accept: 'file',
+        ext: 'pdf',
+        size: 51200, //最大允许上传的文件大小kb
+        before: function(obj){
+            //预读本地文件
+        },
+        done: function(res){
+            if(res.status == false){
+                return layer.msg('上传失败');
+            } else {
+                $('#pdfUrl').val(res.pdfUrl);
+            }
+        },
+        error: function(){
+            return layer.msg('数据请求异常');
+        }
+    });
+
+    //提交form表单
+    f.on('submit(exhibition-update-form)', function(data) {
+        var datas = $.extend(true, data.field, categoryData, {"content": layedit.getContent(index)});
+        ajax.request(exhibitionApi.getUrl('updateExhibition'), datas, function() {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+            parent.list.refresh();
+            toast.success('修改成功');
+
+        });
+        return false;
     });
 
 });

@@ -2,6 +2,9 @@ package com.viewol.card.controller;
 
 import com.viewol.card.vo.CompanyCardVO;
 import com.viewol.common.GridBaseResponse;
+import com.viewol.pojo.UserCardVO;
+import com.viewol.pojo.query.UserCardQuery;
+import com.viewol.service.IUserCardService;
 import com.viewol.shiro.token.TokenManager;
 import com.youguu.core.util.PageHolder;
 import org.springframework.stereotype.Controller;
@@ -10,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 名片夹管理
@@ -19,11 +25,13 @@ import java.util.Date;
 @RequestMapping("card")
 public class CardController {
 
+    @Resource
+    private IUserCardService userCardService;
+
     @RequestMapping(value = "/cardList", method = RequestMethod.POST)
     @ResponseBody
-    public GridBaseResponse cardList(@RequestParam(value = "userName", defaultValue = "") String userName,
-                                     @RequestParam(value = "userCompany", defaultValue = "") String userCompany,
-                                     @RequestParam(value = "userPhone", defaultValue = "") String userPhone,
+    public GridBaseResponse cardList(@RequestParam(value = "fUserId", defaultValue = "") Integer fUserId,
+                                     @RequestParam(value = "bUserId", defaultValue = "") Integer bUserId,
                                    @RequestParam(value = "page", defaultValue = "1") int page,
                                    @RequestParam(value = "limit", defaultValue = "10") int limit) {
 
@@ -31,26 +39,17 @@ public class CardController {
         rs.setCode(0);
         rs.setMsg("ok");
 
-        PageHolder<CompanyCardVO> pageHolder = new PageHolder<>();
+        UserCardQuery cardQuery = new UserCardQuery();
+        cardQuery.setfUserId(fUserId);
+        cardQuery.setCompanyId(TokenManager.getCompanyId());
+        cardQuery.setbUserId(bUserId);
+        cardQuery.setPageIndex(page);
+        cardQuery.setPageSize(limit);
 
-        CompanyCardVO vo = new CompanyCardVO();
-        vo.setId(1);
-        vo.setbUserId(1);
-        vo.setCompanyId(1);
-        vo.setcTime(new Date());
-        vo.setUserCompany("中科院");
-        vo.setUserId(123);
-        vo.setUserName("张三");
-        vo.setUserPhone("15611118888");
-        vo.setUserPosition("采购员");
-        pageHolder.add(vo);
-        pageHolder.setTotalCount(1);
+        PageHolder<UserCardVO> pageHolder = userCardService.queryUserCard(cardQuery);
 
-        if (null != pageHolder) {
-            rs.setData(pageHolder.getList());
-            rs.setCount(pageHolder.getTotalCount());
-        }
-
+        rs.setData(pageHolder.getList());
+        rs.setCount(pageHolder.getTotalCount());
         return rs;
     }
 }

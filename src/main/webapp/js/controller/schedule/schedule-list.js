@@ -80,8 +80,8 @@ layui.use(requireModules, function(
 							return '<span>主办方</span>';
 						}
 					}},
-                    {field: 'companyName', title: '主办方的名称', width:100},
-                    {field: 'title', title: '主题', width:100},
+                    {field: 'companyName', title: '主办方的名称', width:150},
+                    {field: 'title', title: '主题', width:200},
                     {field: 'status', title: '状态', width:100, templet: function (d) {
                             if(d.status == 1){
                                 return '<span>审核通过</span>';
@@ -97,8 +97,8 @@ layui.use(requireModules, function(
                     {field: 'eTime', title: '结束时间', width:160, templet: function (d) {
                             return moment(d.eTime).format("YYYY-MM-DD HH:mm:ss");
                         }},
-                    {field: 'content', title: '活动内容', width:150},
-                    {field: 'place', title: '活动地点', width:120},
+                    {field: 'place', title: '活动地点', width:300},
+                    {field: 'content', title: '活动内容', width:300},
                     {field: 'cTime', title: '创建时间', width:160, templet: function (d) {
 						return moment(d.cTime).format("YYYY-MM-DD HH:mm:ss");
                     }},
@@ -112,7 +112,7 @@ layui.use(requireModules, function(
 				type: 2,
 				title: "发布日程",
                 area: ['800px', '450px'],
-				offset: '10%',
+				offset: '5%',
 				scrollbar: false,
 				content: webName + '/views/schedule/schedule-add.html',
 				success: function(ly, index) {
@@ -128,7 +128,7 @@ layui.use(requireModules, function(
 				type: 2,
 				title: "修改日程",
                 area: ['800px', '450px'],
-				offset: '10%',
+				offset: '5%',
 				scrollbar: false,
 				content: url,
 				success: function(ly, index) {
@@ -164,7 +164,7 @@ layui.use(requireModules, function(
 				});
 				layer.close(index);
 
-				request.request(userApi.getUrl('deleteUser'), {
+				request.request(scheduleApi.getUrl('deleteSchedule'), {
 					id: rowdata.id
 				}, function() {
 					layer.closeAll('loading');

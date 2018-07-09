@@ -40,7 +40,7 @@
 
 <body class="body">
 <blockquote class="layui-elem-quote">
-	点击编辑，展商可以修改企业logo、形象图，展商图片。
+	展商可以修改企业logo、形象图、展商图片，展商介绍。
 </blockquote>
 <table class="layui-table" lay-skin="line">
 	<colgroup>
@@ -53,30 +53,41 @@
 	<tbody>
 	<tr>
 		<td>展商名称</td>
-		<td>北京宝盾门业技术有限公司</td>
+		<td id="companyName"></td>
 		<td>所属分类</td>
-		<td>精密制造</td>
+		<td id="categoryName"></td>
 	</tr>
 	<tr>
 		<td>展商位置</td>
-		<td colspan="3">E1C43</td>
+		<td colspan="3" id="place"></td>
 	</tr>
 	<tr>
 		<td>邀请二维码</td>
-		<td><img src="../../image/demo/71de84984bcecb200144bb7353217ef5.png"></td>
+		<td>
+			<div id="inviteEr" style="width:100px; height:100px; margin-top:15px;"></div>
+			<div style="text-align:center; margin-top: -20px;">
+				<button id="invitePrint" class="layui-btn layui-btn-xs layui-btn-normal" >打印</button>
+			</div>
+
+		</td>
 		<td>展商二维码</td>
-		<td><img src="../../image/demo/71de84984bcecb200144bb7353217ef5.png"></td>
+		<td>
+			<div id="companyEr" style="width:100px; height:100px; margin-top:15px;"></div>
+			<div style="text-align:center; margin-left: 102px; margin-top: -20px; float: left">
+				<button id="companyPrint" class="layui-btn layui-btn-xs layui-btn-normal">打印</button>
+			</div>
+		</td>
 	</tr>
 	<tr>
 		<td>展商logo</td>
 		<td colspan="3">
 			<div class="layui-upload-drag">
 				<a href=" javascript:void(0); ">
-					<img id="avatar_show_id" src="../../image/default_upload.png" alt="上传图片" >
+					<img id="logo" src="../../image/default_upload.png" alt="上传图片" >
 				</a>
-				<input type="hidden" id="avatar" name="avatar" value="">
+				<input type="hidden" id="logo_avatar" name="logo_avatar" value="">
 			</div>
-			<button type="button" class="layui-btn" id="btnUploadImg_avatar"><i class="layui-icon"></i>上传图片</button><input class="layui-upload-file" type="file" name="file">
+			<button type="button" class="layui-btn" id="logoBtn"><i class="layui-icon"></i>上传图片</button><input class="layui-upload-file" type="file" name="file">
 		</td>
 	</tr>
 	<tr>
@@ -84,11 +95,11 @@
 		<td colspan="3">
 			<div class="layui-upload-drag">
 				<a href=" javascript:void(0); ">
-					<img id="avatar_show_id" src="../../image/default_upload.png" alt="上传图片">
+					<img id="banner" src="../../image/default_upload.png" alt="上传图片">
 				</a>
-				<input type="hidden" id="avatar" name="avatar" value="">
+				<input type="hidden" id="banner_avatar" name="banner_avatar" value="">
 			</div>
-			<button type="button" class="layui-btn" id="btnUploadImg_avatar"><i class="layui-icon"></i>上传图片</button><input class="layui-upload-file" type="file" name="file">
+			<button type="button" class="layui-btn" id="bannerBtn"><i class="layui-icon"></i>上传图片</button><input class="layui-upload-file" type="file" name="file">
 		</td>
 	</tr>
 	<tr>
@@ -96,26 +107,25 @@
 		<td colspan="3">
 			<div class="layui-upload-drag">
 				<a href=" javascript:void(0); ">
-					<img id="avatar_show_id" src="../../image/default_upload.png" alt="上传图片">
+					<img id="image" src="../../image/default_upload.png" alt="上传图片">
 				</a>
-				<input type="hidden" id="avatar" name="avatar" value="">
+				<input type="hidden" id="image_avatar" name="image_avatar" value="">
 			</div>
-			<button type="button" class="layui-btn" id="btnUploadImg_avatar"><i class="layui-icon"></i>上传图片</button><input class="layui-upload-file" type="file" name="file">
+			<button type="button" class="layui-btn" id="imageBtn"><i class="layui-icon"></i>上传图片</button><input class="layui-upload-file" type="file" name="file">
 		</td>
 	</tr>
 	<tr>
 		<td>展商介绍</td>
 		<td colspan="3">
-			<form id="exhibitor-add-form" class="layui-form" action="">
-				<textarea class="layui-textarea" name="content" id="ddddddddddd" style="display: none">
-			  展品介绍
-			</textarea>
+			<form id="content-form" class="layui-form" action="">
+				<textarea class="layui-textarea" id="content" name="content" style="display: none"></textarea>
 				<div class="layui-form-item operate">
-					<button class="layui-btn" type="button" lay-submit lay-filter="ad-add-form">
+					<button class="layui-btn" type="button" lay-submit lay-filter="content-form">
 						<i class="layui-icon">&#xe605;</i>
 						保存
 					</button>
 				</div>
+				<input type="text" name="id" id="id" hidden/>
 			</form>
 		</td>
 	</tr>
@@ -125,6 +135,10 @@
 <script type="text/javascript" src="../../js/common/module-manage.js"></script>
 <script type="text/javascript" charset="utf8" src="../../frame/layui/layui.js"></script>
 <script type="text/javascript" charset="utf8" src="../../frame/moment.js"></script>
+<script type="text/javascript" charset="utf8" src="../../frame/jquery-1.12.4.js"></script>
+<script type="text/javascript" charset="utf8" src="../../frame/qrcode/qrcode.min.js"></script>
+<script type="text/javascript" charset="utf8" src="../../frame/jqprint/jquery.jqprint-0.3.js"></script>
+
 <script src="../../js/controller/exhibitor/exhibitor-info.js"></script>
 </body>
 

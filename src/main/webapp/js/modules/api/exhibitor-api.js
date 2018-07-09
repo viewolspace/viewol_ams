@@ -12,28 +12,36 @@ layui.define('base-url', function(exports) {
 	var baseApi = layui['base-url'];
 
 	var url = {
-		namespace: '../ad/',
-		"getAll": {//查询广告列表
-			url: "adList.do"
-		} ,
-        "uploadImg": {//上传图片
+		namespace: '../exhibitor/',
+        "getExhibitor": {//查询展商信息
             type: 'POST',
-            url: "uploadImg.do"
-        } ,
-        "addAd": {//添加广告
-            type: 'POST',
-            url: "addAd.do"
+            url: "getExhibitor.do"
         },
-        "updateAd": {//修改广告
+        "uploadLogo": {//上传展商Logo
             type: 'POST',
-            url: "updateAd.do"
+            url: "uploadLogo.do"
         } ,
-        "deleteAd": {//删除广告
-            url: "deleteAd.do"
+        "uploadBanner": {//上传展商形象图
+            type: 'POST',
+            url: "uploadBanner.do"
+        } ,
+        "uploadImage": {//上传展商图片
+            type: 'POST',
+            url: "uploadImage.do"
+        },
+        "updateContent": {//修改展商介绍
+            type: 'POST',
+            url: "updateContent.do"
+        },
+        "uploadContentImage": {//展商富文本上传图片
+            type: 'POST',
+            url: "uploadContentImage.do"
         }
+
+
 	}
 	//下面这种避免不同api相同key取值相同的问题
 	var result = $.extend({}, baseApi, url);
 
-	exports('ad-api', result);
+	exports('exhibitor-api', result);
 });

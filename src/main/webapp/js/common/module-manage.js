@@ -59,7 +59,8 @@ function registeModule(window,modulesYouWanted,otherModules) {
 			'card-api':'api/card-api',
             'exhibition-api':'api/exhibition-api',
             'exhibitor-api':'api/exhibitor-api',
-            'schedule-api':'api/schedule-api'
+            'schedule-api':'api/schedule-api',
+			'category-api':'api/category-api'
 		}
 
 		//刨除系统自带modules

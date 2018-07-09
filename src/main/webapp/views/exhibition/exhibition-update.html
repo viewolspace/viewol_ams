@@ -33,7 +33,7 @@
 </head>
 
 <body class="body">
-<form id="ad-add-form" class="layui-form" action="">
+<form id="exhibition-update-form" class="layui-form" action="">
 	<div class="layui-form-item">
 		<div class="layui-inline">
 			<label class="layui-form-label">产品名称</label>
@@ -47,24 +47,31 @@
 			<label class="layui-form-label">展品分类</label>
 
 			<div class="layui-input-inline">
-				<select name="categoryId" id="categoryId">
-					<option value="">灭火器</option>
-					<option value="">消防栓</option>
-				</select>
+				<input type="text" name="categoryName" id="categoryName" lay-verify="required" autocomplete="off" class="layui-input">
+				<input type="text" name="categoryId" hidden>
+			</div>
+
+			<div class="layui-input-inline">
+				<button id="choose-category" type="button" class="layui-btn">选择类别</button>
 			</div>
 		</div>
 	</div>
 
 	<div class="layui-form-item">
 		<label class="layui-form-label">产品图片：</label>
-		<div class="layui-upload-drag">
-			<a href=" javascript:void(0); ">
-				<img id="avatar_show_id" src="../../image/default_upload.png" alt="上传图片" width="256" height="115">
-			</a>
-			<input type="hidden" id="avatar" name="avatar" value="">
-		</div>
-		<div class="layui-input-block" style="margin-top:10px;">
-			<button type="button" class="layui-btn" id="btnUploadImg_avatar"><i class="layui-icon"></i>上传图片</button><input class="layui-upload-file" type="file" name="file">
+		<div class="layui-input-block">
+			<div class="layui-upload-drag">
+				<a href=" javascript:void(0); ">
+					<img id="imageAvatarId" src="../../image/default_upload.png" alt="上传图片" width="256" height="115">
+				</a>
+				<input type="hidden" id="imageAvatar" name="imageAvatar" value="">
+			</div>
+
+			<button type="button" class="layui-btn" id="imageBtn">
+				<i class="layui-icon"></i>
+				上传图片
+			</button>
+			<input class="layui-upload-file" type="file" name="file">
 		</div>
 	</div>
 
@@ -72,8 +79,7 @@
 		<label class="layui-form-label">展品介绍</label>
 
 		<div class="layui-input-block">
-			<textarea class="layui-textarea" name="content" id="ddddddddddd" style="display: none">
-			  展品介绍
+			<textarea class="layui-textarea" name="content" id="content" style="display: none">
 			</textarea>
 		</div>
 	</div>
@@ -89,19 +95,18 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">上传说明书</label>
 
-		<div class="layui-input-block">
-			<input type="text" name="pdfUrl" autocomplete="off" placeholder="" class="layui-input">
+		<div class="layui-input-inline" style="width: 400px;">
+			<input type="text" name="pdfUrl" id="pdfUrl" autocomplete="off" placeholder="" class="layui-input">
 		</div>
 
-		<div class="layui-input-block">
-			<button type="button" class="layui-btn" id="btnUploadImg_avatar"><i class="layui-icon"></i>上传pdf</button>
-			<input class="layui-upload-file" type="file" name="file">
+		<div class="layui-input-inline">
+			<button type="button" class="layui-btn" id="pdfBtn"><i class="layui-icon"></i>上传pdf</button>
 		</div>
 	</div>
 
 
 	<div class="layui-form-item operate">
-		<button class="layui-btn" type="button" lay-submit lay-filter="ad-add-form">
+		<button class="layui-btn" type="button" lay-submit lay-filter="exhibition-update-form">
 			<i class="layui-icon">&#xe605;</i>
 			保存
 		</button>
@@ -110,7 +115,7 @@
 			取消
 		</button>
 	</div>
-
+	<input type="hidden" id="id" name="id" value="">
 </form>
 
 <script type="text/javascript" src="../../js/common/module-manage.js"></script>

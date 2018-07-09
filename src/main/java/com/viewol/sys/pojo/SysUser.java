@@ -21,13 +21,11 @@ public class SysUser implements Serializable {
 	private Date createTime;
 	private Date lastLoginTime;//最后登录时间
 	private int userStatus;// 1:有效，0:禁止登录
-
+	private int companyId;//所属展商，展商登录后只能查看自己的数据
 
 	private int roleId;//角色ID
 	private String roleCode;//角色编码
 	private String roleName;//角色名称
-
-	private int appId;//应用ID，目前设计一个用户最多只有一个应用数据查看权限
 
 	public SysUser() {
 	}
@@ -42,7 +40,7 @@ public class SysUser implements Serializable {
 		this.createTime = user.getCreateTime();
 		this.lastLoginTime = user.getLastLoginTime();
 		this.userStatus = user.getUserStatus();
-		this.appId = user.getAppId();
+		this.companyId = user.getCompanyId();
 	}
 
 	public int getId() {
@@ -117,6 +115,14 @@ public class SysUser implements Serializable {
 		this.userStatus = userStatus;
 	}
 
+	public int getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(int companyId) {
+		this.companyId = companyId;
+	}
+
 	public int getRoleId() {
 		return roleId;
 	}
@@ -141,11 +147,4 @@ public class SysUser implements Serializable {
 		this.roleName = roleName;
 	}
 
-	public int getAppId() {
-		return appId;
-	}
-
-	public void setAppId(int appId) {
-		this.appId = appId;
-	}
 }

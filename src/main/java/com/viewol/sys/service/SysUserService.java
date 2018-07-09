@@ -15,7 +15,7 @@ public interface SysUserService {
 
 	public SysUser getSysUser(int id);
 
-	public PageHolder<SysUser> querySysUserByPage(int appId, int userId, String realName, int pageIndex, int pageSize);
+	public PageHolder<SysUser> querySysUserByPage(int userId, String realName, int pageIndex, int pageSize);
 
 	public SysUser findSysUserByUserName(String username);
 

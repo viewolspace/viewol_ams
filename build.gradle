@@ -80,6 +80,8 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.5'
 
+    /** 二维码 **/
+    compile group: 'com.github.binarywang', name: 'qrcode-utils', version: '1.1'
 
     compile fileTree(dir: 'src/main/webapp/WEB-INF/lib', include: '*.jar')
 }

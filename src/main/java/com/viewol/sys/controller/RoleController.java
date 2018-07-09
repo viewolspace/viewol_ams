@@ -48,7 +48,6 @@ public class RoleController {
 		sysRole.setCode(code);
 		sysRole.setRemark(remark);
 		sysRole.setCreateTime(new Date());
-		sysRole.setAppId(TokenManager.getAppId());
 
 		int result = sysRoleService.saveSysRole(sysRole);
 
@@ -158,8 +157,7 @@ public class RoleController {
 	public GridBaseResponse roleList() {
 
 		GridBaseResponse rs = new GridBaseResponse();
-//		System.out.println(TokenManager.getAppId());
-		PageHolder<SysRole> pageHolder = sysRoleService.querySysRoleByPage(TokenManager.getAppId(),null, 1, 50);
+		PageHolder<SysRole> pageHolder = sysRoleService.querySysRoleByPage(null, 1, 50);
 
 		List<SysRole> roleList = pageHolder.getList();
 
@@ -186,7 +184,7 @@ public class RoleController {
 
 		RoleComboResponse rs = new RoleComboResponse();
 
-		List<SysRole> roleList = sysRoleService.listALLSysRole(TokenManager.getAppId());
+		List<SysRole> roleList = sysRoleService.listALLSysRole();
 		if(null == roleList){
 			rs.setStatus(false);
 			rs.setMsg("加载角色下拉框异常");

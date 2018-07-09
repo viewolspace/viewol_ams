@@ -2,7 +2,10 @@ package com.viewol.schedule.controller;
 
 import com.viewol.common.BaseResponse;
 import com.viewol.common.GridBaseResponse;
+import com.viewol.pojo.Schedule;
+import com.viewol.pojo.query.ScheduleQuery;
 import com.viewol.schedule.vo.ScheduleVO;
+import com.viewol.service.IScheduleService;
 import com.viewol.shiro.token.TokenManager;
 import com.viewol.sys.interceptor.Repeat;
 import com.viewol.sys.log.annotation.MethodLog;
@@ -14,7 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 日程(活动)管理
@@ -23,33 +31,46 @@ import java.util.Date;
 @RequestMapping("schedule")
 public class ScheduleController {
 
+    @Resource
+    private IScheduleService scheduleService;
+
     /**
      * 日程查询
+     *
      * @return
      */
     @RequestMapping(value = "/scheduleList", method = RequestMethod.POST)
     @ResponseBody
     public GridBaseResponse scheduleList(@RequestParam(value = "appId", defaultValue = "-1") int appId,
-                                   @RequestParam(value = "page", defaultValue = "1") int page,
-                                   @RequestParam(value = "limit", defaultValue = "10") int limit) {
+                                         @RequestParam(value = "page", defaultValue = "1") int page,
+                                         @RequestParam(value = "limit", defaultValue = "10") int limit) {
 
         GridBaseResponse rs = new GridBaseResponse();
         rs.setCode(0);
         rs.setMsg("ok");
+        ScheduleQuery scheduleQuery = new ScheduleQuery();
+        PageHolder<Schedule> pageHolder = scheduleService.querySchedule(scheduleQuery);
 
-        PageHolder<ScheduleVO> pageHolder = new PageHolder<>();
-        ScheduleVO vo = new ScheduleVO();
-        vo.setCompanyId(1);
-        vo.setCompanyName("中科院");
-        vo.setTitle("讨论火箭上月球");
-        vo.setsTime(new Date());
-        vo.seteTime(new Date());
-        vo.setcTime(new Date());
-        pageHolder.add(vo);
-        pageHolder.setTotalCount(1);
+        List<ScheduleVO> voList = new ArrayList<>();
+        if (null != pageHolder && null != pageHolder.getList() && pageHolder.getList().size() > 0) {
+            for (Schedule schedule : pageHolder.getList()) {
+                ScheduleVO vo = new ScheduleVO();
+                vo.setId(schedule.getId());
+                vo.setCompanyId(schedule.getCompanyId());
+                vo.setType(schedule.getType());
+                vo.setCompanyName(schedule.getCompanyName());
+                vo.setTitle(schedule.getTitle());
+                vo.setStatus(schedule.getStatus());
+                vo.setContent(schedule.getContent());
+                vo.setPlace(schedule.getPlace());
+                vo.setsTime(schedule.getsTime());
+                vo.seteTime(schedule.geteTime());
+                vo.setcTime(schedule.getcTime());
 
-        if (null != pageHolder) {
-            rs.setData(pageHolder.getList());
+                voList.add(vo);
+            }
+
+            rs.setData(voList);
             rs.setCount(pageHolder.getTotalCount());
         }
 
@@ -61,14 +82,21 @@ public class ScheduleController {
     @MethodLog(module = Constants.AD, desc = "添加日程")
     @Repeat
     public BaseResponse addSchedule(@RequestParam(value = "title", defaultValue = "") String title,
-                                     @RequestParam(value = "beginDate", defaultValue = "") String beginDate,
-                                     @RequestParam(value = "endDate", defaultValue = "") String endDate,
-                                     @RequestParam(value = "rank", defaultValue = "1") int rank,
-                                     @RequestParam(value = "forwardUrl", defaultValue = "") String forwardUrl,
-                                     @RequestParam(value = "avatar", defaultValue = "") String adImage) {
+                                    @RequestParam(value = "sTime", defaultValue = "") String sTime,
+                                    @RequestParam(value = "eTime", defaultValue = "") String eTime,
+                                    @RequestParam(value = "content", defaultValue = "") String content,
+                                    @RequestParam(value = "place", defaultValue = "") String place) {
 
         BaseResponse rs = new BaseResponse();
-
+        int companyId = TokenManager.getCompanyId();
+        int result = scheduleService.applySchedule(companyId, title, place, content, sTime, eTime);
+        if(result>0){
+            rs.setStatus(true);
+            rs.setMsg("添加成功");
+        } else {
+            rs.setStatus(false);
+            rs.setMsg("添加失败");
+        }
 
         return rs;
     }
@@ -77,14 +105,36 @@ public class ScheduleController {
     @ResponseBody
     @MethodLog(module = Constants.AD, desc = "修改日程")
     @Repeat
-    public BaseResponse updateSchedule(@RequestParam(value = "title", defaultValue = "") String title,
-                                    @RequestParam(value = "beginDate", defaultValue = "") String beginDate,
-                                    @RequestParam(value = "endDate", defaultValue = "") String endDate,
-                                    @RequestParam(value = "rank", defaultValue = "1") int rank,
-                                    @RequestParam(value = "forwardUrl", defaultValue = "") String forwardUrl,
-                                    @RequestParam(value = "avatar", defaultValue = "") String adImage) {
+    public BaseResponse updateSchedule(@RequestParam(value = "id", defaultValue = "-1") int id,
+                                       @RequestParam(value = "title", defaultValue = "") String title,
+                                       @RequestParam(value = "sTime", defaultValue = "") String sTime,
+                                       @RequestParam(value = "eTime", defaultValue = "") String eTime,
+                                       @RequestParam(value = "content", defaultValue = "") String content,
+                                       @RequestParam(value = "place", defaultValue = "") String place) {
 
         BaseResponse rs = new BaseResponse();
+
+        Schedule schedule = scheduleService.getSchedule(id);
+        schedule.setTitle(title);
+        SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            schedule.setsTime(dft.parse(sTime));
+            schedule.seteTime(dft.parse(eTime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        schedule.setContent(content);
+        schedule.setPlace(place);
+        int result = scheduleService.updateSchedule(schedule);
+
+        if(result>0){
+            rs.setStatus(true);
+            rs.setMsg("修改成功");
+        } else {
+            rs.setStatus(false);
+            rs.setMsg("修改失败");
+        }
 
 
         return rs;
@@ -97,7 +147,7 @@ public class ScheduleController {
     public BaseResponse deleteSchedule(int id) {
         BaseResponse rs = new BaseResponse();
         rs.setStatus(true);
-        rs.setMsg("删除成功");
+        rs.setMsg("暂未提供删除功能");
 
         return rs;
     }

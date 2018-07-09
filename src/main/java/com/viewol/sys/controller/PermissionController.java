@@ -50,16 +50,9 @@ public class PermissionController {
 		AllPermissionResponse rs = new AllPermissionResponse();
 		rs.setStatus(true);
 		rs.setMsg("ok");
-		int appId = TokenManager.getAppId();
 
-		List<SysPermission> list = null;
-		//给其他角色分配权限时，分配权限的范围不能超过自己。
-		if(appId>0){
-			list = sysPermissionService.findSysPermissionByAppid(TokenManager.getRoleId(), TokenManager.getAppId());
-		} else {
-//			list = sysPermissionService.findSysPermissionByAppid(TokenManager.getRoleId(), 0);
-			list = sysPermissionService.queryAllSysPermission();
-		}
+		List<SysPermission> list = sysPermissionService.queryAllSysPermission();
+
 		if(list!=null && list.size()>0){
 			List<PermissionVO> volist = new ArrayList<>();
 			for(SysPermission permission : list){
