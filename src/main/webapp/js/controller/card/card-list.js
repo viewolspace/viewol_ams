@@ -77,7 +77,7 @@ layui.use(requireModules, function(
                 ,cols: [[
                     {type:'numbers'},
                     {field: 'BUserName', title: '业务员', width:100},
-                    {field: 'shortName', title: '展商简称', width:100},
+                    // {field: 'shortName', title: '展商简称', width:100},
                     {field: 'fUserId', title: '客户id', width:80},
                     {field: 'fUserName', title: '客户姓名', width:100},
                     {field: 'FCompany', title: '客户公司', width:150},

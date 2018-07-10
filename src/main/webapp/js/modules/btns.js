@@ -137,6 +137,12 @@ layui.define(function(exports) {
             icon: '&#xe615;',
             name: '恢复',
             event: 'row-unfreeze'
+        },
+        'row-review-layui': {
+            className: baseBtnClass + 'layui-btn-xs',
+            icon: '&#xe642;',
+            name: '审核',
+            event: 'row-review'
         }
     };
 

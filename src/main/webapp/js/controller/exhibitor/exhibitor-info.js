@@ -47,7 +47,8 @@ layui.use(requireModules, function (form,
     ajax.request(exhibitorApi.getUrl('getExhibitor'), null, function(result) {
         if(result.status == true){
             var company = result.data;
-            $("#companyName").html(company.shortName);
+            $("#companyName").html(company.name);
+            $("#shortName").html(company.shortName);
             $("#categoryName").html(company.categoryName);
             $("#place").html(company.place);
             $("#logo").attr('src', company.logo);
@@ -58,7 +59,6 @@ layui.use(requireModules, function (form,
             $("#image_avatar").val(company.image);
             $("#content").val(company.content);
             $("#id").val(company.id);
-
             var inviteQrcode = new QRCode(document.getElementById("inviteEr"), {
                 width : 100,
                 height : 100
@@ -105,7 +105,9 @@ layui.use(requireModules, function (form,
             //预读本地文件
         },
         data: {
-            id: $('#id').val()
+            id: function(){
+                return $('#id').val();
+            }
         }
         ,done: function(res){
             if(res.status == false){
@@ -130,7 +132,9 @@ layui.use(requireModules, function (form,
             //预读本地文件
         },
         data: {
-            id: $('#id').val()
+            id: function(){
+                return $('#id').val();
+            }
         }
         ,done: function(res){
             if(res.status == false){
@@ -155,7 +159,9 @@ layui.use(requireModules, function (form,
             //预读本地文件
         },
         data: {
-            id: $('#id').val()
+            id: function(){
+                return $('#id').val();
+            }
         }
         ,done: function(res){
             if(res.status == false){
