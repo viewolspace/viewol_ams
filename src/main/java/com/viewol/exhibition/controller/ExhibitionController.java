@@ -153,6 +153,9 @@ public class ExhibitionController {
         product.setPdfName(pdfName);
         product.setmTime(new Date());
         product.setcTime(new Date());
+
+        product.setIsRecommend(0);//默认非推荐
+        product.setRecommendNum(0);//推荐顺序默认0
         int result = productService.addProduct(product);
 
         if(result>0){

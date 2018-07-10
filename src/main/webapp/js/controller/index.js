@@ -99,11 +99,12 @@ layui.use(requireModules, function(layer,element,util,authority,login,laytpl,aja
     });
 
     // 监听顶部左侧导航
-    element.on('nav(side-left)', function(elem) {
-        // 添加tab方法
-        addTab(element, elem);
-
-    });
+    // element.on('nav(side-left)', function(elem) {
+    //     // 添加tab方法
+    //
+    //     addTab(element, elem);
+    //
+    // });
 
     // 监听顶部右侧导航
     element.on('nav(side-right)', function(elem) {
@@ -187,11 +188,12 @@ layui.use(requireModules, function(layer,element,util,authority,login,laytpl,aja
     // 添加TAB选项卡
     function addTab(element, elem) {
         var card = 'card'; // 选项卡对象
-        var title = elem.children('a').html(); // 导航栏text
-        var src = elem.children('a').attr('href-url'); // 导航栏跳转URL
+        var title = elem.html(); // 导航栏text
+        var src = elem.attr('href-url'); // 导航栏跳转URL
         var id = new Date().getTime(); // ID
-        var navId = elem.children('a').attr('data-id');
+        var navId = elem.attr('data-id');
         var flag = getTitleId(card, title); // 是否有该选项卡存在
+
         // 大于0就是有该选项卡了
         if (flag > 0) {
             id = flag;
@@ -205,21 +207,15 @@ layui.use(requireModules, function(layer,element,util,authority,login,laytpl,aja
                 layer.load(0, {
                     shade: 0.5
                 });
-
                 element.tabAdd(card, {
                     title: '<span>' + title + '</span>',
                     content: '<iframe src="' + src + '" frameborder="0" onload="layer.closeAll(\'loading\');" ></iframe>',
                     id: id
                 });
-
-                // 关闭弹窗
-                //				layer.closeAll('loading');
             }
         }
         // 切换相应的ID tab
         element.tabChange(card, id);
-        // 提示信息
-        //		layer.msg(title);
     }
 
     // 根据导航栏text获取lay-id

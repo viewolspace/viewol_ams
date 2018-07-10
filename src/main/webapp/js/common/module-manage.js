@@ -60,7 +60,8 @@ function registeModule(window,modulesYouWanted,otherModules) {
             'exhibition-api':'api/exhibition-api',
             'exhibitor-api':'api/exhibitor-api',
             'schedule-api':'api/schedule-api',
-			'category-api':'api/category-api'
+			'category-api':'api/category-api',
+            'buser-api':'api/buser-api'
 		}
 
 		//刨除系统自带modules

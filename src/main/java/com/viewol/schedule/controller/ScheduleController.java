@@ -21,7 +21,6 @@ import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,7 +40,7 @@ public class ScheduleController {
      */
     @RequestMapping(value = "/scheduleList", method = RequestMethod.POST)
     @ResponseBody
-    public GridBaseResponse scheduleList(@RequestParam(value = "appId", defaultValue = "-1") int appId,
+    public GridBaseResponse scheduleList(@RequestParam(value = "time", defaultValue = "") String time,
                                          @RequestParam(value = "page", defaultValue = "1") int page,
                                          @RequestParam(value = "limit", defaultValue = "10") int limit) {
 
@@ -49,6 +48,14 @@ public class ScheduleController {
         rs.setCode(0);
         rs.setMsg("ok");
         ScheduleQuery scheduleQuery = new ScheduleQuery();
+        if (null != time && !"".equals(time)) {
+            scheduleQuery.setTime(time);
+        }
+        scheduleQuery.setCompanyId(TokenManager.getCompanyId());
+        scheduleQuery.setType(Schedule.TYPE_COM);
+        scheduleQuery.setPageIndex(page);
+        scheduleQuery.setPageSize(limit);
+
         PageHolder<Schedule> pageHolder = scheduleService.querySchedule(scheduleQuery);
 
         List<ScheduleVO> voList = new ArrayList<>();
@@ -90,9 +97,15 @@ public class ScheduleController {
         BaseResponse rs = new BaseResponse();
         int companyId = TokenManager.getCompanyId();
         int result = scheduleService.applySchedule(companyId, title, place, content, sTime, eTime);
-        if(result>0){
+        if (result > 0) {
             rs.setStatus(true);
             rs.setMsg("添加成功");
+        }  else if (result == -98) {
+            rs.setStatus(false);
+            rs.setMsg("暂未开通发布活动权限");
+        } else if (result == -99) {
+            rs.setStatus(false);
+            rs.setMsg("有审核中的活动，暂时无法发布新活动");
         } else {
             rs.setStatus(false);
             rs.setMsg("添加失败");
@@ -128,7 +141,7 @@ public class ScheduleController {
         schedule.setPlace(place);
         int result = scheduleService.updateSchedule(schedule);
 
-        if(result>0){
+        if (result > 0) {
             rs.setStatus(true);
             rs.setMsg("修改成功");
         } else {
@@ -146,9 +159,14 @@ public class ScheduleController {
     @Repeat
     public BaseResponse deleteSchedule(int id) {
         BaseResponse rs = new BaseResponse();
-        rs.setStatus(true);
-        rs.setMsg("暂未提供删除功能");
-
+        int result = scheduleService.delSchedule(id);
+        if (result > 0) {
+            rs.setStatus(true);
+            rs.setMsg("删除成功");
+        } else {
+            rs.setStatus(false);
+            rs.setMsg("删除失败");
+        }
         return rs;
     }
 }

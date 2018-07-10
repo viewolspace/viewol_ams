@@ -216,7 +216,7 @@ public class ExhibitorController {
 
                 //修改数据库图片地址
                 Company company = companyService.getCompany(id);
-                company.setLogo(httpUrl);
+                company.setBanner(httpUrl);
                 company.setmTime(new Date());
                 int result = companyService.updateCompany(company, null);
 
@@ -290,7 +290,7 @@ public class ExhibitorController {
 
                 //修改数据库图片地址
                 Company company = companyService.getCompany(id);
-                company.setLogo(httpUrl);
+                company.setImage(httpUrl);
                 company.setmTime(new Date());
                 int result = companyService.updateCompany(company, null);
 
