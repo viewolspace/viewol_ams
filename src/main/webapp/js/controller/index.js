@@ -124,6 +124,15 @@ layui.use(requireModules, function(layer,element,util,authority,login,laytpl,aja
         toast.smile("如有系统升级，可通过快捷键Ctrl+Shift+Delete清除浏览器缓存，只需清理缓存的图片和文件。");
     });
 
+    $('#erCode').on('click', function() {
+        layer.open({
+            title: '',
+            type: 2,
+            area: ['660px', '240px'], //宽高
+            content: webName + '/views/exhibitor/er-code.html'
+        });
+    });
+
     if (window.sessionStorage.getItem("locksys") == "true") {
         lockPage();
     }
