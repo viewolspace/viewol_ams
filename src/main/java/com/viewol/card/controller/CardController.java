@@ -28,6 +28,14 @@ public class CardController {
     @Resource
     private IUserCardService userCardService;
 
+    /**
+     *
+     * @param fUserId 客户ID
+     * @param bUserId 业务员ID
+     * @param page
+     * @param limit
+     * @return
+     */
     @RequestMapping(value = "/cardList", method = RequestMethod.POST)
     @ResponseBody
     public GridBaseResponse cardList(@RequestParam(value = "fUserId", defaultValue = "") Integer fUserId,
