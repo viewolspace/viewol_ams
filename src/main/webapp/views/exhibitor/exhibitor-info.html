@@ -44,9 +44,9 @@
 </blockquote>
 <table class="layui-table" lay-skin="line">
 	<colgroup>
-		<col width="50">
-		<col width="50">
-		<col width="50">
+		<col width="60">
+		<col width="60">
+		<col width="60">
 		<col width="300">
 		<col>
 	</colgroup>
@@ -55,16 +55,19 @@
 		<td>展商名称</td>
 		<td id="companyName"></td>
 		<td>所属分类</td>
-		<td id="categoryName"></td>
+		<td>
+			<span id="categoryName"></span>
+			<button id="choose-category" type="button" class="layui-btn">修改类别</button>
+		</td>
 	</tr>
 	<tr>
-		<td>展商简称</td>
-		<td id="shortName"></td>
+		<!--<td>展商简称</td>-->
+		<!--<td id="shortName"></td>-->
 		<td>展商位置</td>
-		<td id="place"></td>
+		<td id="place" colspan="3"></td>
 	</tr>
 	<tr>
-		<td>邀请二维码</td>
+		<td>邀请二维码<br>（邀请函）</td>
 		<td>
 			<div id="inviteEr" style="width:100px; height:100px; margin-top:15px;"></div>
 			<!--<div style="text-align:center; margin-top: -20px;">-->
@@ -81,11 +84,11 @@
 		</td>
 	</tr>
 	<tr>
-		<td>展商logo</td>
+		<td>展商logo<br>174x72px</td>
 		<td colspan="3">
 			<div class="layui-upload-drag">
 				<a href=" javascript:void(0); ">
-					<img id="logo" src="../../image/default_upload.png" alt="上传图片" >
+					<img id="logo" src="../../image/default_upload.png" >
 				</a>
 				<input type="hidden" id="logo_avatar" name="logo_avatar" value="">
 			</div>
@@ -93,11 +96,11 @@
 		</td>
 	</tr>
 	<tr>
-		<td>展商形象图片</td>
+		<td>展商形象图片<br>750x257px</td>
 		<td colspan="3">
 			<div class="layui-upload-drag">
 				<a href=" javascript:void(0); ">
-					<img id="banner" src="../../image/default_upload.png" alt="上传图片">
+					<img id="banner" src="../../image/default_upload.png">
 				</a>
 				<input type="hidden" id="banner_avatar" name="banner_avatar" value="">
 			</div>
@@ -109,7 +112,7 @@
 		<td colspan="3">
 			<div class="layui-upload-drag">
 				<a href=" javascript:void(0); ">
-					<img id="image" src="../../image/default_upload.png" alt="上传图片">
+					<img id="image" src="../../image/default_upload.png">
 				</a>
 				<input type="hidden" id="image_avatar" name="image_avatar" value="">
 			</div>
@@ -117,7 +120,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>展商介绍</td>
+		<td>展商介绍<br>宽度≤670px</td>
 		<td colspan="3">
 			<form id="content-form" class="layui-form" action="">
 				<textarea class="layui-textarea" id="content" name="content" style="display: none"></textarea>

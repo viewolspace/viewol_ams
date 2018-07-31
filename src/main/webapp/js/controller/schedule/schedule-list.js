@@ -142,9 +142,9 @@ layui.use(requireModules, function(
             var url = request.composeUrl(webName + '/views/schedule/schedule-view.html', rowdata);
             var index = layer.open({
                 type: 2,
-                title: "查看用户",
-                area: '60%',
-                offset: '10%',
+                title: "修改日程",
+                area: ['800px', '450px'],
+                offset: '5%',
                 scrollbar: false,
                 content: url,
                 success: function(ly, index) {

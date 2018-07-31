@@ -42,21 +42,32 @@ layui.use(requireModules, function (form,
     });
 
     var data = ajax.getAllUrlParam();
+    var categoryIds ;//分类相关的信息
 
     //加载展商信息
     ajax.request(exhibitorApi.getUrl('getExhibitor'), null, function(result) {
         if(result.status == true){
             var company = result.data;
             $("#companyName").html(company.name);
-            $("#shortName").html(company.shortName);
+            // $("#shortName").html(company.shortName);
             $("#categoryName").html(company.categoryName);
+            categoryIds = company.categoryIds;
             $("#place").html(company.place);
-            $("#logo").attr('src', company.logo);
-            $("#logo_avatar").val(company.logo);
-            $("#banner").attr('src', company.banner);
-            $("#banner_avatar").val(company.banner);
-            $("#image").attr('src', company.image);
-            $("#image_avatar").val(company.image);
+            if(company.logo!=''){
+                $("#logo").attr('src', company.logo);
+                $("#logo_avatar").val(company.logo);
+            }
+
+            if(company.banner!=''){
+                $("#banner").attr('src', company.banner);
+                $("#banner_avatar").val(company.banner);
+            }
+
+            if(company.image!=''){
+                $("#image").attr('src', company.image);
+                $("#image_avatar").val(company.image);
+            }
+
             $("#content").val(company.content);
             $("#id").val(company.id);
             var inviteQrcode = new QRCode(document.getElementById("inviteEr"), {
@@ -76,6 +87,41 @@ layui.use(requireModules, function (form,
             toast.error("查询展商失败");
         }
     });
+
+    $('#choose-category').click(function() {
+        var ids = categoryIds;
+
+        var url = ajax.composeUrl(webName + '/views/exhibitor/category-tree.html', {
+            check: true,
+            recheckData: ids,	//前端回显数据
+            type: 1			//分类的类型
+        });
+
+        layer.open({
+            type: 2,
+            title: "选择分类",
+            content:url ,
+            area:['50%','80%'],
+            btn: ['确定了', '取消了'],
+            yes: function(index, layero) {
+                var iframeWin = window[layero.find('iframe')[0]['name']];
+                var categoryData = iframeWin.tree.getAuthorityData();
+                layer.close(index);
+                $("#categoryName").html(categoryData.categoryNames.join(","));
+
+                ajax.request(exhibitorApi.getUrl('uploadCategory'), {
+                    id: $('#id').val(),
+                    categoryIds: categoryData.ids
+                }, function(result) {
+                    if (result.status == true) {
+                        toast.success("修改成功");
+                    }
+                });
+            }
+
+        });
+    });
+
 
     $("#invitePrint").click(function(){
         $("#inviteEr").jqprint({

@@ -41,7 +41,7 @@ public class ExhibitorController {
 
     @Resource
     private ICompanyService companyService;
-    
+
     @RequestMapping(value = "/getExhibitor", method = RequestMethod.POST)
     @ResponseBody
     public CompanyResponse getExhibitor() {
@@ -58,10 +58,10 @@ public class ExhibitorController {
             vo.setId(company.getId());
             vo.setName(company.getName());
             vo.setShortName(company.getShortName());
-            vo.setContent(company.getContent());
-            vo.setLogo(company.getLogo());
-            vo.setBanner(company.getBanner());
-            vo.setImage(company.getImage());
+            vo.setContent(company.getContentView());
+            vo.setLogo(company.getLogoView());
+            vo.setBanner(company.getBannerView());
+            vo.setImage(company.getImageView());
             vo.setPlace(company.getPlace());
             vo.setPlaceSvg(company.getPlaceSvg());
             vo.setProductNum(company.getProductNum());
@@ -84,10 +84,13 @@ public class ExhibitorController {
 
 
             StringBuffer categoryNameBuffer = new StringBuffer();
+            List<String> idsList = new ArrayList<>();
             if(null != categoryList && categoryList.size()>0){
                 for(Category category : categoryList){
-                    categoryNameBuffer.append(category.getName()).append("|");
+                    idsList.add(category.getId());
+                    categoryNameBuffer.append(category.getName()).append(",");
                 }
+                vo.setCategoryIds(idsList.toArray(new String[idsList.size()]));
                 vo.setCategoryName(categoryNameBuffer.toString().substring(0, categoryNameBuffer.toString().length()-1));
             } else {
                 vo.setCategoryName("暂无分类");
@@ -98,6 +101,36 @@ public class ExhibitorController {
             rs.setMsg("展商不存在");
         }
 
+
+        return rs;
+    }
+
+    /**
+     * 修改展商分类
+     * @return
+     */
+    @RequestMapping(value = "/uploadCategory", method = RequestMethod.POST)
+    @ResponseBody
+    @MethodLog(module = Constants.AD, desc = "修改展商分类")
+    @Repeat
+    public BaseResponse uploadCategory(@RequestParam(value = "id", defaultValue = "-1") int id,
+                                       @RequestParam(value = "categoryIds[]") String[] categoryIds) throws IOException {
+
+        BaseResponse rs = new BaseResponse();
+
+        //修改数据库图片地址
+        Company company = companyService.getCompany(id);
+
+        List<String> categoryIdList = Arrays.asList(categoryIds);
+        int result = companyService.updateCompany(company, categoryIdList);
+
+        if(result>0){
+            rs.setStatus(true);
+            rs.setMsg("修改成功");
+        } else {
+            rs.setStatus(false);
+            rs.setMsg("修改失败");
+        }
 
         return rs;
     }
@@ -138,28 +171,15 @@ public class ExhibitorController {
 
                 rs.setStatus(true);
                 rs.setMsg("上传成功");
-                String httpUrl = imageUrl + path;
+                String httpUrl = imageUrl +File.separator+ midPath + File.separator + fileName;
                 rs.setImageUrl(httpUrl);
 
                 //修改数据库图片地址
                 Company company = companyService.getCompany(id);
-                company.setLogo(httpUrl);
+                company.setLogoView(httpUrl);
                 company.setmTime(new Date());
                 int result = companyService.updateCompany(company, null);
 
-                //检查图片是否同步完，同步完成再回显
-//                for (int i = 0; i < 5; i++) {
-//                    Response<String> response = HttpUtil.sendGet(httpUrl, null, "UTF-8");
-//                    if ("0000".equals(response.getCode())) {
-//                        break;
-//                    }
-//                    try {
-//                        Thread.sleep(2000);
-//                    } catch (InterruptedException e) {
-//
-//                    }
-//
-//                }
             } catch (IllegalStateException e) {
                 rs.setStatus(false);
                 rs.setMsg("服务器异常");
@@ -211,28 +231,15 @@ public class ExhibitorController {
 
                 rs.setStatus(true);
                 rs.setMsg("上传成功");
-                String httpUrl = imageUrl + path;
+                String httpUrl = imageUrl +File.separator+ midPath + File.separator + fileName;
                 rs.setImageUrl(httpUrl);
 
                 //修改数据库图片地址
                 Company company = companyService.getCompany(id);
-                company.setBanner(httpUrl);
+                company.setBannerView(httpUrl);
                 company.setmTime(new Date());
                 int result = companyService.updateCompany(company, null);
 
-                //检查图片是否同步完，同步完成再回显
-                for (int i = 0; i < 12; i++) {
-                    Response<String> response = HttpUtil.sendGet(httpUrl, null, "UTF-8");
-                    if ("0000".equals(response.getCode())) {
-                        break;
-                    }
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-
-                    }
-
-                }
             } catch (IllegalStateException e) {
                 rs.setStatus(false);
                 rs.setMsg("服务器异常");
@@ -285,28 +292,15 @@ public class ExhibitorController {
 
                 rs.setStatus(true);
                 rs.setMsg("上传成功");
-                String httpUrl = imageUrl + path;
+                String httpUrl = imageUrl +File.separator+ midPath + File.separator + fileName;
                 rs.setImageUrl(httpUrl);
 
                 //修改数据库图片地址
                 Company company = companyService.getCompany(id);
-                company.setImage(httpUrl);
+                company.setImageView(httpUrl);
                 company.setmTime(new Date());
                 int result = companyService.updateCompany(company, null);
 
-                //检查图片是否同步完，同步完成再回显
-                for (int i = 0; i < 8; i++) {
-                    Response<String> response = HttpUtil.sendGet(httpUrl, null, "UTF-8");
-                    if ("0000".equals(response.getCode())) {
-                        break;
-                    }
-                    try {
-                        Thread.sleep(1500);
-                    } catch (InterruptedException e) {
-
-                    }
-
-                }
             } catch (IllegalStateException e) {
                 rs.setStatus(false);
                 rs.setMsg("服务器异常");
@@ -337,7 +331,7 @@ public class ExhibitorController {
 
         BaseResponse rs = new BaseResponse();
         Company company = companyService.getCompany(id);
-        company.setContent(content);
+        company.setContentView(content);
         company.setmTime(new Date());
 
         int result = companyService.updateCompany(company, null);
@@ -387,27 +381,13 @@ public class ExhibitorController {
 
                 rs.setCode(0);
                 rs.setMsg("上传成功");
-                String httpUrl = imageUrl + path;
+                String httpUrl = imageUrl +File.separator+ midPath + File.separator + fileName;
                 Map<String, String> map = new HashMap<>();
-//                map.put("src", httpUrl);
-                map.put("src", "http://test.youguu.com/mncg/images/code_080.jpg");
+                map.put("src", httpUrl);
 
 
                 rs.setData(map);
 
-                //检查图片是否同步完，同步完成再回显
-//                for (int i = 0; i < 6; i++) {
-//                    Response<String> response = HttpUtil.sendGet(httpUrl, null, "UTF-8");
-//                    if ("0000".equals(response.getCode())) {
-//                        break;
-//                    }
-//                    try {
-//                        Thread.sleep(2000);
-//                    } catch (InterruptedException e) {
-//
-//                    }
-//
-//                }
             } catch (IllegalStateException e) {
                 rs.setCode(1);
                 rs.setMsg("服务器异常");

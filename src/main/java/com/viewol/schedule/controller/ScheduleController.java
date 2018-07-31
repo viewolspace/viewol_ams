@@ -68,7 +68,7 @@ public class ScheduleController {
                 vo.setCompanyName(schedule.getCompanyName());
                 vo.setTitle(schedule.getTitle());
                 vo.setStatus(schedule.getStatus());
-                vo.setContent(schedule.getContent());
+                vo.setContent(schedule.getContentView());
                 vo.setPlace(schedule.getPlace());
                 vo.setsTime(schedule.getsTime());
                 vo.seteTime(schedule.geteTime());
@@ -137,7 +137,7 @@ public class ScheduleController {
             e.printStackTrace();
         }
 
-        schedule.setContent(content);
+        schedule.setContentView(content);
         schedule.setPlace(place);
         int result = scheduleService.updateSchedule(schedule);
 

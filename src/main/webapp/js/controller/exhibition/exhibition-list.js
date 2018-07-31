@@ -103,7 +103,7 @@ layui.use(requireModules, function(
 		add: function() {
 			var index = layer.open({
 				type: 2,
-				title: "添加展品",
+				title: "添加产品",
                 area: ['900px', '450px'],
 				offset: '5%',
 				scrollbar: false,
@@ -118,7 +118,7 @@ layui.use(requireModules, function(
 			var url = request.composeUrl(webName + '/views/exhibition/exhibition-update.html', rowdata);
 			var index = layer.open({
 				type: 2,
-				title: "修改展品",
+				title: "修改产品",
                 area: ['900px', '450px'],
 				offset: '5%',
 				scrollbar: false,
@@ -133,13 +133,13 @@ layui.use(requireModules, function(
             var url = request.composeUrl(webName + '/views/exhibition/exhibition-view.html', rowdata);
             var index = layer.open({
                 type: 2,
-                title: "查看展品",
-                area: '60%',
-                offset: '10%',
+                title: "查看产品",
+                area: ['900px', '450px'],
+                offset: '5%',
                 scrollbar: false,
                 content: url,
                 success: function(ly, index) {
-                    layer.iframeAuto(index);
+                    // layer.iframeAuto(index);
                 }
             });
         },

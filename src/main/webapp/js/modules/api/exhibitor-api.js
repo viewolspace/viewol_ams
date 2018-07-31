@@ -36,6 +36,10 @@ layui.define('base-url', function(exports) {
         "uploadContentImage": {//展商富文本上传图片
             type: 'POST',
             url: "uploadContentImage.do"
+        },
+        "uploadCategory": {//修改展商分类
+            type: 'POST',
+            url: "uploadCategory.do"
         }
 
 

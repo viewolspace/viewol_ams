@@ -20,7 +20,8 @@ public class ExhibitorVO {
     private String content;//展商介绍
 
     private int isSameRecommend;//是否同类推荐，0 非推荐  1 推荐
-    private String categoryName;//展商分类
+    private String[] categoryIds;//展商分类ID集合
+    private String categoryName;//展商分类名称，多个分类逗号分隔
 
     private String inviteErUrl;//邀请二维码（客户端动态生成）
     private String companyErUrl;//展商二维码（客户端动态生成）
@@ -143,6 +144,14 @@ public class ExhibitorVO {
 
     public void setIsSameRecommend(int isSameRecommend) {
         this.isSameRecommend = isSameRecommend;
+    }
+
+    public String[] getCategoryIds() {
+        return categoryIds;
+    }
+
+    public void setCategoryIds(String[] categoryIds) {
+        this.categoryIds = categoryIds;
     }
 
     public String getCategoryName() {

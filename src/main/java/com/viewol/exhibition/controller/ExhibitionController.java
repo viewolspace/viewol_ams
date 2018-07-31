@@ -71,8 +71,8 @@ public class ExhibitionController {
                 vo.setCategoryId(product.getCategoryId());
                 vo.setStatus(product.getStatus());
                 vo.setPdfName(product.getPdfName());
-                vo.setPdfUrl(product.getPdfUrl());
-                vo.setImage(product.getImage());
+                vo.setPdfUrl(product.getPdfUrlView());
+                vo.setImage(product.getImageView());
                 vo.setcTime(product.getcTime());
                 vo.setmTime(product.getmTime());
 
@@ -107,7 +107,7 @@ public class ExhibitionController {
             vo.setPdfName(product.getPdfName());
             vo.setPdfUrl(product.getPdfUrl());
             vo.setImage(product.getImage());
-            vo.setContent(product.getContent());
+            vo.setContent(product.getContentView());
             vo.setcTime(product.getcTime());
             vo.setmTime(product.getmTime());
 
@@ -147,9 +147,9 @@ public class ExhibitionController {
         product.setCategoryId(ids[0]);
         product.setStatus(Product.STATUS_ON);//默认上架
         product.setName(name);
-        product.setImage(imageAvatar);
-        product.setContent(content);
-        product.setPdfUrl(pdfUrl);
+        product.setImageView(imageAvatar);
+        product.setContentView(content);
+        product.setPdfUrlView(pdfUrl);
         product.setPdfName(pdfName);
         product.setmTime(new Date());
         product.setcTime(new Date());
@@ -186,9 +186,9 @@ public class ExhibitionController {
         Product product = productService.getProduct(id);
         product.setCategoryId(ids[0]);
         product.setName(name);
-        product.setImage(imageAvatar);
-        product.setContent(content);
-        product.setPdfUrl(pdfUrl);
+        product.setImageView(imageAvatar);
+        product.setContentView(content);
+        product.setPdfUrlView(pdfUrl);
         product.setPdfName(pdfName);
         product.setmTime(new Date());
         int result = productService.updateProduct(product);
@@ -252,22 +252,9 @@ public class ExhibitionController {
 
                 rs.setStatus(true);
                 rs.setMsg("上传成功");
-                String httpUrl = imageUrl + path;
+                String httpUrl = imageUrl + File.separator + midPath + File.separator + fileName;
                 rs.setImageUrl(httpUrl);
 
-                //检查图片是否同步完，同步完成再回显
-//                for (int i = 0; i < 5; i++) {
-//                    Response<String> response = HttpUtil.sendGet(httpUrl, null, "UTF-8");
-//                    if ("0000".equals(response.getCode())) {
-//                        break;
-//                    }
-//                    try {
-//                        Thread.sleep(2000);
-//                    } catch (InterruptedException e) {
-//
-//                    }
-//
-//                }
             } catch (IllegalStateException e) {
                 rs.setStatus(false);
                 rs.setMsg("服务器异常");
@@ -318,27 +305,13 @@ public class ExhibitionController {
 
                 rs.setCode(0);
                 rs.setMsg("上传成功");
-                String httpUrl = imageUrl + path;
+                String httpUrl = imageUrl + File.separator + midPath + File.separator + fileName;
                 Map<String, String> map = new HashMap<>();
-//                map.put("src", httpUrl);
-                map.put("src", "http://test.youguu.com/mncg/images/code_080.jpg");
+                map.put("src", httpUrl);
 
 
                 rs.setData(map);
 
-                //检查图片是否同步完，同步完成再回显
-//                for (int i = 0; i < 6; i++) {
-//                    Response<String> response = HttpUtil.sendGet(httpUrl, null, "UTF-8");
-//                    if ("0000".equals(response.getCode())) {
-//                        break;
-//                    }
-//                    try {
-//                        Thread.sleep(2000);
-//                    } catch (InterruptedException e) {
-//
-//                    }
-//
-//                }
             } catch (IllegalStateException e) {
                 rs.setCode(1);
                 rs.setMsg("服务器异常");
@@ -369,8 +342,8 @@ public class ExhibitionController {
             String fileName = dft.format(new Date()) + Integer.toHexString(new Random().nextInt()) + "." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
 
             Properties properties = PropertiesUtil.getProperties("properties/config.properties");
-            String path = properties.getProperty("img.path");
-            String imageUrl = properties.getProperty("imageUrl");
+            String path = properties.getProperty("pdf.path");
+            String pdfUrl = properties.getProperty("pdfUrl");
 
             SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
             String midPath = yyyyMMdd.format(new Date());
@@ -385,7 +358,7 @@ public class ExhibitionController {
 
                 rs.setStatus(true);
                 rs.setMsg("上传成功");
-                String httpUrl = imageUrl + path;
+                String httpUrl = pdfUrl + File.separator + midPath + File.separator + fileName;
                 rs.setPdfUrl(httpUrl);
 
             } catch (IllegalStateException e) {

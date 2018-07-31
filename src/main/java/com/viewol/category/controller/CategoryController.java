@@ -23,6 +23,11 @@ public class CategoryController {
     @Resource
     private ICategoryService categoryService;
 
+    /**
+     * 查询类别
+     * @param type 1-展商；2-产品
+     * @return
+     */
     @RequestMapping(value = "/queryAllCategory")
     @ResponseBody
     public CategoryTreeResponse queryAllCategory(@RequestParam(value = "type", defaultValue = "0") int type) {
@@ -30,7 +35,12 @@ public class CategoryController {
         rs.setStatus(true);
         rs.setMsg("ok");
 
-        List<Category> list = categoryService.listAll("0002");
+        List<Category> list = null;
+        if(type==1){
+            list = categoryService.listAll("0001");
+        } else if(type == 2) {
+            list = categoryService.listAll("0002");
+        }
 
         if(list!=null && list.size()>0){
             List<CategoryTreeVO> volist = new ArrayList<>();
