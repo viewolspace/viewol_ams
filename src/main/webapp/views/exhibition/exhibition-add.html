@@ -62,12 +62,30 @@
 		<div class="layui-input-block">
 			<div class="layui-upload-drag">
 				<a href=" javascript:void(0); ">
-					<img id="imageAvatarId" src="../../image/default_upload.png" alt="上传图片" width="256" height="115">
+					<img id="imageAvatarId" src="../../image/default_upload_z.png" alt="上传图片" width="162" height="162">
 				</a>
 				<input type="hidden" id="imageAvatar" name="imageAvatar" value="">
 			</div>
 
 			<button type="button" class="layui-btn" id="imageBtn">
+				<i class="layui-icon"></i>
+				上传图片
+			</button>
+			<input class="layui-upload-file" type="file" name="file">
+		</div>
+	</div>
+
+	<div class="layui-form-item">
+		<label class="layui-form-label">首页推荐图片<br>150x150px</label>
+		<div class="layui-input-block">
+			<div class="layui-upload-drag">
+				<a href=" javascript:void(0); ">
+					<img id="regImageAvatarId" src="../../image/default_upload_z.png" alt="上传图片" width="150" height="150">
+				</a>
+				<input type="hidden" id="regImageAvatar" name="regImageAvatar" value="">
+			</div>
+
+			<button type="button" class="layui-btn" id="regImageBtn">
 				<i class="layui-icon"></i>
 				上传图片
 			</button>

@@ -73,6 +73,7 @@ public class ExhibitionController {
                 vo.setPdfName(product.getPdfName());
                 vo.setPdfUrl(product.getPdfUrlView());
                 vo.setImage(product.getImageView());
+                vo.setRegImage(product.getReImgView());
                 vo.setcTime(product.getcTime());
                 vo.setmTime(product.getmTime());
 
@@ -106,7 +107,8 @@ public class ExhibitionController {
             vo.setStatus(product.getStatus());
             vo.setPdfName(product.getPdfName());
             vo.setPdfUrl(product.getPdfUrl());
-            vo.setImage(product.getImage());
+            vo.setImage(product.getImageView());
+            vo.setRegImage(product.getReImgView());
             vo.setContent(product.getContentView());
             vo.setcTime(product.getcTime());
             vo.setmTime(product.getmTime());
@@ -124,7 +126,8 @@ public class ExhibitionController {
      * 添加产品
      * @param name
      * @param ids
-     * @param imageAvatar
+     * @param imageAvatar 产品列表图片
+     * @param regImageAvatar 产品首页推荐图片地址
      * @param content
      * @param pdfName
      * @param pdfUrl
@@ -137,6 +140,7 @@ public class ExhibitionController {
     public BaseResponse addExhibition(@RequestParam(value = "name", defaultValue = "") String name,
                                      @RequestParam(value = "ids[]") String[] ids,
                                      @RequestParam(value = "imageAvatar", defaultValue = "") String imageAvatar,
+                                     @RequestParam(value = "regImageAvatar", defaultValue = "") String regImageAvatar,
                                      @RequestParam(value = "content", defaultValue = "1") String content,
                                      @RequestParam(value = "pdfName", defaultValue = "") String pdfName,
                                      @RequestParam(value = "pdfUrl", defaultValue = "") String pdfUrl) {
@@ -153,6 +157,7 @@ public class ExhibitionController {
         product.setPdfName(pdfName);
         product.setmTime(new Date());
         product.setcTime(new Date());
+        product.setReImgView(regImageAvatar);
 
         product.setIsRecommend(0);//默认非推荐
         product.setRecommendNum(0);//推荐顺序默认0
@@ -161,6 +166,12 @@ public class ExhibitionController {
         if(result>0){
             rs.setStatus(true);
             rs.setMsg("保存成功");
+        } else if(result == -99){
+            rs.setStatus(false);
+            rs.setMsg("超过允许添加产品的上限");
+        } else if(result == -98){
+            rs.setStatus(false);
+            rs.setMsg("展商不存在");
         } else {
             rs.setStatus(false);
             rs.setMsg("保存失败");
@@ -178,6 +189,7 @@ public class ExhibitionController {
                                          @RequestParam(value = "name", defaultValue = "") String name,
                                          @RequestParam(value = "ids[]") String[] ids,
                                          @RequestParam(value = "imageAvatar", defaultValue = "") String imageAvatar,
+                                         @RequestParam(value = "regImageAvatar", defaultValue = "") String regImageAvatar,
                                          @RequestParam(value = "content", defaultValue = "1") String content,
                                          @RequestParam(value = "pdfName", defaultValue = "") String pdfName,
                                          @RequestParam(value = "pdfUrl", defaultValue = "") String pdfUrl) {
@@ -191,6 +203,7 @@ public class ExhibitionController {
         product.setPdfUrlView(pdfUrl);
         product.setPdfName(pdfName);
         product.setmTime(new Date());
+        product.setReImgView(regImageAvatar);
         int result = productService.updateProduct(product);
 
         if(result>0){

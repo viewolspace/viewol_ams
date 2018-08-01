@@ -84,8 +84,11 @@ layui.use(requireModules, function(
                         }},
 
                     {field: 'categoryId', title: '分类id', width:100},
-                    {field: 'image', title: '产品图片', width:150, templet: function (d) {
+                    {field: 'image', title: '产品图片', width:170, templet: function (d) {
                             return "<a href='"+d.image+"' target='_blank'><img src='"+d.image+"' /></a>";
+                        }},
+                    {field: 'regImage', title: '首页推荐图片', width:155, templet: function (d) {
+                            return "<a href='"+d.regImage+"' target='_blank'><img src='"+d.regImage+"' /></a>";
                         }},
                     {field: 'pdfName', title: '说明书的名字', width:120},
                     {field: 'pdfUrl', title: '说明书下载地址', width:300},

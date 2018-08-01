@@ -41,6 +41,9 @@ layui.use(requireModules, function (form,
     $('#imageAvatarId').attr('src', param.image);
     $('#imageAvatar').val(param.image);
 
+    $('#regImageAvatarId').attr('src', param.regImage);
+    $('#regImageAvatar').val(param.regImage);
+
     /**
      * 根据产品ID查询产品所属分类
      */
@@ -117,6 +120,29 @@ layui.use(requireModules, function (form,
             return layer.msg('数据请求异常');
         }
     });
+
+    //上传首页推荐产品图片
+    upload.render({
+        elem: '#regImageBtn'
+        ,url: exhibitionApi.getUrl('uploadImg').url
+        ,ext: 'jpg|png|gif|bmp'
+        ,type: 'image'
+        ,before: function(obj){
+            //预读本地文件
+        }
+        ,done: function(res){
+            if(res.status == false){
+                return layer.msg('上传失败');
+            } else {
+                $('#regImageAvatarId').attr('src', res.imageUrl);
+                $('#regImageAvatar').val(res.imageUrl);
+            }
+        }
+        ,error: function(){
+            return layer.msg('数据请求异常');
+        }
+    });
+
 
     //上传pdf
     upload.render({
