@@ -26,6 +26,10 @@ layui.define('base-url', function(exports) {
         } ,
         "deleteSchedule": {
             url: "deleteSchedule.do"
+        },
+        "scheduleUserList": {//活动报名查询
+            type: 'POST',
+            url: "scheduleUserList.do"
         }
 	}
 	var result = $.extend({}, baseApi, url);

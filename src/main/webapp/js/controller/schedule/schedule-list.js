@@ -59,6 +59,16 @@ layui.use(requireModules, function(
 			$('#page-btns').html(btns.renderBtns(MyController.pageBtns)+btns.renderSwitchBtns(MyController.switchPageBtns));
             btns.renderLayuiTableBtns(MyController.rowIconBtns, $("#barDemo"));
 
+            //计算行按钮toolbar宽度
+            if(MyController.rowIconBtns){
+                MyController.toolbarWidth = 40;
+                $.each(MyController.rowIconBtns, function(index, item) {
+                    for(var i=0 ;i<item.name.length;i++){
+                        MyController.toolbarWidth += 17;//一个汉字20px
+                    }
+                });
+            }
+
             mainTable = MyController.renderTable();
 			MyController.bindEvent();
 		},
@@ -102,7 +112,7 @@ layui.use(requireModules, function(
                     {field: 'cTime', title: '创建时间', width:160, templet: function (d) {
 						return moment(d.cTime).format("YYYY-MM-DD HH:mm:ss");
                     }},
-                    {fixed: 'right',width:180, align:'center', toolbar: '#barDemo'}
+                    {fixed: 'right',width:MyController.toolbarWidth, align:'center', toolbar: '#barDemo'}
                 ]]
             });
 		},
@@ -176,6 +186,22 @@ layui.use(requireModules, function(
 			});
 		},
 
+        viewDetail: function(rowdata) {
+			var scheduleId = rowdata.id;//活动ID
+            var url = request.composeUrl(webName + '/views/schedule/schedule-user-list.html?scheduleId='+scheduleId);
+            var index = layer.open({
+                type: 2,
+                title: "报名列表",
+                area: ['800px', '450px'],
+                offset: '5%',
+                scrollbar: true,
+                content: url,
+                success: function(ly, index) {
+                    // layer.iframeAuto(index);
+                }
+            });
+        },
+
 		refresh: function() {
             mainTable.reload();
 		},
@@ -189,6 +215,8 @@ layui.use(requireModules, function(
                     MyController.modify(data);
                 } else if(obj.event === 'row-delete'){//删除
                     MyController.delete(data);
+                } else if(obj.event === 'row-view-detail'){//查看报名数据
+                    MyController.viewDetail(data);
                 }
 
             });
