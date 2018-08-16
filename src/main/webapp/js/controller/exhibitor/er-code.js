@@ -61,6 +61,15 @@ layui.use(requireModules, function (form,
         }
     });
 
+    ajax.request(exhibitorApi.getUrl('getCompanyMaErCode'), null, function(result) {
+        if(result.status == true){
+            var base64Str = result.ercode;
+            $("companyEr").innerHTML= '<img src="'+base64Str+'" />';
+        } else {
+            toast.error("获取展商小程序码失败");
+        }
+    });
+
     // $("#companyPrint").click(function(){
     //     $("#companyEr").jqprint({
     //         debug: false, //如果是true则可以显示iframe查看效果（iframe默认高和宽都很小，可以再源码中调大），默认是false

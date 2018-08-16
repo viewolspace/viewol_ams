@@ -76,15 +76,18 @@ layui.use(requireModules, function (form,
             });
             inviteQrcode.makeCode(company.inviteErUrl);
 
-            var companyQrcode = new QRCode(document.getElementById("companyEr"), {
-                width : 100,
-                height : 100
-            });
-            companyQrcode.makeCode(company.companyErUrl);
-
             index = layedit.build('content');//构建富文本编辑器
         } else {
             toast.error("查询展商失败");
+        }
+    });
+
+    ajax.request(exhibitorApi.getUrl('getCompanyMaErCode'), null, function(result) {
+        if(result.status == true){
+            var base64Str = result.ercode;
+            $("companyEr").innerHTML= '<img src="'+base64Str+'" />';
+        } else {
+            toast.error("获取展商小程序码失败");
         }
     });
 

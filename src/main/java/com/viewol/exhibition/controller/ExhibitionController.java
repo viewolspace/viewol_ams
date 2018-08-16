@@ -135,7 +135,7 @@ public class ExhibitionController {
      */
     @RequestMapping(value = "/addExhibition", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.AD, desc = "添加展品")
+    @MethodLog(module = Constants.EXHIBITION, desc = "添加展品")
     @Repeat
     public BaseResponse addExhibition(@RequestParam(value = "name", defaultValue = "") String name,
                                      @RequestParam(value = "ids[]") String[] ids,
@@ -183,7 +183,7 @@ public class ExhibitionController {
 
     @RequestMapping(value = "/updateExhibition", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.AD, desc = "修改展品")
+    @MethodLog(module = Constants.EXHIBITION, desc = "修改展品")
     @Repeat
     public BaseResponse updateExhibition(@RequestParam(value = "id", defaultValue = "") int id,
                                          @RequestParam(value = "name", defaultValue = "") String name,
@@ -219,7 +219,7 @@ public class ExhibitionController {
 
     @RequestMapping(value = "/deleteExhibition")
     @ResponseBody
-    @MethodLog(module = Constants.AD, desc = "删除展品")
+    @MethodLog(module = Constants.EXHIBITION, desc = "删除展品")
     @Repeat
     public BaseResponse deleteExhibition(@RequestParam(value = "id", defaultValue = "") int id) {
         BaseResponse rs = new BaseResponse();
@@ -237,7 +237,7 @@ public class ExhibitionController {
 
     @RequestMapping(value = "/uploadImg", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.AD, desc = "上传产品图片")
+    @MethodLog(module = Constants.EXHIBITION, desc = "上传产品图片")
     @Repeat
     public UploadResponse uploadImg(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 
@@ -290,7 +290,7 @@ public class ExhibitionController {
      */
     @RequestMapping(value = "/uploadContentImage", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.AD, desc = "展商富文本上传图片")
+    @MethodLog(module = Constants.EXHIBITION, desc = "展商富文本上传图片")
     @Repeat
     public LayeditResponse uploadContentImage(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 
@@ -343,7 +343,7 @@ public class ExhibitionController {
 
     @RequestMapping(value = "/uploadPdf", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.AD, desc = "上传产品PDF")
+    @MethodLog(module = Constants.EXHIBITION, desc = "上传产品PDF")
     @Repeat
     public UploadPdfResponse uploadPdf(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 

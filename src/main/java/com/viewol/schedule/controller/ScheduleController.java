@@ -86,7 +86,7 @@ public class ScheduleController {
 
     @RequestMapping(value = "/addSchedule", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.AD, desc = "添加日程")
+    @MethodLog(module = Constants.SCHEDULE, desc = "添加日程")
     @Repeat
     public BaseResponse addSchedule(@RequestParam(value = "title", defaultValue = "") String title,
                                     @RequestParam(value = "sTime", defaultValue = "") String sTime,
@@ -116,7 +116,7 @@ public class ScheduleController {
 
     @RequestMapping(value = "/updateSchedule", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.AD, desc = "修改日程")
+    @MethodLog(module = Constants.SCHEDULE, desc = "修改日程")
     @Repeat
     public BaseResponse updateSchedule(@RequestParam(value = "id", defaultValue = "-1") int id,
                                        @RequestParam(value = "title", defaultValue = "") String title,
@@ -155,7 +155,7 @@ public class ScheduleController {
 
     @RequestMapping(value = "/deleteSchedule")
     @ResponseBody
-    @MethodLog(module = Constants.AD, desc = "删除日程")
+    @MethodLog(module = Constants.SCHEDULE, desc = "删除日程")
     @Repeat
     public BaseResponse deleteSchedule(int id) {
         BaseResponse rs = new BaseResponse();

@@ -40,6 +40,10 @@ layui.define('base-url', function(exports) {
         "uploadCategory": {//修改展商分类
             type: 'POST',
             url: "uploadCategory.do"
+        },
+        "getCompanyMaErCode": {//获取展商小程序码
+            type: 'POST',
+            url: "getCompanyMaErCode.do"
         }
 
 

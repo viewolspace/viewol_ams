@@ -1,9 +1,11 @@
 package com.viewol.exhibitor.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.viewol.common.BaseResponse;
 import com.viewol.common.LayeditResponse;
 import com.viewol.common.UploadResponse;
 import com.viewol.exhibitor.response.CompanyResponse;
+import com.viewol.exhibitor.response.ErcodeResponse;
 import com.viewol.exhibitor.vo.ExhibitorVO;
 import com.viewol.pojo.Category;
 import com.viewol.pojo.Company;
@@ -111,7 +113,7 @@ public class ExhibitorController {
      */
     @RequestMapping(value = "/uploadCategory", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.AD, desc = "修改展商分类")
+    @MethodLog(module = Constants.EXHIBITOR, desc = "修改展商分类")
     @Repeat
     public BaseResponse uploadCategory(@RequestParam(value = "id", defaultValue = "-1") int id,
                                        @RequestParam(value = "categoryIds[]") String[] categoryIds) throws IOException {
@@ -142,7 +144,7 @@ public class ExhibitorController {
      */
     @RequestMapping(value = "/uploadLogo", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.AD, desc = "上传展商Logo")
+    @MethodLog(module = Constants.EXHIBITOR, desc = "上传展商Logo")
     @Repeat
     public UploadResponse uploadLogo(@RequestParam(value = "id", defaultValue = "-1") int id,
                                      @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
@@ -202,7 +204,7 @@ public class ExhibitorController {
      */
     @RequestMapping(value = "/uploadBanner", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.AD, desc = "上传展商形象图")
+    @MethodLog(module = Constants.EXHIBITOR, desc = "上传展商形象图")
     @Repeat
     public UploadResponse uploadBanner(@RequestParam(value = "id", defaultValue = "-1") int id,
                                        @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
@@ -263,7 +265,7 @@ public class ExhibitorController {
      */
     @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.AD, desc = "上传展商图片")
+    @MethodLog(module = Constants.EXHIBITOR, desc = "上传展商图片")
     @Repeat
     public UploadResponse uploadImage(@RequestParam(value = "id", defaultValue = "-1") int id,
                                       @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
@@ -324,7 +326,7 @@ public class ExhibitorController {
      */
     @RequestMapping(value = "/updateContent", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.AD, desc = "修改展商介绍")
+    @MethodLog(module = Constants.EXHIBITOR, desc = "修改展商介绍")
     @Repeat
     public BaseResponse updateContent(@RequestParam(value = "id", defaultValue = "-1") int id,
                                         @RequestParam(value = "content", defaultValue = "") String content) {
@@ -353,7 +355,7 @@ public class ExhibitorController {
      */
     @RequestMapping(value = "/uploadContentImage", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.AD, desc = "展商富文本上传图片")
+    @MethodLog(module = Constants.EXHIBITOR, desc = "展商富文本上传图片")
     @Repeat
     public LayeditResponse uploadContentImage(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 
@@ -398,6 +400,43 @@ public class ExhibitorController {
         } else {
             rs.setCode(1);
             rs.setMsg("文件为空");
+        }
+
+        return rs;
+    }
+
+    /**
+     * 获取展商小程序码
+     * @return
+     */
+    @RequestMapping(value = "/getCompanyMaErCode", method = RequestMethod.GET)
+    @ResponseBody
+    public ErcodeResponse getCompanyMaErCode() {
+        ErcodeResponse rs = new ErcodeResponse();
+        String url = "http://47.93.25.129:8080/viewol_web/company/getCompanyMaErCode";
+        Map<String, String> params = new HashMap<>();
+        params.put("type", "1");
+        params.put("companyId", String.valueOf(TokenManager.getCompanyId()));
+        params.put("fUserId", "0");
+
+        Response<String> response = HttpUtil.sendPost(url, params, "UTF-8");
+
+        if("0000".equals(response.getCode())){
+            String result = response.getT();
+            JSONObject object = JSONObject.parseObject(result);
+            if("0000".equals(object.getString("status"))){
+                String ercode = object.getString("ercode");
+
+                rs.setStatus(true);
+                rs.setMsg("ok");
+                rs.setErcode(ercode);
+            } else {
+                rs.setStatus(false);
+                rs.setMsg("获取小程序码失败");
+            }
+        } else {
+            rs.setStatus(false);
+            rs.setMsg("获取小程序码失败");
         }
 
         return rs;

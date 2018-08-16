@@ -37,7 +37,7 @@ public class BuserController {
 
         List<BUser> list = bUserService.listByCom(TokenManager.getCompanyId());
 
-        if(null != list && list.size()>0){
+        if (null != list && list.size() > 0) {
             rs.setData(list);
             rs.setCount(list.size());
         } else {
@@ -50,24 +50,25 @@ public class BuserController {
 
     @RequestMapping(value = "/review")
     @ResponseBody
-    @MethodLog(module = Constants.AD, desc = "授权管理")
+    @MethodLog(module = Constants.BUSER, desc = "授权审核")
     @Repeat
     public BaseResponse review(@RequestParam(value = "userId", defaultValue = "-1") int userId,
-                                       @RequestParam(value = "status", defaultValue = "-1") int status) {
+                               @RequestParam(value = "status", defaultValue = "-1") int status) {
         BaseResponse rs = new BaseResponse();
 
         int result = bUserService.setStatus(userId, status);
-        if(result >0 ){
+        if (result > 0) {
             rs.setStatus(true);
-            if(status == BUser.STATUS_TRIAL){
+            if (status == BUser.STATUS_TRIAL) {
                 rs.setMsg("审核中");
-            } else if(status == BUser.STATUS_OK){
+            } else if (status == BUser.STATUS_OK) {
                 rs.setMsg("通过");
-            } else if(status == BUser.STATUS_BACK){
+            } else if (status == BUser.STATUS_BACK) {
                 rs.setMsg("打回");
             }
         } else {
-            rs.setStatus(false);            rs.setMsg("数据修改失败");
+            rs.setStatus(false);
+            rs.setMsg("数据修改失败");
         }
 
         return rs;
