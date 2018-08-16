@@ -413,7 +413,22 @@ public class ExhibitorController {
     @ResponseBody
     public ErcodeResponse getCompanyMaErCode() {
         ErcodeResponse rs = new ErcodeResponse();
-        String url = "http://47.93.25.129:8080/viewol_web/company/getCompanyMaErCode";
+
+        Properties properties = null;
+        String url = null;
+        try {
+            properties = PropertiesUtil.getProperties("properties/config.properties");
+            url = properties.getProperty("company.ercode.url");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(url == null || "".equals(url)){
+            rs.setStatus(false);
+            rs.setMsg("小程序码URL未配置");
+            return rs;
+        }
+
         Map<String, String> params = new HashMap<>();
         params.put("type", "1");
         params.put("companyId", String.valueOf(TokenManager.getCompanyId()));

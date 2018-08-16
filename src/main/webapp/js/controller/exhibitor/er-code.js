@@ -44,11 +44,11 @@ layui.use(requireModules, function (form,
             });
             inviteQrcode.makeCode(company.inviteErUrl);
 
-            var companyQrcode = new QRCode(document.getElementById("companyEr"), {
-                width : 200,
-                height : 200
-            });
-            companyQrcode.makeCode(company.companyErUrl);
+            // var companyQrcode = new QRCode(document.getElementById("companyEr"), {
+            //     width : 200,
+            //     height : 200
+            // });
+            // companyQrcode.makeCode(company.companyErUrl);
 
             var accreditQrcode = new QRCode(document.getElementById("accreditEr"), {
                 width : 200,

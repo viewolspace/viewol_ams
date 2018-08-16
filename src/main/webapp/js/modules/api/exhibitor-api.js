@@ -42,7 +42,6 @@ layui.define('base-url', function(exports) {
             url: "uploadCategory.do"
         },
         "getCompanyMaErCode": {//获取展商小程序码
-            type: 'POST',
             url: "getCompanyMaErCode.do"
         }
 
