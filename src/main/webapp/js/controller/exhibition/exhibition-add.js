@@ -13,7 +13,8 @@ var requireModules = [
     'key-bind',
     'layedit',
     'exhibition-api',
-    'upload'
+    'upload',
+    'layer'
 
 ];
 
@@ -28,7 +29,8 @@ layui.use(requireModules, function (form,
                                     keyBind,
                                     layedit,
                                     exhibitionApi,
-                                    upload) {
+                                    upload,
+                                    layer) {
     var $ = layui.jquery;
     var layedit = layui.layedit;
     var f = layui.form;
@@ -78,16 +80,22 @@ layui.use(requireModules, function (form,
         ,type: 'image'
         ,before: function(obj){
             //预读本地文件
+            layer.load(0, {
+                shade: 0.5
+            });
         }
         ,done: function(res){
+            layer.closeAll('loading');
             if(res.status == false){
                 return layer.msg('上传失败');
             } else {
                 $('#imageAvatarId').attr('src', res.imageUrl);
                 $('#imageAvatar').val(res.imageUrl);
+                toast.msg("上传成功");
             }
         }
         ,error: function(){
+            layer.closeAll('loading');
             return layer.msg('数据请求异常');
         }
     });
@@ -100,16 +108,22 @@ layui.use(requireModules, function (form,
         ,type: 'image'
         ,before: function(obj){
             //预读本地文件
+            layer.load(0, {
+                shade: 0.5
+            });
         }
         ,done: function(res){
+            layer.closeAll('loading');
             if(res.status == false){
                 return layer.msg('上传失败');
             } else {
                 $('#regImageAvatarId').attr('src', res.imageUrl);
                 $('#regImageAvatar').val(res.imageUrl);
+                toast.msg("上传成功");
             }
         }
         ,error: function(){
+            layer.closeAll('loading');
             return layer.msg('数据请求异常');
         }
     });
@@ -124,15 +138,21 @@ layui.use(requireModules, function (form,
         size: 51200, //最大允许上传的文件大小kb
         before: function(obj){
             //预读本地文件
+            layer.load(0, {
+                shade: 0.5
+            });
         },
         done: function(res){
+            layer.closeAll('loading');
             if(res.status == false){
                 return layer.msg('上传失败');
             } else {
                 $('#pdfUrl').val(res.pdfUrl);
+                toast.msg("上传成功");
             }
         },
         error: function(){
+            layer.closeAll('loading');
             return layer.msg('数据请求异常');
         }
     });

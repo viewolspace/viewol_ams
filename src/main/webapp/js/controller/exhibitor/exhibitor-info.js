@@ -152,6 +152,9 @@ layui.use(requireModules, function (form,
         ,type: 'image'
         ,before: function(obj){
             //预读本地文件
+            layer.load(0, {
+                shade: 0.5
+            });
         },
         data: {
             id: function(){
@@ -159,14 +162,17 @@ layui.use(requireModules, function (form,
             }
         }
         ,done: function(res){
+            layer.closeAll('loading');
             if(res.status == false){
                 return layer.msg('上传失败');
             } else {
                 $('#logo').attr('src', res.imageUrl);
                 $('#logo_avatar').val(res.imageUrl);
+                toast.msg("上传成功");
             }
         }
         ,error: function(){
+            layer.closeAll('loading');
             return layer.msg('数据请求异常');
         }
     });
@@ -179,6 +185,9 @@ layui.use(requireModules, function (form,
         ,type: 'image'
         ,before: function(obj){
             //预读本地文件
+            layer.load(0, {
+                shade: 0.5
+            });
         },
         data: {
             id: function(){
@@ -186,14 +195,17 @@ layui.use(requireModules, function (form,
             }
         }
         ,done: function(res){
+            layer.closeAll('loading');
             if(res.status == false){
                 return layer.msg('上传失败');
             } else {
                 $('#banner').attr('src', res.imageUrl);
                 $('#banner_avatar').val(res.imageUrl);
+                toast.msg("上传成功");
             }
         }
         ,error: function(){
+            layer.closeAll('loading');
             return layer.msg('数据请求异常');
         }
     });
@@ -206,6 +218,9 @@ layui.use(requireModules, function (form,
         ,type: 'image'
         ,before: function(obj){
             //预读本地文件
+            layer.load(0, {
+                shade: 0.5
+            });
         },
         data: {
             id: function(){
@@ -213,14 +228,17 @@ layui.use(requireModules, function (form,
             }
         }
         ,done: function(res){
+            layer.closeAll('loading');
             if(res.status == false){
                 return layer.msg('上传失败');
             } else {
                 $('#image').attr('src', res.imageUrl);
                 $('#image_avatar').val(res.imageUrl);
+                toast.msg("上传成功");
             }
         }
         ,error: function(){
+            layer.closeAll('loading');
             return layer.msg('数据请求异常');
         }
     });
