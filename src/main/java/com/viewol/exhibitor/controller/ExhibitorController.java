@@ -333,6 +333,10 @@ public class ExhibitorController {
 
         BaseResponse rs = new BaseResponse();
         Company company = companyService.getCompany(id);
+
+        if(!"".equals(content)){
+            content = content.replaceAll("lang=\"EN-US\"", "");
+        }
         company.setContentView(content);
         company.setmTime(new Date());
 

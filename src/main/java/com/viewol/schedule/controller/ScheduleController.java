@@ -99,6 +99,11 @@ public class ScheduleController {
 
         BaseResponse rs = new BaseResponse();
         int companyId = TokenManager.getCompanyId();
+
+        if(!"".equals(content)){
+            content = content.replaceAll("lang=\"EN-US\"", "");
+        }
+
         int result = scheduleService.applySchedule(companyId, title, place, content, sTime, eTime);
         if (result > 0) {
             rs.setStatus(true);
@@ -138,6 +143,10 @@ public class ScheduleController {
             schedule.seteTime(dft.parse(eTime));
         } catch (ParseException e) {
             e.printStackTrace();
+        }
+
+        if(!"".equals(content)){
+            content = content.replaceAll("lang=\"EN-US\"", "");
         }
 
         schedule.setContentView(content);

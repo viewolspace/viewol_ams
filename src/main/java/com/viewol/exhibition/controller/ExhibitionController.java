@@ -152,6 +152,10 @@ public class ExhibitionController {
         product.setStatus(Product.STATUS_ON);//默认上架
         product.setName(name);
         product.setImageView(imageAvatar);
+
+        if(!"".equals(content)){
+            content = content.replaceAll("lang=\"EN-US\"", "");
+        }
         product.setContentView(content);
         product.setPdfUrlView(pdfUrl);
         product.setPdfName(pdfName);
@@ -199,6 +203,9 @@ public class ExhibitionController {
         product.setCategoryId(ids[0]);
         product.setName(name);
         product.setImageView(imageAvatar);
+        if(!"".equals(content)){
+            content = content.replaceAll("lang=\"EN-US\"", "");
+        }
         product.setContentView(content);
         product.setPdfUrlView(pdfUrl);
         product.setPdfName(pdfName);
