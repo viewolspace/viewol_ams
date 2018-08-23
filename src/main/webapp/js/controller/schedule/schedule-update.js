@@ -44,13 +44,20 @@ layui.use(requireModules, function (form,
         format: 'yyyy-MM-dd HH:mm:ss'
     });
 
-    data.sTime=moment(new Date(parseInt(data.sTime))).format("YYYY-MM-DD HH:mm:ss");
-    data.eTime=moment(new Date(parseInt(data.eTime))).format("YYYY-MM-DD HH:mm:ss");
+    ajax.request(scheduleApi.getUrl('getSchedule'), {
+        "id": data.scheduleId
+    }, function (result) {
+        data = result.data;
+        data.sTime=moment(new Date(parseInt(data.sTime))).format("YYYY-MM-DD HH:mm:ss");
+        data.eTime=moment(new Date(parseInt(data.eTime))).format("YYYY-MM-DD HH:mm:ss");
 
-    formUtil.renderData($('#schedule-update-form'),data);
+        formUtil.renderData($('#schedule-update-form'),data);
+    }, false, function (result) {
+
+    });
+
 
     f.on('submit(schedule-update-form)', function (data) {
-
         ajax.request(scheduleApi.getUrl('updateSchedule'), data.field, function () {
             var index = parent.layer.getFrameIndex(window.name);
             parent.layer.close(index);

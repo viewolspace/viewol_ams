@@ -30,6 +30,9 @@ layui.define('base-url', function(exports) {
         "scheduleUserList": {//活动报名查询
             type: 'POST',
             url: "scheduleUserList.do"
+        },
+        "getSchedule": {//查询单个活动
+            url: "getSchedule.do"
         }
 	}
 	var result = $.extend({}, baseApi, url);

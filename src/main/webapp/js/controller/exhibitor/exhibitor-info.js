@@ -213,6 +213,7 @@ layui.use(requireModules, function (form,
     //保存展商介绍
     f.on('submit(content-form)', function(data) {
         var datas = $.extend(true, data.field, {"content": layedit.getContent(index)});
+        console.log(layedit.getText(index));
         ajax.request(exhibitorApi.getUrl('updateContent'), datas, function() {
             toast.success('修改成功');
         });

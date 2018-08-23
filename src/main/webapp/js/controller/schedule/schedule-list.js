@@ -133,7 +133,7 @@ layui.use(requireModules, function(
 		},
 
 		modify: function(rowdata) {
-			var url = request.composeUrl(webName + '/views/schedule/schedule-update.html', rowdata);
+			var url = request.composeUrl(webName + '/views/schedule/schedule-update.html?scheduleId='+rowdata.id);
 			var index = layer.open({
 				type: 2,
 				title: "修改日程",
@@ -149,7 +149,7 @@ layui.use(requireModules, function(
 		},
 
         view: function(rowdata) {
-            var url = request.composeUrl(webName + '/views/schedule/schedule-view.html', rowdata);
+            var url = request.composeUrl(webName + '/views/schedule/schedule-view.html?scheduleId='+rowdata.id);
             var index = layer.open({
                 type: 2,
                 title: "修改日程",
