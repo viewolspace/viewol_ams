@@ -15,6 +15,7 @@ import com.viewol.shiro.token.TokenManager;
 import com.viewol.sys.interceptor.Repeat;
 import com.viewol.sys.log.annotation.MethodLog;
 import com.viewol.sys.utils.Constants;
+import com.viewol.sys.utils.HtmlUtil;
 import com.youguu.core.util.PageHolder;
 import com.youguu.core.util.PropertiesUtil;
 import org.springframework.stereotype.Controller;
@@ -153,10 +154,7 @@ public class ExhibitionController {
         product.setName(name);
         product.setImageView(imageAvatar);
 
-        if(!"".equals(content)){
-            content = content.replaceAll("lang=\"EN-US\"", "");
-        }
-        product.setContentView(content);
+        product.setContentView(HtmlUtil.stringFilter(content));
         product.setPdfUrlView(pdfUrl);
         product.setPdfName(pdfName);
         product.setmTime(new Date());
@@ -203,10 +201,7 @@ public class ExhibitionController {
         product.setCategoryId(ids[0]);
         product.setName(name);
         product.setImageView(imageAvatar);
-        if(!"".equals(content)){
-            content = content.replaceAll("lang=\"EN-US\"", "");
-        }
-        product.setContentView(content);
+        product.setContentView(HtmlUtil.stringFilter(content));
         product.setPdfUrlView(pdfUrl);
         product.setPdfName(pdfName);
         product.setmTime(new Date());

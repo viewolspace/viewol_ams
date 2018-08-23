@@ -13,6 +13,7 @@ import com.viewol.shiro.token.TokenManager;
 import com.viewol.sys.interceptor.Repeat;
 import com.viewol.sys.log.annotation.MethodLog;
 import com.viewol.sys.utils.Constants;
+import com.viewol.sys.utils.HtmlUtil;
 import com.youguu.core.util.PageHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -100,11 +101,7 @@ public class ScheduleController {
         BaseResponse rs = new BaseResponse();
         int companyId = TokenManager.getCompanyId();
 
-        if(!"".equals(content)){
-            content = content.replaceAll("lang=\"EN-US\"", "");
-        }
-
-        int result = scheduleService.applySchedule(companyId, title, place, content, sTime, eTime);
+        int result = scheduleService.applySchedule(companyId, title, place, HtmlUtil.stringFilter(content), sTime, eTime);
         if (result > 0) {
             rs.setStatus(true);
             rs.setMsg("添加成功");
@@ -145,11 +142,7 @@ public class ScheduleController {
             e.printStackTrace();
         }
 
-        if(!"".equals(content)){
-            content = content.replaceAll("lang=\"EN-US\"", "");
-        }
-
-        schedule.setContentView(content);
+        schedule.setContentView(HtmlUtil.stringFilter(content));
         schedule.setPlace(place);
         int result = scheduleService.updateSchedule(schedule);
 

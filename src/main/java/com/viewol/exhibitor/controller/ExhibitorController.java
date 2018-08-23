@@ -14,6 +14,7 @@ import com.viewol.shiro.token.TokenManager;
 import com.viewol.sys.interceptor.Repeat;
 import com.viewol.sys.log.annotation.MethodLog;
 import com.viewol.sys.utils.Constants;
+import com.viewol.sys.utils.HtmlUtil;
 import com.youguu.core.pojo.Response;
 import com.youguu.core.util.HttpUtil;
 import com.youguu.core.util.PropertiesUtil;
@@ -33,6 +34,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * 展商信息管理
@@ -334,10 +338,7 @@ public class ExhibitorController {
         BaseResponse rs = new BaseResponse();
         Company company = companyService.getCompany(id);
 
-        if(!"".equals(content)){
-            content = content.replaceAll("lang=\"EN-US\"", "");
-        }
-        company.setContentView(content);
+        company.setContentView(HtmlUtil.stringFilter(content));
         company.setmTime(new Date());
 
         int result = companyService.updateCompany(company, null);
@@ -351,6 +352,7 @@ public class ExhibitorController {
         }
         return rs;
     }
+
 
     /**
      * 展商富文本上传图片
