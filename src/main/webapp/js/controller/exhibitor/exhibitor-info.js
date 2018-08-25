@@ -85,7 +85,7 @@ layui.use(requireModules, function (form,
     ajax.request(exhibitorApi.getUrl('getCompanyMaErCode'), null, function(result) {
         if(result.status == true){
             var base64Str = result.ercode;
-            $("companyEr").innerHTML= '<img src="'+base64Str+'" />';
+            $("#companyErImg").attr('src', "data:image/png;base64,"+base64Str);
         } else {
             toast.error("获取展商小程序码失败");
         }
