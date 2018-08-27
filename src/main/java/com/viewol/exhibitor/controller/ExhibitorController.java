@@ -417,7 +417,7 @@ public class ExhibitorController {
      */
     @RequestMapping(value = "/getCompanyMaErCode", method = RequestMethod.GET)
     @ResponseBody
-    public ErcodeResponse getCompanyMaErCode() {
+    public ErcodeResponse getCompanyMaErCode(@RequestParam(value = "width", defaultValue = "430") int width) {
         ErcodeResponse rs = new ErcodeResponse();
 
         Properties properties = null;
@@ -438,7 +438,8 @@ public class ExhibitorController {
         Map<String, String> params = new HashMap<>();
         params.put("type", "1");
         params.put("companyId", String.valueOf(TokenManager.getCompanyId()));
-        params.put("fUserId", "0");
+        params.put("bUserId", "0");
+        params.put("width", String.valueOf(width));
 
         Response<String> response = HttpUtil.sendPost(url, params, "UTF-8");
 

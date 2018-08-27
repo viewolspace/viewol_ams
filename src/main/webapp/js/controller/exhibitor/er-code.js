@@ -61,7 +61,7 @@ layui.use(requireModules, function (form,
         }
     });
 
-    ajax.request(exhibitorApi.getUrl('getCompanyMaErCode'), null, function(result) {
+    ajax.request(exhibitorApi.getUrl('getCompanyMaErCode'), {"width":200}, function(result) {
         if(result.status == true){
             var base64Str = result.ercode;
             $("#companyErImg").attr('src', "data:image/png;base64,"+base64Str);
