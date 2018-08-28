@@ -32,6 +32,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -81,9 +82,8 @@ public class ExhibitorController {
             try {
                 properties = PropertiesUtil.getProperties("properties/config.properties");
                 String inviteUrl = properties.getProperty("invite.url");
-                String companyUrl = properties.getProperty("company.url");
+                inviteUrl = MessageFormat.format(inviteUrl, company.getId());
                 vo.setInviteErUrl(inviteUrl);
-                vo.setCompanyErUrl(companyUrl);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -2,12 +2,15 @@ package com.viewol.buser.controller;
 
 import com.viewol.common.BaseResponse;
 import com.viewol.common.GridBaseResponse;
+import com.viewol.exhibitor.response.CompanyResponse;
+import com.viewol.exhibitor.response.ErcodeResponse;
 import com.viewol.pojo.BUser;
 import com.viewol.service.IBUserService;
 import com.viewol.shiro.token.TokenManager;
 import com.viewol.sys.interceptor.Repeat;
 import com.viewol.sys.log.annotation.MethodLog;
 import com.viewol.sys.utils.Constants;
+import com.youguu.core.util.PropertiesUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * 授权管理
@@ -71,6 +77,31 @@ public class BuserController {
             rs.setMsg("数据修改失败");
         }
 
+        return rs;
+    }
+
+    /**
+     * 获取业务员授权二维码
+     * @return
+     */
+    @RequestMapping(value = "/loadErCode", method = RequestMethod.POST)
+    @ResponseBody
+    public ErcodeResponse loadErCode() {
+        ErcodeResponse rs = new ErcodeResponse();
+        Properties properties = null;
+        try {
+            properties = PropertiesUtil.getProperties("properties/config.properties");
+            String buserUrl = properties.getProperty("buser.url");
+            buserUrl = MessageFormat.format(buserUrl, TokenManager.getCompanyId());
+            rs.setStatus(true);
+            rs.setMsg("ok");
+            rs.setErcode(buserUrl);
+            return rs;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        rs.setStatus(false);
+        rs.setMsg("获取授权二维码失败");
         return rs;
     }
 }

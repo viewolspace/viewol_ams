@@ -18,7 +18,11 @@ layui.define('base-url', function(exports) {
 		} ,
         "review": {
             url: "review.do"
-        }
+        },
+		"loadErCode":{
+			url: "loadErCode.do",
+			type: "POST"
+		}
 	}
 	var result = $.extend({}, baseApi, url);
 

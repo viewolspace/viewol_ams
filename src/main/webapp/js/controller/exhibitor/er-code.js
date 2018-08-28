@@ -10,6 +10,7 @@ var requireModules = [
     'form-util',
     'request',
     'exhibitor-api',
+    'buser-api',
     'layer',
     'toast',
     'layedit',
@@ -25,6 +26,7 @@ layui.use(requireModules, function (form,
                                     formUtil,
                                     ajax,
                                     exhibitorApi,
+                                    buserApi,
                                     layer,
                                     toast,
                                     layedit,
@@ -34,7 +36,7 @@ layui.use(requireModules, function (form,
 
     var data = ajax.getAllUrlParam();
 
-    //加载展商信息
+    //加载邀请函二维码
     ajax.request(exhibitorApi.getUrl('getExhibitor'), null, function(result) {
         if(result.status == true){
             var company = result.data;
@@ -43,24 +45,24 @@ layui.use(requireModules, function (form,
                 height : 200
             });
             inviteQrcode.makeCode(company.inviteErUrl);
-
-            // var companyQrcode = new QRCode(document.getElementById("companyEr"), {
-            //     width : 200,
-            //     height : 200
-            // });
-            // companyQrcode.makeCode(company.companyErUrl);
-
-            var accreditQrcode = new QRCode(document.getElementById("accreditEr"), {
-                width : 200,
-                height : 200
-            });
-            accreditQrcode.makeCode(company.companyErUrl);
-
         } else {
             toast.error("查询展商失败");
         }
     });
 
+    //加载业务员授权二维码
+    ajax.request(buserApi.getUrl('loadErCode'), null, function(result) {
+        if(result.status == true){
+            var ercodeUrl = result.ercode;
+            var buserQrcode = new QRCode(document.getElementById("accreditEr"), {
+                width : 200,
+                height : 200
+            });
+            buserQrcode.makeCode(ercodeUrl);
+        }
+    });
+
+    //展商主页小程序码
     ajax.request(exhibitorApi.getUrl('getCompanyMaErCode'), {"width":200}, function(result) {
         if(result.status == true){
             var base64Str = result.ercode;
@@ -69,13 +71,4 @@ layui.use(requireModules, function (form,
             toast.error("获取展商小程序码失败");
         }
     });
-
-    // $("#companyPrint").click(function(){
-    //     $("#companyEr").jqprint({
-    //         debug: false, //如果是true则可以显示iframe查看效果（iframe默认高和宽都很小，可以再源码中调大），默认是false
-    //         importCSS: true, //true表示引进原来的页面的css，默认是true。（如果是true，先会找$("link[media=print]")，若没有会去找$("link")中的css文件）
-    //         printContainer: true, //表示如果原来选择的对象必须被纳入打印（注意：设置为false可能会打破你的CSS规则）。
-    //         operaSupport: false//表示如果插件也必须支持歌opera浏览器，在这种情况下，它提供了建立一个临时的打印选项卡。默认是true
-    //     });
-    // });
 });

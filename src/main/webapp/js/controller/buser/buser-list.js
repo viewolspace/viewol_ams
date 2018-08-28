@@ -59,9 +59,11 @@ layui.use(requireModules, function(
 
             btns.renderLayuiTableBtns(MyController.rowIconBtns, $("#barDemo"));
 
+            MyController.loadErCode();
             mainTable = MyController.renderTable();
 			MyController.bindEvent();
 		},
+
 		renderTable: function() {
             return $table.render({
                 elem: '#buser-list'
@@ -113,6 +115,19 @@ layui.use(requireModules, function(
                 }
             });
 		},
+
+        loadErCode: function(){
+            request.request(buserApi.getUrl('loadErCode'), null, function(result) {
+                if(result.status == true){
+                    var ercodeUrl = result.ercode;
+                    var buserQrcode = new QRCode(document.getElementById("buserEr"), {
+                        width : 100,
+                        height : 100
+                    });
+                    buserQrcode.makeCode(ercodeUrl);
+                }
+            });
+        },
 
 		refresh: function() {
             mainTable.reload();
