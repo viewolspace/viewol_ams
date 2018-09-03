@@ -15,6 +15,7 @@ public class ExhibitionVO {
     private String pdfName;//说明书的名字
     private Date cTime;
     private Date mTime;
+    private String ercode;//产品小程序码
 
     public int getId() {
         return id;
@@ -110,5 +111,13 @@ public class ExhibitionVO {
 
     public void setmTime(Date mTime) {
         this.mTime = mTime;
+    }
+
+    public String getErcode() {
+        return ercode;
+    }
+
+    public void setErcode(String ercode) {
+        this.ercode = ercode;
     }
 }

@@ -33,7 +33,7 @@
 </head>
 
 <body class="body">
-<form id="exhibition-update-form" class="layui-form" action="">
+<form id="exhibition-view-form" class="layui-form" action="javascript:void(0);">
 	<div class="layui-form-item">
 		<div class="layui-inline">
 			<label class="layui-form-label">产品名称</label>
@@ -54,16 +54,30 @@
 	</div>
 
 	<div class="layui-form-item">
-		<label class="layui-form-label">产品图片<br>162x162px</label>
-		<div class="layui-input-block">
-			<div class="layui-upload-drag">
-				<a href=" javascript:void(0); ">
-					<img id="imageAvatarId" src="../../image/default_upload.png" alt="上传图片" width="256" height="115">
-				</a>
-				<input type="hidden" id="imageAvatar" name="imageAvatar" value="">
-			</div>
+		<div class="layui-inline">
+			<label class="layui-form-label">产品图片<br>162x162px</label>
+			<div class="layui-input-inline">
+				<div class="layui-upload-drag">
+					<a href=" javascript:void(0); ">
+						<img id="imageAvatarId" src="../../image/default_upload.png" alt="上传图片" width="256" height="115">
+					</a>
+				</div>
 
-			<input class="layui-upload-file" type="file" name="file">
+				<input class="layui-upload-file" type="file" name="file">
+			</div>
+		</div>
+
+		<div class="layui-inline">
+			<label class="layui-form-label" style="margin-left: 50px">产品二维码</label>
+			<div class="layui-input-inline">
+				<div>
+					<img id="erCodeImg" name="erCodeImg" src="" width="115" height="115">
+				</div>
+
+				<div style="text-align:center; margin-left: 130px; margin-top: -20px; float: left">
+					<button id="erCodePrint" class="layui-btn layui-btn-xs layui-btn-normal">打印</button>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -106,7 +120,10 @@
 <script type="text/javascript" src="../../js/common/module-manage.js"></script>
 <script type="text/javascript" charset="utf8" src="../../frame/layui/layui.js"></script>
 <script type="text/javascript" charset="utf8" src="../../frame/moment.js"></script>
-<script src="../../js/controller/exhibition/exhibition-update.js"></script>
+<script type="text/javascript" charset="utf8" src="../../frame/jquery-1.12.4.js"></script>
+<script type="text/javascript" charset="utf8" src="../../frame/jqprint/jquery.jqprint-0.3.js"></script>
+
+<script src="../../js/controller/exhibition/exhibition-view.js"></script>
 </body>
 
 </html>

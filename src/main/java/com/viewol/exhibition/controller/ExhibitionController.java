@@ -1,5 +1,6 @@
 package com.viewol.exhibition.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.viewol.common.*;
 import com.viewol.exhibition.response.ExhibitionCategoryResponse;
 import com.viewol.exhibition.response.ExhibitionResponse;
@@ -16,6 +17,8 @@ import com.viewol.sys.interceptor.Repeat;
 import com.viewol.sys.log.annotation.MethodLog;
 import com.viewol.sys.utils.Constants;
 import com.viewol.sys.utils.HtmlUtil;
+import com.youguu.core.pojo.Response;
+import com.youguu.core.util.HttpUtil;
 import com.youguu.core.util.PageHolder;
 import com.youguu.core.util.PropertiesUtil;
 import org.springframework.stereotype.Controller;
@@ -114,6 +117,38 @@ public class ExhibitionController {
             vo.setcTime(product.getcTime());
             vo.setmTime(product.getmTime());
 
+            //查询产品小程序码
+            Properties properties = null;
+            String url = null;
+            try {
+                properties = PropertiesUtil.getProperties("properties/config.properties");
+                url = properties.getProperty("product.ercode.url");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if(url == null || "".equals(url)){
+                rs.setStatus(false);
+                rs.setMsg("小程序码URL未配置");
+                return rs;
+            }
+
+            Map<String, String> params = new HashMap<>();
+            params.put("type", "1");
+            params.put("companyId", String.valueOf(TokenManager.getCompanyId()));
+            params.put("productId", String.valueOf(vo.getId()));
+            params.put("width", "120");
+
+            Response<String> response = HttpUtil.sendPost(url, params, "UTF-8");
+
+            if("0000".equals(response.getCode())) {
+                String result = response.getT();
+                JSONObject object = JSONObject.parseObject(result);
+                if ("0000".equals(object.getString("status"))) {
+                    String ercode = object.getString("ercode");
+                    vo.setErcode(ercode);
+                }
+            }
             rs.setStatus(true);
             rs.setMsg("ok");
             rs.setData(vo);
