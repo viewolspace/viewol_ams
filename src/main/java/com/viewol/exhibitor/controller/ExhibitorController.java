@@ -436,7 +436,7 @@ public class ExhibitorController {
         }
 
         Map<String, String> params = new HashMap<>();
-        params.put("type", "1");
+        params.put("type", "2");
         params.put("companyId", String.valueOf(TokenManager.getCompanyId()));
         params.put("bUserId", "0");
         params.put("width", String.valueOf(width));
