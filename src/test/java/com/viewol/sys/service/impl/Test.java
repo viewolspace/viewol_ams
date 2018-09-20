@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Test {
     public static void main(String[] args) {
 
-        String path = "C:\\Users\\jhss-jishu\\Desktop\\svg\\111111112222222222.txt";
+        String path = "C:\\Users\\jhss-jishu\\Desktop\\2222222222222.txt";
 
         readFileByLines(path);
     }
@@ -26,10 +26,17 @@ public class Test {
 //                if(tempString.length()>400){
 //                    continue;
 //                }
-                System.out.println("\""+line+"\":"+tempString.substring(tempString.indexOf("d=")+2, tempString.length())+",");
+                System.out.println("\""+line+"\":"+tempString.substring(tempString.indexOf("d=")+2, tempString.indexOf("/>"))+",");
                 line++;
             }
             reader.close();
+
+            for(int i = 0; i<line; i++){
+                if(i%2==0){
+                    System.out.println("\""+i+"\": {attrs: {fill: \"#000\"}, attrsHover: {fill: \"#000\"}},");
+                }
+
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

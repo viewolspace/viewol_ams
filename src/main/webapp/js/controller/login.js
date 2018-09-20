@@ -12,7 +12,8 @@ var requireModules = [
     'login',
     'login-api',
     'key-bind',
-    'request'
+    'request',
+    'toast'
 ];
 
 registeModule(window, requireModules);
@@ -22,7 +23,8 @@ layui.use(requireModules, function (form,
                                     login,
                                     loginApi,
                                     keyBind,
-                                    ajax) {
+                                    ajax,
+                                    toast) {
     var $ = layui.jquery;
     var f = layui.form;
 
@@ -74,6 +76,10 @@ layui.use(requireModules, function (form,
     // 登录监听
     f.on('submit(login)', function (data) {
         var user = data.field;
+        if(data.field.protocol==undefined){
+            toast.msg("请勾选用户使用协议");
+            return;
+        }
         login.login(user, function () {
             $('#valid-img').trigger('click');//登录失败，刷新验证码
         });
