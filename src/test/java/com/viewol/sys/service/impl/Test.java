@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Test {
     public static void main(String[] args) {
 
-        String path = "C:\\Users\\jhss-jishu\\Desktop\\2222222222222.txt";
+        String path = "C:\\Users\\jhss-jishu\\Desktop\\22222222222222222.txt";
 
         readFileByLines(path);
     }
@@ -32,7 +32,7 @@ public class Test {
             reader.close();
 
             for(int i = 0; i<line; i++){
-                if(i%2==0){
+                if(i%2==1){
                     System.out.println("\""+i+"\": {attrs: {fill: \"#000\"}, attrsHover: {fill: \"#000\"}},");
                 }
 
