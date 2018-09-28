@@ -11,6 +11,7 @@ import com.viewol.pojo.Category;
 import com.viewol.pojo.Company;
 import com.viewol.service.ICompanyService;
 import com.viewol.shiro.token.TokenManager;
+import com.viewol.sys.controller.LoginController;
 import com.viewol.sys.interceptor.Repeat;
 import com.viewol.sys.log.annotation.MethodLog;
 import com.viewol.sys.utils.Constants;
@@ -19,6 +20,8 @@ import com.youguu.core.pojo.Response;
 import com.youguu.core.util.HttpUtil;
 import com.youguu.core.util.PropertiesUtil;
 import com.youguu.core.zookeeper.pro.ZkPropertiesHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,6 +49,7 @@ import java.util.regex.PatternSyntaxException;
 @RequestMapping("exhibitor")
 public class ExhibitorController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ExhibitorController.class);
     @Resource
     private ICompanyService companyService;
 
@@ -148,7 +152,7 @@ public class ExhibitorController {
      */
     @RequestMapping(value = "/uploadLogo", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.EXHIBITOR, desc = "上传展商Logo")
+//    @MethodLog(module = Constants.EXHIBITOR, desc = "上传展商Logo")
     @Repeat
     public UploadResponse uploadLogo(@RequestParam(value = "id", defaultValue = "-1") int id,
                                      @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
@@ -189,9 +193,11 @@ public class ExhibitorController {
             } catch (IllegalStateException e) {
                 rs.setStatus(false);
                 rs.setMsg("服务器异常");
+                logger.error("uploadLogo", e);
             } catch (IOException e) {
                 rs.setStatus(false);
                 rs.setMsg("服务器异常");
+                logger.error("uploadLogo", e);
             }
         } else {
             rs.setStatus(false);
@@ -208,7 +214,7 @@ public class ExhibitorController {
      */
     @RequestMapping(value = "/uploadBanner", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.EXHIBITOR, desc = "上传展商形象图")
+//    @MethodLog(module = Constants.EXHIBITOR, desc = "上传展商形象图")
     @Repeat
     public UploadResponse uploadBanner(@RequestParam(value = "id", defaultValue = "-1") int id,
                                        @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
@@ -249,9 +255,11 @@ public class ExhibitorController {
             } catch (IllegalStateException e) {
                 rs.setStatus(false);
                 rs.setMsg("服务器异常");
+                logger.error("uploadBanner", e);
             } catch (IOException e) {
                 rs.setStatus(false);
                 rs.setMsg("服务器异常");
+                logger.error("uploadBanner", e);
             }
         } else {
             rs.setStatus(false);
@@ -269,7 +277,7 @@ public class ExhibitorController {
      */
     @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.EXHIBITOR, desc = "上传展商图片")
+//    @MethodLog(module = Constants.EXHIBITOR, desc = "上传展商图片")
     @Repeat
     public UploadResponse uploadImage(@RequestParam(value = "id", defaultValue = "-1") int id,
                                       @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
@@ -330,7 +338,7 @@ public class ExhibitorController {
      */
     @RequestMapping(value = "/updateContent", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.EXHIBITOR, desc = "修改展商介绍")
+//    @MethodLog(module = Constants.EXHIBITOR, desc = "修改展商介绍")
     @Repeat
     public BaseResponse updateContent(@RequestParam(value = "id", defaultValue = "-1") int id,
                                         @RequestParam(value = "content", defaultValue = "") String content) {
@@ -361,7 +369,7 @@ public class ExhibitorController {
      */
     @RequestMapping(value = "/uploadContentImage", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.EXHIBITOR, desc = "展商富文本上传图片")
+//    @MethodLog(module = Constants.EXHIBITOR, desc = "展商富文本上传图片")
     @Repeat
     public LayeditResponse uploadContentImage(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 

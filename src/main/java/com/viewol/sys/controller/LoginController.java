@@ -2,6 +2,7 @@ package com.viewol.sys.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.viewol.common.BaseResponse;
+import com.viewol.sys.utils.ExportUtil;
 import com.youguu.core.util.MD5;
 import com.viewol.shiro.token.TokenManager;
 import com.viewol.sys.pojo.SysUser;
@@ -14,6 +15,8 @@ import com.viewol.sys.utils.SecurityCode;
 import com.viewol.sys.utils.SecurityImage;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.DisabledAccountException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +32,8 @@ import java.util.Date;
 @Controller
 @RequestMapping("login")
 public class LoginController {
+
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	@Resource
 	private SysPermissionService sysPermissionService;
 	@Resource
@@ -71,6 +76,12 @@ public class LoginController {
 
 		password = new MD5().getMD5ofStr(password).toLowerCase();
 		SysUser user = sysUserService.findSysUserByUserName(userName);
+		if(null == user){
+			rs.setStatus(false);
+			rs.setMsg("登录账号错误");
+			logger.error("登录账号错误， userName="+userName);
+			return rs;
+		}
 		user.setUserName(userName);
 		user.setPswd(password);
 
