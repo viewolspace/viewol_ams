@@ -274,7 +274,7 @@ public class ExhibitionController {
 
     @RequestMapping(value = "/uploadImg", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.EXHIBITION, desc = "上传产品图片")
+//    @MethodLog(module = Constants.EXHIBITION, desc = "上传产品图片")
     @Repeat
     public UploadResponse uploadImg(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 
@@ -327,7 +327,7 @@ public class ExhibitionController {
      */
     @RequestMapping(value = "/uploadContentImage", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.EXHIBITION, desc = "展商富文本上传图片")
+//    @MethodLog(module = Constants.EXHIBITION, desc = "展商富文本上传图片")
     @Repeat
     public LayeditResponse uploadContentImage(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 
@@ -380,7 +380,7 @@ public class ExhibitionController {
 
     @RequestMapping(value = "/uploadPdf", method = RequestMethod.POST)
     @ResponseBody
-    @MethodLog(module = Constants.EXHIBITION, desc = "上传产品PDF")
+//    @MethodLog(module = Constants.EXHIBITION, desc = "上传产品PDF")
     @Repeat
     public UploadPdfResponse uploadPdf(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 

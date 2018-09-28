@@ -107,6 +107,7 @@ layui.use(requireModules, function (form,
         ,url: exhibitionApi.getUrl('uploadImg').url
         ,ext: 'jpg|png|gif|bmp'
         ,type: 'image'
+        ,size: 1024 //最大允许上传的文件大小kb
         ,before: function(obj){
             //预读本地文件
             layer.load(0, {
@@ -135,6 +136,7 @@ layui.use(requireModules, function (form,
         ,url: exhibitionApi.getUrl('uploadImg').url
         ,ext: 'jpg|png|gif|bmp'
         ,type: 'image'
+        ,size: 1024 //最大允许上传的文件大小kb
         ,before: function(obj){
             //预读本地文件
             layer.load(0, {
@@ -164,7 +166,7 @@ layui.use(requireModules, function (form,
         url: exhibitionApi.getUrl('uploadPdf').url,
         accept: 'file',
         ext: 'pdf',
-        size: 51200, //最大允许上传的文件大小kb
+        size: 5120, //最大允许上传的文件大小kb
         before: function(obj){
             //预读本地文件
             layer.load(0, {
