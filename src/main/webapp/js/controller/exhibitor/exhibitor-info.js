@@ -2,7 +2,7 @@ var webName = getWebName();
 
 layui.config({
     base: webName + '/js/modules/',
-    version: 2018011001
+    version: true
 });
 
 var requireModules = [
@@ -82,7 +82,7 @@ layui.use(requireModules, function (form,
         }
     });
 
-    ajax.request(exhibitorApi.getUrl('getCompanyMaErCode'), {"width":100}, function(result) {
+    ajax.request(exhibitorApi.getUrl('getCompanyMaErCode'), {"width":150}, function(result) {
         if(result.status == true){
             var base64Str = result.ercode;
             $("#companyErImg").attr('src', "data:image/png;base64,"+base64Str);

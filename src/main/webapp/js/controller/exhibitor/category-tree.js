@@ -14,7 +14,7 @@ registeModule(window, requireModules, {
 
 layui.config({
 	base: webName + '/js/modules/',
-    version: 2018011001
+    version: true
 }).use(requireModules, function(
 	ajax,
     categoryApi,
