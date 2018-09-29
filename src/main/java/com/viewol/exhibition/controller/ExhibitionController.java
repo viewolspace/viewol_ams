@@ -137,7 +137,7 @@ public class ExhibitionController {
             params.put("type", "1");
             params.put("companyId", String.valueOf(TokenManager.getCompanyId()));
             params.put("productId", String.valueOf(vo.getId()));
-            params.put("width", "120");
+            params.put("width", "150");
 
             Response<String> response = HttpUtil.sendPost(url, params, "UTF-8");
 
