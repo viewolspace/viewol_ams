@@ -15,8 +15,17 @@
 
 <body class="body">
 <div>
-    <div id="buserEr" style="width:100px; height:100px;"></div>
+    <div id="buserEr" style="float: left; width:100px; height:100px;"></div>
+    <div class="layui-timeline-content layui-text" style="float: left">
+        <ul style="margin-top: 0px; padding-top: 0px;">
+            <li style="margin-top: 0px;">业务员扫描左侧二维码，打开申请业务员H5页面。</li>
+            <li>点击“修改”按钮，填写业务员姓名，职位，电话。点击“保存”。</li>
+            <li>展商后台管理员刷新二维码下方表格，进行业务员审核，审核状态为“通过”。</li>
+            <li>审核通过后，业务员刷新手机H5页面，可以看到本公司的活动及名片信息。</li>
+        </ul>
+    </div>
 </div>
+
 <table id="buser-list" class="layui-table" lay-filter="test">
 
 </table>

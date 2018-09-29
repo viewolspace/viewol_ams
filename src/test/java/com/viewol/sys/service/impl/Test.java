@@ -32,7 +32,7 @@ public class Test {
             reader.close();
 
             for(int i = 0; i<line; i++){
-                if(i%2==1){
+                if(i%2==0){
                     System.out.println("\""+i+"\": {attrs: {fill: \"#000\"}, attrsHover: {fill: \"#000\"}},");
                 }
 
