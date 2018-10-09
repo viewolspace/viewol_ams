@@ -80,7 +80,7 @@ layui.use(requireModules, function(
                     // {field: 'shortName', title: '展商简称', width:100},
                     {field: 'fUserId', title: '客户id', width:80},
                     {field: 'fUserName', title: '客户姓名', width:100},
-                    {field: 'FCompany', title: '客户公司', width:150},
+                    {field: 'fCompany', title: '客户公司', width:150},
                     {field: 'fPhone', title: '客户电话', width:120},
                     {field: 'fPosition', title: '客户职位', width:120},
                     {field: 'fEmail', title: '客户Email', width:150},
