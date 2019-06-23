@@ -198,7 +198,8 @@ public class ExhibitionController {
 
         product.setIsRecommend(0);//默认非推荐
         product.setRecommendNum(0);//推荐顺序默认0
-        int result = productService.addProduct(product);
+        int expoId = 0;//展会ID
+        int result = productService.addProduct(expoId, product);
 
         if(result>0){
             rs.setStatus(true);

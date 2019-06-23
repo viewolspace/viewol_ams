@@ -60,7 +60,8 @@ public class ScheduleController {
         scheduleQuery.setPageIndex(page);
         scheduleQuery.setPageSize(limit);
 
-        PageHolder<Schedule> pageHolder = scheduleService.querySchedule(scheduleQuery);
+        int expoId = 0;//展会ID
+        PageHolder<Schedule> pageHolder = scheduleService.querySchedule(expoId, scheduleQuery);
 
         List<ScheduleVO> voList = new ArrayList<>();
         if (null != pageHolder && null != pageHolder.getList() && pageHolder.getList().size() > 0) {
@@ -101,7 +102,8 @@ public class ScheduleController {
         BaseResponse rs = new BaseResponse();
         int companyId = TokenManager.getCompanyId();
 
-        int result = scheduleService.applySchedule(companyId, title, place, HtmlUtil.stringFilter(content), sTime, eTime);
+        int expoId = 0;//展会ID
+        int result = scheduleService.applySchedule(expoId, companyId, title, place, HtmlUtil.stringFilter(content), sTime, eTime);
         if (result > 0) {
             rs.setStatus(true);
             rs.setMsg("添加成功");
