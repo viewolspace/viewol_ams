@@ -7,144 +7,153 @@ import java.util.Date;
  * 系统用户
  */
 public class SysUser implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public static final Integer _0 = new Integer(0);//0:禁止登录
-	public static final Integer _1 = new Integer(1);//1:有效
+    public static final Integer _0 = new Integer(0);//0:禁止登录
+    public static final Integer _1 = new Integer(1);//1:有效
 
-	private int id;
-	private String userName;
-	private String realName;
-	private String email;
-	private String phone;
-	private String pswd;
-	private Date createTime;
-	private Date lastLoginTime;//最后登录时间
-	private int userStatus;// 1:有效，0:禁止登录
-	private int companyId;//所属展商，展商登录后只能查看自己的数据
+    private int id;
+    private String userName;
+    private String realName;
+    private String email;
+    private String phone;
+    private String pswd;
+    private Date createTime;
+    private Date lastLoginTime;//最后登录时间
+    private int userStatus;// 1:有效，0:禁止登录
+    private int companyId;//所属展商，展商登录后只能查看自己的数据
 
-	private int roleId;//角色ID
-	private String roleCode;//角色编码
-	private String roleName;//角色名称
+    private int roleId;//角色ID
+    private String roleCode;//角色编码
+    private String roleName;//角色名称
 
-	public SysUser() {
-	}
+    private Integer expoId;//展会ID
 
-	public SysUser(SysUser user) {
-		this.id = user.getId();
-		this.userName = user.getUserName();
-		this.realName = user.getRealName();
-		this.email = user.getEmail();
-		this.phone = user.getPhone();
-		this.pswd = user.getPswd();
-		this.createTime = user.getCreateTime();
-		this.lastLoginTime = user.getLastLoginTime();
-		this.userStatus = user.getUserStatus();
-		this.companyId = user.getCompanyId();
-	}
+    public SysUser() {
+    }
 
-	public int getId() {
-		return id;
-	}
+    public SysUser(SysUser user) {
+        this.id = user.getId();
+        this.userName = user.getUserName();
+        this.realName = user.getRealName();
+        this.email = user.getEmail();
+        this.phone = user.getPhone();
+        this.pswd = user.getPswd();
+        this.createTime = user.getCreateTime();
+        this.lastLoginTime = user.getLastLoginTime();
+        this.userStatus = user.getUserStatus();
+        this.companyId = user.getCompanyId();
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public String getRealName() {
-		return realName;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public void setRealName(String realName) {
-		this.realName = realName;
-	}
+    public String getRealName() {
+        return realName;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public String getPswd() {
-		return pswd;
-	}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	public void setPswd(String pswd) {
-		this.pswd = pswd;
-	}
+    public String getPswd() {
+        return pswd;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public void setPswd(String pswd) {
+        this.pswd = pswd;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public Date getLastLoginTime() {
-		return lastLoginTime;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public void setLastLoginTime(Date lastLoginTime) {
-		this.lastLoginTime = lastLoginTime;
-	}
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
 
-	public int getUserStatus() {
-		return userStatus;
-	}
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
 
-	public void setUserStatus(int userStatus) {
-		this.userStatus = userStatus;
-	}
+    public int getUserStatus() {
+        return userStatus;
+    }
 
-	public int getCompanyId() {
-		return companyId;
-	}
+    public void setUserStatus(int userStatus) {
+        this.userStatus = userStatus;
+    }
 
-	public void setCompanyId(int companyId) {
-		this.companyId = companyId;
-	}
+    public int getCompanyId() {
+        return companyId;
+    }
 
-	public int getRoleId() {
-		return roleId;
-	}
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
+    }
 
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
-	}
+    public int getRoleId() {
+        return roleId;
+    }
 
-	public String getRoleCode() {
-		return roleCode;
-	}
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
 
-	public void setRoleCode(String roleCode) {
-		this.roleCode = roleCode;
-	}
+    public String getRoleCode() {
+        return roleCode;
+    }
 
-	public String getRoleName() {
-		return roleName;
-	}
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
+    }
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
+    public String getRoleName() {
+        return roleName;
+    }
 
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public Integer getExpoId() {
+        return expoId;
+    }
+
+    public void setExpoId(Integer expoId) {
+        this.expoId = expoId;
+    }
 }

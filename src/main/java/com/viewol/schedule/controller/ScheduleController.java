@@ -60,7 +60,7 @@ public class ScheduleController {
         scheduleQuery.setPageIndex(page);
         scheduleQuery.setPageSize(limit);
 
-        int expoId = 0;//展会ID
+        int expoId = TokenManager.getExpoId();//展会ID
         PageHolder<Schedule> pageHolder = scheduleService.querySchedule(expoId, scheduleQuery);
 
         List<ScheduleVO> voList = new ArrayList<>();
@@ -102,7 +102,7 @@ public class ScheduleController {
         BaseResponse rs = new BaseResponse();
         int companyId = TokenManager.getCompanyId();
 
-        int expoId = 0;//展会ID
+        int expoId = TokenManager.getExpoId();//展会ID
         int result = scheduleService.applySchedule(expoId, companyId, title, place, HtmlUtil.stringFilter(content), sTime, eTime);
         if (result > 0) {
             rs.setStatus(true);
