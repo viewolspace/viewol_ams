@@ -22,7 +22,14 @@ public class TokenManager {
     }
 
     public static Integer getExpoId() {
-        return getToken() == null ? null : getToken().getExpoId();
+        if (getToken() == null) {
+            return -1;
+        }
+
+        if (0 == getToken().getExpoId()) {
+            return -1;
+        }
+        return getToken().getExpoId();
     }
 
     public static Integer getUserId() {

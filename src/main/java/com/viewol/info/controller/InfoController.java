@@ -15,6 +15,7 @@ import com.viewol.sys.utils.Constants;
 import com.youguu.core.util.PageHolder;
 import com.youguu.core.util.PropertiesUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,10 +43,7 @@ public class InfoController {
     @RequestMapping(value = "/infoList", method = RequestMethod.POST)
     @ResponseBody
     public GridBaseResponse infoList(@RequestParam(value = "title", defaultValue = "") String title,
-                                     @RequestParam(value = "startTime", defaultValue = "") String startTime,
-                                     @RequestParam(value = "endTime", defaultValue = "") String endTime,
-                                     @RequestParam(value = "classify", defaultValue = "1") Integer classify,
-                                     @RequestParam(value = "companyId", defaultValue = "") Integer companyId,
+                                     @RequestParam(value = "publicTime", defaultValue = "") String publicTime,
                                      @RequestParam(value = "status", defaultValue = "") Integer status,
                                      @RequestParam(value = "page", defaultValue = "1") int page,
                                      @RequestParam(value = "limit", defaultValue = "10") int limit) {
@@ -57,14 +55,17 @@ public class InfoController {
         try {
             SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
             InfoQuery infoQuery = new InfoQuery();
-            infoQuery.setTitle(title);
-            if (!"".equals(startTime) && !"".equals(endTime)) {
-                infoQuery.setStartTime(dft.parse(startTime));
-                infoQuery.setEndTime(dft.parse(endTime));
+            if (!StringUtils.isEmpty(title)) {
+                infoQuery.setTitle(title);
             }
 
-            infoQuery.setClassify(classify);
-            infoQuery.setCompanyId(companyId);
+            if (!StringUtils.isEmpty(publicTime)) {
+                infoQuery.setStartTime(dft.parse(publicTime.split(" - ")[0]));
+                infoQuery.setEndTime(dft.parse(publicTime.split(" - ")[1]));
+            }
+
+            infoQuery.setClassify(TokenManager.getExpoId());
+            infoQuery.setCompanyId(TokenManager.getCompanyId());
             if (null != status && status != 99) {
                 infoQuery.setStatus(status);
             }
@@ -135,7 +136,7 @@ public class InfoController {
         info.setStatus(0);//-1 打回  0 待审 1 发布
         info.setContent(content);
         info.setClassify(TokenManager.getExpoId());
-        info.setCompanyId(-1);
+        info.setCompanyId(TokenManager.getCompanyId());
 
         int result = infoService.save(TokenManager.getExpoId(), info);
         if (result > 0) {
@@ -185,6 +186,19 @@ public class InfoController {
     @Repeat
     public BaseResponse deleteInfo(@RequestParam(value = "id", defaultValue = "") int id) {
         BaseResponse rs = new BaseResponse();
+
+        Info info = infoService.getInfo(id);
+        if (null == info) {
+            rs.setStatus(false);
+            rs.setMsg("资讯不存在，无法删除");
+            return rs;
+        }
+
+        if("1".equals(info.getStatus())){
+            rs.setStatus(false);
+            rs.setMsg("已发布资讯，不能删除");
+            return rs;
+        }
 
         int result = infoService.deleteInfo(id);
         if (result > 0) {

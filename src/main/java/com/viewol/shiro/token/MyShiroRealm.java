@@ -6,7 +6,13 @@ import com.viewol.sys.pojo.SysUserRole;
 import com.viewol.sys.service.SysPermissionService;
 import com.viewol.sys.service.SysUserRoleService;
 import com.viewol.sys.service.SysUserService;
-import org.apache.shiro.authc.*;
+import com.youguu.core.util.PropertiesUtil;
+import org.apache.shiro.authc.AccountException;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.DisabledAccountException;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -16,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 public class MyShiroRealm extends AuthorizingRealm {
@@ -49,6 +56,17 @@ public class MyShiroRealm extends AuthorizingRealm {
 		} else {
 			sysUserService.updateLastLoginTime(username, new Date());
 		}
+
+		//设置展会ID
+		try {
+			Properties properties = PropertiesUtil.getProperties("properties/config.properties");
+			String expoIdStr = properties.getProperty("expoId");
+			Integer expoId = Integer.parseInt(expoIdStr);
+			user.setExpoId(expoId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return new SimpleAuthenticationInfo(user, user.getPswd(), getName());
 	}
 
