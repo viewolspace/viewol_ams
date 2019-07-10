@@ -43,8 +43,15 @@ layui.define('base-url', function(exports) {
         },
         "getCompanyMaErCode": {//获取展商小程序码
             url: "getCompanyMaErCode.do"
+        },
+        "upload": {//展商秀上传图片，共用
+            type: 'POST',
+            url: "upload.do"
+        },
+        "updateShow": {//保存展商秀
+            type: 'POST',
+            url: "updateShow.do"
         }
-
 
 	}
 	//下面这种避免不同api相同key取值相同的问题

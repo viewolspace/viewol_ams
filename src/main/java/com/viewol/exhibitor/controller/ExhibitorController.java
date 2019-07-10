@@ -6,12 +6,15 @@ import com.viewol.common.LayeditResponse;
 import com.viewol.common.UploadResponse;
 import com.viewol.exhibitor.response.CompanyResponse;
 import com.viewol.exhibitor.response.ErcodeResponse;
+import com.viewol.exhibitor.response.ImgResult;
 import com.viewol.exhibitor.vo.ExhibitorVO;
 import com.viewol.pojo.Category;
 import com.viewol.pojo.Company;
+import com.viewol.pojo.CompanyProgress;
+import com.viewol.pojo.CompanyShow;
 import com.viewol.service.ICompanyService;
 import com.viewol.shiro.token.TokenManager;
-import com.viewol.sys.controller.LoginController;
+import com.viewol.shiro.utils.StringUtils;
 import com.viewol.sys.interceptor.Repeat;
 import com.viewol.sys.log.annotation.MethodLog;
 import com.viewol.sys.utils.Constants;
@@ -19,7 +22,6 @@ import com.viewol.sys.utils.HtmlUtil;
 import com.youguu.core.pojo.Response;
 import com.youguu.core.util.HttpUtil;
 import com.youguu.core.util.PropertiesUtil;
-import com.youguu.core.zookeeper.pro.ZkPropertiesHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -27,20 +29,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Random;
+import java.util.UUID;
 
 /**
  * 展商信息管理
@@ -60,7 +65,7 @@ public class ExhibitorController {
         CompanyResponse rs = new CompanyResponse();
 
         Company company = companyService.getCompany(TokenManager.getCompanyId());
-        if(null != company){
+        if (null != company) {
             List<Category> categoryList = companyService.getCompanyCategory(company.getId());
             rs.setStatus(true);
             rs.setMsg("ok");
@@ -95,13 +100,13 @@ public class ExhibitorController {
 
             StringBuffer categoryNameBuffer = new StringBuffer();
             List<String> idsList = new ArrayList<>();
-            if(null != categoryList && categoryList.size()>0){
-                for(Category category : categoryList){
+            if (null != categoryList && categoryList.size() > 0) {
+                for (Category category : categoryList) {
                     idsList.add(category.getId());
                     categoryNameBuffer.append(category.getName()).append(",");
                 }
                 vo.setCategoryIds(idsList.toArray(new String[idsList.size()]));
-                vo.setCategoryName(categoryNameBuffer.toString().substring(0, categoryNameBuffer.toString().length()-1));
+                vo.setCategoryName(categoryNameBuffer.toString().substring(0, categoryNameBuffer.toString().length() - 1));
             } else {
                 vo.setCategoryName("暂无分类");
             }
@@ -117,6 +122,7 @@ public class ExhibitorController {
 
     /**
      * 修改展商分类
+     *
      * @return
      */
     @RequestMapping(value = "/uploadCategory", method = RequestMethod.POST)
@@ -134,7 +140,7 @@ public class ExhibitorController {
         List<String> categoryIdList = Arrays.asList(categoryIds);
         int result = companyService.updateCompany(company, categoryIdList);
 
-        if(result>0){
+        if (result > 0) {
             rs.setStatus(true);
             rs.setMsg("修改成功");
         } else {
@@ -147,6 +153,7 @@ public class ExhibitorController {
 
     /**
      * 上传展商Logo
+     *
      * @param file
      * @return
      */
@@ -181,7 +188,7 @@ public class ExhibitorController {
 
                 rs.setStatus(true);
                 rs.setMsg("上传成功");
-                String httpUrl = imageUrl +File.separator+ midPath + File.separator + fileName;
+                String httpUrl = imageUrl + File.separator + midPath + File.separator + fileName;
                 rs.setImageUrl(httpUrl);
 
                 //修改数据库图片地址
@@ -209,6 +216,7 @@ public class ExhibitorController {
 
     /**
      * 上传展商形象图
+     *
      * @param file
      * @return
      */
@@ -243,7 +251,7 @@ public class ExhibitorController {
 
                 rs.setStatus(true);
                 rs.setMsg("上传成功");
-                String httpUrl = imageUrl +File.separator+ midPath + File.separator + fileName;
+                String httpUrl = imageUrl + File.separator + midPath + File.separator + fileName;
                 rs.setImageUrl(httpUrl);
 
                 //修改数据库图片地址
@@ -272,6 +280,7 @@ public class ExhibitorController {
 
     /**
      * 上传展商图片
+     *
      * @param file
      * @return
      */
@@ -306,7 +315,7 @@ public class ExhibitorController {
 
                 rs.setStatus(true);
                 rs.setMsg("上传成功");
-                String httpUrl = imageUrl +File.separator+ midPath + File.separator + fileName;
+                String httpUrl = imageUrl + File.separator + midPath + File.separator + fileName;
                 rs.setImageUrl(httpUrl);
 
                 //修改数据库图片地址
@@ -332,6 +341,7 @@ public class ExhibitorController {
 
     /**
      * 修改展商介绍
+     *
      * @param id
      * @param content
      * @return
@@ -341,7 +351,7 @@ public class ExhibitorController {
 //    @MethodLog(module = Constants.EXHIBITOR, desc = "修改展商介绍")
     @Repeat
     public BaseResponse updateContent(@RequestParam(value = "id", defaultValue = "-1") int id,
-                                        @RequestParam(value = "content", defaultValue = "") String content) {
+                                      @RequestParam(value = "content", defaultValue = "") String content) {
 
         BaseResponse rs = new BaseResponse();
         Company company = companyService.getCompany(id);
@@ -351,7 +361,7 @@ public class ExhibitorController {
 
         int result = companyService.updateCompany(company, null);
 
-        if(result>0){
+        if (result > 0) {
             rs.setStatus(true);
             rs.setMsg("修改成功");
         } else {
@@ -364,6 +374,7 @@ public class ExhibitorController {
 
     /**
      * 展商富文本上传图片
+     *
      * @param file
      * @return
      */
@@ -397,7 +408,7 @@ public class ExhibitorController {
 
                 rs.setCode(0);
                 rs.setMsg("上传成功");
-                String httpUrl = imageUrl +File.separator+ midPath + File.separator + fileName;
+                String httpUrl = imageUrl + File.separator + midPath + File.separator + fileName;
                 Map<String, String> map = new HashMap<>();
                 map.put("src", httpUrl);
 
@@ -421,6 +432,7 @@ public class ExhibitorController {
 
     /**
      * 获取展商小程序码
+     *
      * @return
      */
     @RequestMapping(value = "/getCompanyMaErCode", method = RequestMethod.GET)
@@ -437,7 +449,7 @@ public class ExhibitorController {
             e.printStackTrace();
         }
 
-        if(url == null || "".equals(url)){
+        if (url == null || "".equals(url)) {
             rs.setStatus(false);
             rs.setMsg("小程序码URL未配置");
             return rs;
@@ -451,10 +463,10 @@ public class ExhibitorController {
 
         Response<String> response = HttpUtil.sendPost(url, params, "UTF-8");
 
-        if("0000".equals(response.getCode())){
+        if ("0000".equals(response.getCode())) {
             String result = response.getT();
             JSONObject object = JSONObject.parseObject(result);
-            if("0000".equals(object.getString("status"))){
+            if ("0000".equals(object.getString("status"))) {
                 String ercode = object.getString("ercode");
 
                 rs.setStatus(true);
@@ -471,4 +483,96 @@ public class ExhibitorController {
 
         return rs;
     }
+
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public ImgResult uplpad(MultipartFile file, HttpServletRequest request) {
+        String desFilePath = "";
+        String oriName = "";
+        ImgResult result = new ImgResult();
+        Map<String, String> dataMap;
+        ImgResult imgResult = new ImgResult();
+        try {
+            // 1.获取原文件名
+            oriName = file.getOriginalFilename();
+            // 2.获取原文件图片后缀，以最后的.作为截取(.jpg)
+            String extName = oriName.substring(oriName.lastIndexOf("."));
+            // 3.生成自定义的新文件名，这里以UUID.jpg|png|xxx作为格式（可选操作，也可以不自定义新文件名）
+            String uuid = UUID.randomUUID().toString();
+            String newName = uuid + extName;
+            // 4.获取要保存的路径文件夹
+            Properties properties = PropertiesUtil.getProperties("properties/config.properties");
+            String realPath = properties.getProperty("img.path");
+            // 5.保存图片
+            desFilePath = realPath + "\\" + newName;
+            File desFile = new File(desFilePath);
+            file.transferTo(desFile);
+
+            System.out.println(desFilePath);
+            // 6.返回保存结果信息
+            result.setCode(0);
+            dataMap = new HashMap<>();
+            dataMap.put("src", realPath + "\\" + newName);
+            result.setData(dataMap);
+            result.setMsg(oriName + "上传成功！");
+            return result;
+        } catch (IllegalStateException e) {
+            imgResult.setCode(1);
+            System.out.println(desFilePath + "图片保存失败");
+            return imgResult;
+        } catch (IOException e) {
+            imgResult.setCode(1);
+            System.out.println(desFilePath + "图片保存失败--IO异常");
+            return imgResult;
+        }
+    }
+
+    @RequestMapping(value = "/updateShow", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResponse updateShow(@RequestParam(value = "publicityImgUrls", defaultValue = "") String publicityImgUrls,
+                                   @RequestParam(value = "productImgUrls", defaultValue = "") String productImgUrls) {
+
+        BaseResponse rs = new BaseResponse();
+        List<String> imgUrl = new ArrayList<>(); //宣传图
+        List<CompanyProgress> progresses = new ArrayList<>();   //历程
+        List<String> productUrl = new ArrayList<>();    //产品图片
+
+        if (!StringUtils.isEmpty(publicityImgUrls)) {
+            String[] imgUrlArray = publicityImgUrls.split(",");
+            for (int i = 0; i < imgUrlArray.length; i++) {
+                if (!StringUtils.isEmpty(imgUrlArray[i])) {
+                    imgUrl.add(imgUrlArray[i]);
+                }
+            }
+        }
+
+        if (!StringUtils.isEmpty(productImgUrls)) {
+            String[] productUrlArray = productImgUrls.split(",");
+            for (int i = 0; i < productUrlArray.length; i++) {
+                if (!StringUtils.isEmpty(productUrlArray[i])) {
+                    productUrl.add(productUrlArray[i]);
+                }
+            }
+        }
+
+        CompanyShow companyShow = new CompanyShow();
+        companyShow.setImgUrl(imgUrl);
+        companyShow.setProgresses(progresses);
+        companyShow.setProductUrl(productUrl);
+
+        int companyId = TokenManager.getCompanyId();
+        String json = JSONObject.toJSONString(companyShow);
+        logger.info("修改展商秀：入参={}", json);
+        int result = companyService.updateShow(companyId, json);
+
+        if (result > 0) {
+            rs.setStatus(true);
+            rs.setMsg("修改成功");
+        } else {
+            rs.setStatus(false);
+            rs.setMsg("修改失败");
+        }
+        return rs;
+    }
+
 }
