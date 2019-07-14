@@ -51,6 +51,10 @@ layui.define('base-url', function(exports) {
         "updateShow": {//保存展商秀
             type: 'POST',
             url: "updateShow.do"
+        },
+        "getShow": {//查询展商秀
+            type: 'POST',
+            url: "getShow.do"
         }
 
 	}

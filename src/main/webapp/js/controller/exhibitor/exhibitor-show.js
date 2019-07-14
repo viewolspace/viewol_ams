@@ -12,7 +12,10 @@ var requireModules = [
     'exhibitor-api',
     'layer',
     'toast',
-    'upload'
+    'table',
+    'upload',
+    'btns',
+    'authority'
 
 ];
 
@@ -26,12 +29,45 @@ layui.use(requireModules, function (form,
                                     exhibitorApi,
                                     layer,
                                     toast,
-                                    upload) {
+                                    table,
+                                    upload,
+                                    btns,
+                                    authority) {
     var $ = layui.jquery;
     var f = layui.form;
-    var index;
 
-    var data = ajax.getAllUrlParam();
+    ajax.request(exhibitorApi.getUrl('getShow'), null, function (result) {
+        var data = result.data;
+
+        var imgurls;
+        $.each(data.imgUrl, function (index, element) {
+            if(element != 'undefined'){
+                $('#publicityDiv').append('<img src="' + element + '" class="layui-upload-img">');
+                imgurls = imgurls + "," + element;
+            }
+        });
+        $('#publicityImgUrls').val(imgurls);
+
+        var proImgUrls;
+        $.each(data.productUrl, function (index, element) {
+            if(element != 'undefined') {
+                $('#productDiv').append('<img src="' + element + '" class="layui-upload-img">');
+                proImgUrls = proImgUrls + "," + element;
+            }
+        });
+        $('#productImgUrls').val(proImgUrls);
+
+        $.each(data.progresses, function (index, element) {
+            if (index == 0) {
+                $('#times').val(element.times);
+                $('#des').val(element.des);
+            } else {
+                var html = '<div class="layui-form-item"><div class="layui-inline"><label class="layui-form-label">年份</label><div class="layui-input-inline"><input type="text" name="times" lay-verify="required" value="' + element.times + '" autocomplete="off" class="layui-input"></div></div><div class="layui-inline"><label class="layui-form-label">事件</label><div class="layui-input-inline"><input type="text" name="des" lay-verify="required" value="' + element.des + '" autocomplete="off" class="layui-input" style="width: 450px"></div></div></div>';
+                $('#qiyefazhanlicheng').append(html);
+            }
+        });
+
+    });
 
     //上传企业宣传图
     upload.render({
@@ -117,8 +153,28 @@ layui.use(requireModules, function (form,
         $('#productDiv').html("");
     });
 
+    $("#addInput").click(function () {
+        var html = '<div class="layui-form-item"><div class="layui-inline"><label class="layui-form-label">年份</label><div class="layui-input-inline"><input type="text" name="times" lay-verify="required" autocomplete="off" class="layui-input"></div></div><div class="layui-inline"><label class="layui-form-label">事件</label><div class="layui-input-inline"><input type="text" name="des" lay-verify="required" autocomplete="off" class="layui-input" style="width: 450px"></div></div></div>';
+        $('#qiyefazhanlicheng').append(html);
+    });
+
     //保存展商秀
     f.on('submit(show-form)', function (data) {
+        var timesArray = [];
+        $("#qiyefazhanlicheng .layui-form-item").each(function (index, element) {
+            var timesRow = {};
+            $(element).find("input").each(function (idx, ele) {
+                // str = str + '\"' + ele.name + '":' + ele.value + ',';
+                if (ele.name == 'times') {
+                    timesRow.times = ele.value;
+                } else {
+                    timesRow.des = ele.value;
+                }
+            });
+            timesArray.push(timesRow);
+        });
+        data.field.progress = JSON.stringify(timesArray);
+
         ajax.request(exhibitorApi.getUrl('updateShow'), data.field, function () {
             toast.success('修改成功');
         });

@@ -1,12 +1,15 @@
 package com.viewol.exhibitor.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.viewol.common.BaseResponse;
 import com.viewol.common.LayeditResponse;
 import com.viewol.common.UploadResponse;
 import com.viewol.exhibitor.response.CompanyResponse;
+import com.viewol.exhibitor.response.CompanyShowResponse;
 import com.viewol.exhibitor.response.ErcodeResponse;
 import com.viewol.exhibitor.response.ImgResult;
+import com.viewol.exhibitor.vo.CompanyShowVO;
 import com.viewol.exhibitor.vo.ExhibitorVO;
 import com.viewol.pojo.Category;
 import com.viewol.pojo.Company;
@@ -530,11 +533,12 @@ public class ExhibitorController {
     @RequestMapping(value = "/updateShow", method = RequestMethod.POST)
     @ResponseBody
     public BaseResponse updateShow(@RequestParam(value = "publicityImgUrls", defaultValue = "") String publicityImgUrls,
-                                   @RequestParam(value = "productImgUrls", defaultValue = "") String productImgUrls) {
+                                   @RequestParam(value = "productImgUrls", defaultValue = "") String productImgUrls,
+                                   @RequestParam(value = "progress", defaultValue = "") String progress) {
 
         BaseResponse rs = new BaseResponse();
         List<String> imgUrl = new ArrayList<>(); //宣传图
-        List<CompanyProgress> progresses = new ArrayList<>();   //历程
+        List<CompanyProgress> progresses = JSONArray.parseArray(progress, CompanyProgress.class);   //历程
         List<String> productUrl = new ArrayList<>();    //产品图片
 
         if (!StringUtils.isEmpty(publicityImgUrls)) {
@@ -575,4 +579,25 @@ public class ExhibitorController {
         return rs;
     }
 
+    @RequestMapping(value = "/getShow", method = RequestMethod.POST)
+    @ResponseBody
+    public CompanyShowResponse getShow() {
+
+        CompanyShowResponse rs = new CompanyShowResponse();
+
+        Company company = companyService.getCompany(TokenManager.getCompanyId());
+        if (null != company) {
+            String showInfo = company.getShowInfo();
+            CompanyShowVO showVO = JSONObject.parseObject(showInfo, CompanyShowVO.class);
+            rs.setStatus(true);
+            rs.setMsg("ok");
+            rs.setData(showVO);
+
+        } else {
+            rs.setStatus(false);
+            rs.setMsg("展商不存在");
+        }
+
+        return rs;
+    }
 }

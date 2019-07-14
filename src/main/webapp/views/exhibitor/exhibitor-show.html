@@ -46,10 +46,7 @@
 </head>
 
 <body class="body">
-<blockquote class="layui-elem-quote">
-	展商可以修改企业logo、形象图、展商图片，展商介绍。
-</blockquote>
-<form id="show-form" class="layui-form" action="">
+<form id="show-form" class="layui-form layui-form-pane" action="">
 	<table class="layui-table" lay-skin="line">
 		<colgroup>
 			<col width="60">
@@ -67,11 +64,11 @@
 					</blockquote>
 				</div>
 				<input type="text" id="publicityImgUrls" name="publicityImgUrls" style="display: none;" class="layui-input">
-				<button type="button" class="layui-btn" id="publicityBtn">上传宣传图（最多两张）</button>
+				<button type="button" class="layui-btn" id="publicityBtn">选择宣传图（最多两张）</button>
 				<button type="button" class="layui-btn" id="cleanImgsPublicity"> <i class="fa fa-trash-o fa-lg"></i>清空图片预览</button>
 			</td>
 		</tr>
-		<tr style="height: 150px">
+		<tr>
 			<td>企业产品图片</td>
 			<td>
 				<div class="layui-upload">
@@ -81,8 +78,30 @@
 					</blockquote>
 				</div>
 				<input type="text" id="productImgUrls" name="productImgUrls" style="display: none;" class="layui-input">
-				<button type="button" class="layui-btn" id="productBtn">上传产品图（做多四张）</button>
+				<button type="button" class="layui-btn" id="productBtn">选择产品图（做多四张）</button>
 				<button type="button" class="layui-btn" id="cleanImgsProduct"> <i class="fa fa-trash-o fa-lg"></i>清空图片预览</button>
+			</td>
+		</tr>
+		<tr>
+			<td>企业发展历程</td>
+			<td id="qiyefazhanlicheng">
+				<button class="layui-btn" type="button" id="addInput">
+					添加企业历程
+				</button>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">年份</label>
+						<div class="layui-input-inline">
+							<input type="text" id="times" name="times" lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">事件</label>
+						<div class="layui-input-inline">
+							<input type="text" id="des" name="des" lay-verify="required" autocomplete="off" class="layui-input" style="width: 450px">
+						</div>
+					</div>
+				</div>
 			</td>
 		</tr>
 		</tbody>
@@ -91,19 +110,17 @@
 	<div class="layui-form-item operate">
 		<button class="layui-btn" type="button" lay-submit lay-filter="show-form">
 			<i class="layui-icon">&#xe605;</i>
-			保存
+			保存企业图片及历程
 		</button>
 	</div>
 </form>
+
 <script type="text/javascript">
     document.write("<script type='text/javascript' src='../../js/common/module-manage.js?random="+Math.random()+"'></s"+"cript>");
     document.write("<script type='text/javascript' src='../../frame/layui/layui.js?random="+Math.random()+"'></s"+"cript>");
     document.write("<script type='text/javascript' src='../../frame/jquery-1.12.4.js?random="+Math.random()+"'></s"+"cript>");
     document.write("<script type='text/javascript' src='../../frame/moment.js?random="+Math.random()+"'></s"+"cript>");
     document.write("<script type='text/javascript' src='../../frame/form-srializeJSON.js?random="+Math.random()+"'></s"+"cript>");
-    document.write("<script type='text/javascript' src='../../frame/qrcode/qrcode.min.js?random="+Math.random()+"'></s"+"cript>");
-    document.write("<script type='text/javascript' src='../../js/controller/buser/buser-list.js?random="+Math.random()+"'></s"+"cript>");
-    document.write("<script type='text/javascript' src='../../frame/jqprint/jquery.jqprint-0.3.js?random="+Math.random()+"'></s"+"cript>");
     document.write("<script type='text/javascript' src='../../js/controller/exhibitor/exhibitor-show.js?random="+Math.random()+"'></s"+"cript>");
 </script>
 
