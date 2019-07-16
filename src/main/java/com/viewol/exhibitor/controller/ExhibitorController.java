@@ -505,9 +505,18 @@ public class ExhibitorController {
             String newName = uuid + extName;
             // 4.获取要保存的路径文件夹
             Properties properties = PropertiesUtil.getProperties("properties/config.properties");
-            String realPath = properties.getProperty("img.path");
+            String path = properties.getProperty("img.path");
+            String imageUrl = properties.getProperty("imageUrl");
+            SimpleDateFormat dft = new SimpleDateFormat("yyyyMMddHHmmss");
+
+            SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
+            String midPath = yyyyMMdd.format(new Date());
+            File fileDir = new File(path + midPath);
+            if (!fileDir.exists()) { //如果不存在 则创建
+                fileDir.mkdirs();
+            }
             // 5.保存图片
-            desFilePath = realPath + "\\" + newName;
+            desFilePath = path + midPath + File.separator + newName;
             File desFile = new File(desFilePath);
             file.transferTo(desFile);
 
@@ -515,7 +524,10 @@ public class ExhibitorController {
             // 6.返回保存结果信息
             result.setCode(0);
             dataMap = new HashMap<>();
-            dataMap.put("src", realPath + "\\" + newName);
+
+            String httpUrl = imageUrl + File.separator + midPath + File.separator + newName;
+
+            dataMap.put("src", httpUrl);
             result.setData(dataMap);
             result.setMsg(oriName + "上传成功！");
             return result;

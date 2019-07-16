@@ -79,6 +79,8 @@ layui.use(requireModules, function (form,
         , number: 2   //最多上传两张图
         , multiple: true
         , before: function (obj) {
+            toast.msg("所有图片上传成功");
+
             //预读本地文件示例，不支持ie8
             obj.preview(function (index, file, result) {
                 $('#publicityDiv').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
@@ -147,10 +149,12 @@ layui.use(requireModules, function (form,
 
     $("#cleanImgsPublicity").click(function () {
         $('#publicityDiv').html("");
+        $('#publicityImgUrls').val("");
     });
 
     $("#cleanImgsProduct").click(function () {
         $('#productDiv').html("");
+        $('#productImgUrls').val("");
     });
 
     $("#addInput").click(function () {
@@ -177,6 +181,7 @@ layui.use(requireModules, function (form,
 
         ajax.request(exhibitorApi.getUrl('updateShow'), data.field, function () {
             toast.success('修改成功');
+            location.reload();
         });
         return false;
     });

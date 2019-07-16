@@ -19,6 +19,7 @@
      * 因此，UEditor提供了针对不同页面的编辑器可单独配置的根路径，具体来说，在需要实例化编辑器的页面最顶部写上如下代码即可。当然，需要令此处的URL等于对应的配置。
      * window.UMEDITOR_HOME_URL = "/xxxx/xxxx/";
      */
+    // window.UMEDITOR_HOME_URL = "http://47.93.25.129/viewol-img/";
     var URL = window.UMEDITOR_HOME_URL || (function(){
 
         function PathStack() {
@@ -137,7 +138,8 @@
 
         //图片上传配置区
         ,imageUrl:URL+"../../ued/imageUp.do"             //图片上传提交地址
-        ,imagePath:URL + ""                     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
+        ,imagePath:""                     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
+        // ,imagePath:"http://47.93.25.129/viewol-img/"                     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
         ,imageFieldName:"upfile"
 
         //图片数据的key,若此处修改，需要在后台对应文件修改对应参数
