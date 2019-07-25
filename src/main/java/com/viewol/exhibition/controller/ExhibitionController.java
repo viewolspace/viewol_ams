@@ -62,6 +62,7 @@ public class ExhibitionController {
         productQuery.setStatus(null);
         productQuery.setPageIndex(page);
         productQuery.setPageSize(limit);
+        productQuery.setExpoId(TokenManager.getExpoId());
 
         PageHolder<Product> pageHolder = productService.queryProduct(productQuery);
         List<ExhibitionVO> voList = new ArrayList<>();
