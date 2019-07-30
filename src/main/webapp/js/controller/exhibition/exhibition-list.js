@@ -98,7 +98,7 @@ layui.use(requireModules, function(
                     {field: 'cTime', title: '录入时间', width:160, templet: function (d) {
 						return moment(d.cTime).format("YYYY-MM-DD HH:mm:ss");
 					}},
-                    {fixed: 'right',width:180, align:'center', toolbar: '#barDemo'}
+                    {fixed: 'right',width:240, align:'center', toolbar: '#barDemo'}
                 ]]
             });
 		},
@@ -170,6 +170,21 @@ layui.use(requireModules, function(
 			});
 		},
 
+		apply: function(rowdata) {
+			var url = request.composeUrl(webName + '/views/exhibition/exhibition-idea-add.html', rowdata);
+			var index = layer.open({
+				type: 2,
+				title: "申请创新产品",
+				area: ['900px', '450px'],
+				offset: '5%',
+				scrollbar: false,
+				content: url,
+				success: function(ly, index) {
+					// layer.iframeAuto(index);
+				}
+			});
+		},
+
 		refresh: function() {
             mainTable.reload();
 		},
@@ -183,8 +198,9 @@ layui.use(requireModules, function(
                     MyController.modify(data);
                 } else if(obj.event === 'row-delete'){//删除
                     MyController.delete(data);
-                }
-
+                } else if(obj.event === 'row-apply'){//申请创新产品
+					MyController.apply(data);
+				}
             });
 
 			//点击查询按钮
