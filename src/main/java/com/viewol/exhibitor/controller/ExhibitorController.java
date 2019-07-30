@@ -459,6 +459,8 @@ public class ExhibitorController {
         }
 
         Map<String, String> params = new HashMap<>();
+        //小程序 1 观展通  2 观展讯
+        params.put("maNum", TokenManager.getExpoId()+"");
         params.put("type", "2");
         params.put("companyId", String.valueOf(TokenManager.getCompanyId()));
         params.put("bUserId", "0");
