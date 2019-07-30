@@ -510,12 +510,18 @@ public class ExhibitionController {
                                        @RequestParam(value = "model", defaultValue = "") String model,
                                        @RequestParam(value = "status", defaultValue = "") int status) {
 
+        BaseResponse rs = new BaseResponse();
         ProductIdea productIdea = productIdeaService.getProductIdea(productId);
         boolean addFlag = true;
         if (null == productIdea) {
             productIdea = new ProductIdea();
             productIdea.setcTime(new Date());
         } else {
+            if (1 == productIdea.getStatus()) {
+                rs.setStatus(false);
+                rs.setMsg("评审通过，禁止修改");
+                return rs;
+            }
             productIdea.setmTime(new Date());
             addFlag = false;
         }
@@ -542,7 +548,6 @@ public class ExhibitionController {
         productIdea.setModel(model);
         productIdea.setStatus(status);
 
-        BaseResponse rs = new BaseResponse();
         int result = 0;
         if (addFlag) {
             result = productIdeaService.addProductIdea(productIdea);
