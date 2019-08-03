@@ -1,138 +1,162 @@
 var webName = getWebName();
 
 layui.config({
-	base: webName + '/js/modules/',
+    base: webName + '/js/modules/',
     version: true
 });
 
 var requireModules = [
-	'element',
-	'form',
-	'layer',
-	'request',
-	'form-util',
-	'exhibition-api',
-	'table-util',
-	'btns',
-	'authority',
-	'toast',
+    'element',
+    'form',
+    'layer',
+    'request',
+    'form-util',
+    'exhibition-api',
+    'table-util',
+    'btns',
+    'authority',
+    'toast',
     'table',
-	'valid-login'
+    'valid-login'
 
 ];
 
 registeModule(window, requireModules, {
-	'good-api': 'api/good-api'
+    'good-api': 'api/good-api'
 });
 
 //参数有顺序
-layui.use(requireModules, function(
-	element,
-	form,
-	layer,
-	request,
-	formUtil,
+layui.use(requireModules, function (
+    element,
+    form,
+    layer,
+    request,
+    formUtil,
     exhibitionApi,
-	tableUtil,
-	btns,
-	authority,
-	toast,
+    tableUtil,
+    btns,
+    authority,
+    toast,
     table
 ) {
 
-	var $ = layui.jquery;
+    var $ = layui.jquery;
     var $table = table;
     var mainTable;
-	var MyController = {
-		init: function() {
-			var navId = request.getFixUrlParams("navId");
+    var MyController = {
+        init: function () {
+            var navId = request.getFixUrlParams("navId");
 
-			var totalBtns = authority.getNavBtns(navId);
-			var btnObjs = btns.getBtns(totalBtns);
-			MyController.pageBtns = btns.getPageBtns(btnObjs);
-			MyController.switchPageBtns = btns.getSwitchPageBtns(btnObjs);
+            var totalBtns = authority.getNavBtns(navId);
+            var btnObjs = btns.getBtns(totalBtns);
+            MyController.pageBtns = btns.getPageBtns(btnObjs);
+            MyController.switchPageBtns = btns.getSwitchPageBtns(btnObjs);
 
-			MyController.rowBtns = btns.getRowBtns(btnObjs);
-			MyController.rowSwitchBtns = btns.getSwitchBtns(MyController.rowBtns);
-			MyController.rowIconBtns = btns.getIconBtns(MyController.rowBtns);
+            MyController.rowBtns = btns.getRowBtns(btnObjs);
+            MyController.rowSwitchBtns = btns.getSwitchBtns(MyController.rowBtns);
+            MyController.rowIconBtns = btns.getIconBtns(MyController.rowBtns);
 
-			$('#page-btns').html(btns.renderBtns(MyController.pageBtns)+btns.renderSwitchBtns(MyController.switchPageBtns));
+            $('#page-btns').html(btns.renderBtns(MyController.pageBtns) + btns.renderSwitchBtns(MyController.switchPageBtns));
             btns.renderLayuiTableBtns(MyController.rowIconBtns, $("#barDemo"));
 
             mainTable = MyController.renderTable();
-			MyController.bindEvent();
-		},
+            MyController.bindEvent();
+        },
 
-		renderTable: function() {
+        renderTable: function () {
             return $table.render({
                 elem: '#exhibition-list'
-                ,height: 'full-100'
-                ,url: exhibitionApi.getUrl('exhibitionList').url
-				,method: 'post'
-                ,page: true //开启分页
-                ,limits:[10,50,100,200]
-                ,cols: [[ //表头
-                    {type:'numbers'},
-                    {field: 'id', title: '展品ID', width:100},
-                    {field: 'name', title: '产品名称', width:100},
-                    {field: 'status', title: '状态', width:100, templet: function (d) {
-                            if(d.status == 1){
+                , height: 'full-100'
+                , url: exhibitionApi.getUrl('exhibitionList').url
+                , method: 'post'
+                , page: true //开启分页
+                , limits: [10, 50, 100, 200]
+                , cols: [[ //表头
+                    {type: 'numbers'},
+                    {type: 'checkbox'},
+                    {field: 'id', title: '展品ID', width: 100},
+                    {field: 'name', title: '产品名称', width: 100},
+                    {
+                        field: 'status', title: '状态', width: 100, templet: function (d) {
+                            if (d.status == 1) {
                                 return '<span>下架</span>';
                             } else {
                                 return '<span>上架</span>';
                             }
-                        }},
+                        }
+                    },
 
-                    {field: 'categoryId', title: '分类id', width:100},
-                    {field: 'image', title: '产品图片', width:170, templet: function (d) {
-                            return "<a href='"+d.image+"' target='_blank'><img src='"+d.image+"' /></a>";
-                        }},
-                    {field: 'regImage', title: '首页推荐图片', width:155, templet: function (d) {
-                            return "<a href='"+d.regImage+"' target='_blank'><img src='"+d.regImage+"' /></a>";
-                        }},
-                    {field: 'pdfName', title: '说明书的名字', width:120},
-                    {field: 'pdfUrl', title: '说明书下载地址', width:300},
-                    {field: 'mTime', title: '修改时间', width:160, templet: function (d) {
-						return moment(d.mTime).format("YYYY-MM-DD HH:mm:ss");
-                    }},
-                    {field: 'cTime', title: '录入时间', width:160, templet: function (d) {
-						return moment(d.cTime).format("YYYY-MM-DD HH:mm:ss");
-					}},
-                    {fixed: 'right',width:240, align:'center', toolbar: '#barDemo'}
+                    {field: 'categoryId', title: '分类id', width: 100},
+                    {
+                        field: 'image', title: '产品图片', width: 170, templet: function (d) {
+                            return "<a href='" + d.image + "' target='_blank'><img src='" + d.image + "' /></a>";
+                        }
+                    },
+                    {
+                        field: 'regImage', title: '首页推荐图片', width: 155, templet: function (d) {
+                            return "<a href='" + d.regImage + "' target='_blank'><img src='" + d.regImage + "' /></a>";
+                        }
+                    },
+                    {field: 'pdfName', title: '说明书的名字', width: 120},
+                    {field: 'pdfUrl', title: '说明书下载地址', width: 300},
+                    {
+                        field: 'mTime', title: '修改时间', width: 160, templet: function (d) {
+                            return moment(d.mTime).format("YYYY-MM-DD HH:mm:ss");
+                        }
+                    },
+                    {
+                        field: 'cTime', title: '录入时间', width: 160, templet: function (d) {
+                            return moment(d.cTime).format("YYYY-MM-DD HH:mm:ss");
+                        }
+                    },
+                    {fixed: 'right', width: 240, align: 'center', toolbar: '#barDemo'}
                 ]]
             });
-		},
+        },
 
-		add: function() {
-			var index = layer.open({
-				type: 2,
-				title: "添加产品",
+        add: function () {
+            var index = layer.open({
+                type: 2,
+                title: "添加产品",
                 area: ['900px', '450px'],
-				offset: '5%',
-				scrollbar: false,
-				content: webName + '/views/exhibition/exhibition-add.html',
-				success: function(ly, index) {
-					// layer.iframeAuto(index);
-				}
-			});
-		},
+                offset: '5%',
+                scrollbar: false,
+                content: webName + '/views/exhibition/exhibition-add.html',
+                success: function (ly, index) {
+                    // layer.iframeAuto(index);
+                }
+            });
+        },
 
-		modify: function(rowdata) {
-			var url = request.composeUrl(webName + '/views/exhibition/exhibition-update.html', rowdata);
-			var index = layer.open({
-				type: 2,
-				title: "修改产品",
+        add_product: function () {
+            var checkStatus = table.checkStatus('exhibition-list'); //idTest 即为基础参数 id 对应的值
+
+            if(checkStatus.data.length == 0){
+                return layer.msg('请先选择一个产品');
+            } else if (checkStatus.data.length > 1){
+                return layer.msg('每次只能选择一个产品');
+            }
+
+            //跳转申请创新产品页面
+            MyController.apply(checkStatus.data[0]);
+        },
+
+        modify: function (rowdata) {
+            var url = request.composeUrl(webName + '/views/exhibition/exhibition-update.html', rowdata);
+            var index = layer.open({
+                type: 2,
+                title: "修改产品",
                 area: ['900px', '450px'],
-				offset: '5%',
-				scrollbar: false,
-				content: url,
-				success: function(ly, index) {
-					// layer.iframeAuto(index);
-				}
-			});
-		},
+                offset: '5%',
+                scrollbar: false,
+                content: url,
+                success: function (ly, index) {
+                    // layer.iframeAuto(index);
+                }
+            });
+        },
 
-        view: function(rowdata) {
+        view: function (rowdata) {
             var url = request.composeUrl(webName + '/views/exhibition/exhibition-view.html', rowdata);
             var index = layer.open({
                 type: 2,
@@ -141,87 +165,90 @@ layui.use(requireModules, function(
                 offset: '5%',
                 scrollbar: false,
                 content: url,
-                success: function(ly, index) {
+                success: function (ly, index) {
                     // layer.iframeAuto(index);
                 }
             });
         },
 
-		delete: function(rowdata) {
-			layer.confirm('确认删除数据?', {
-				icon: 3,
-				title: '提示',
-				closeBtn: 0
-			}, function(index) {
-				layer.load(0, {
-					shade: 0.5
-				});
-				layer.close(index);
+        delete: function (rowdata) {
+            layer.confirm('确认删除数据?', {
+                icon: 3,
+                title: '提示',
+                closeBtn: 0
+            }, function (index) {
+                layer.load(0, {
+                    shade: 0.5
+                });
+                layer.close(index);
 
-				request.request(exhibitionApi.getUrl('deleteExhibition'), {
-					id: rowdata.id
-				}, function() {
-					layer.closeAll('loading');
-					toast.success('成功删除！');
-					MyController.refresh();
-				},true,function(){
-					layer.closeAll('loading');
-				});
-			});
-		},
+                request.request(exhibitionApi.getUrl('deleteExhibition'), {
+                    id: rowdata.id
+                }, function () {
+                    layer.closeAll('loading');
+                    toast.success('成功删除！');
+                    MyController.refresh();
+                }, true, function () {
+                    layer.closeAll('loading');
+                });
+            });
+        },
 
-		apply: function(rowdata) {
-			var url = request.composeUrl(webName + '/views/exhibition/exhibition-idea-add.html', rowdata);
-			var index = layer.open({
-				type: 2,
-				title: "申请创新产品",
-				area: ['900px', '450px'],
-				offset: '5%',
-				scrollbar: false,
-				content: url,
-				success: function(ly, index) {
-					// layer.iframeAuto(index);
-				}
-			});
-		},
+        apply: function (rowdata) {
+            var url = request.composeUrl(webName + '/views/exhibition/exhibition-idea-add.html', rowdata);
+            var index = layer.open({
+                type: 2,
+                title: "申请创新产品",
+                area: ['900px', '450px'],
+                offset: '5%',
+                scrollbar: false,
+                content: url,
+                success: function (ly, index) {
+                    // layer.iframeAuto(index);
+                }
+            });
+        },
 
-		refresh: function() {
+        refresh: function () {
             mainTable.reload();
-		},
+        },
 
-		bindEvent: function() {
-            $table.on('tool(test)', function(obj){
+        bindEvent: function () {
+            $table.on('tool(test)', function (obj) {
                 var data = obj.data;
-                if(obj.event === 'row-view'){
+                if (obj.event === 'row-view') {
                     MyController.view(data);
-                } else if(obj.event === 'row-edit'){//编辑
+                } else if (obj.event === 'row-edit') {//编辑
                     MyController.modify(data);
-                } else if(obj.event === 'row-delete'){//删除
+                } else if (obj.event === 'row-delete') {//删除
                     MyController.delete(data);
-                } else if(obj.event === 'row-apply'){//申请创新产品
-					MyController.apply(data);
-				}
+                } else if (obj.event === 'row-apply') {//申请创新产品
+                    MyController.apply(data);
+                }
             });
 
-			//点击查询按钮
-			$('#search-btn').on('click', function() {
+            //点击查询按钮
+            $('#search-btn').on('click', function () {
                 mainTable.reload({
                     where: MyController.getQueryCondition()
                 });
-			});
+            });
 
             //点击刷新
             $('body').on('click', '.refresh', MyController.refresh);
-			//点击添加
-			$('body').on('click', '.add', MyController.add);
+            //点击添加
+            $('body').on('click', '.add', MyController.add);
 
-		}
-	};
+            $('body').on('click', '.add_product', MyController.add_product);
 
-	window.list = {
-		refresh: MyController.refresh
-	}
 
-	MyController.init();
+        }
+    };
+
+    window.list = {
+        refresh: MyController.refresh
+    }
+
+    MyController.init();
 
 });

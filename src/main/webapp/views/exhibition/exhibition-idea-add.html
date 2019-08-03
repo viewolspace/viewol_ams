@@ -42,7 +42,8 @@
             <label class="layui-form-label">产品ID</label>
 
             <div class="layui-input-inline">
-                <input type="text" name="productId" disabled lay-verify="required" autocomplete="off" placeholder="请输入产品ID"
+                <input type="text" name="productId" disabled lay-verify="required" autocomplete="off"
+                       placeholder="请输入产品ID"
                        class="layui-input">
             </div>
         </div>
@@ -62,7 +63,8 @@
             <label class="layui-form-label">展商ID</label>
 
             <div class="layui-input-inline">
-                <input type="text" name="companyId" disabled lay-verify="required" autocomplete="off" placeholder="请输入展商ID"
+                <input type="text" name="companyId" disabled lay-verify="required" autocomplete="off"
+                       placeholder="请输入展商ID"
                        class="layui-input">
             </div>
         </div>
@@ -122,7 +124,8 @@
             <label class="layui-form-label">网站</label>
 
             <div class="layui-input-inline">
-                <input type="text" name="website" lay-verify="required" autocomplete="off" placeholder="http://www.baidu.com"
+                <input type="text" name="website" lay-verify="required" autocomplete="off"
+                       placeholder="http://www.baidu.com"
                        class="layui-input">
             </div>
         </div>
@@ -186,7 +189,8 @@
         <label class="layui-form-label">产品概况</label>
 
         <div class="layui-input-block">
-            <textarea name="des" lay-verify="required" autocomplete="off" placeholder="请输入产品概况" class="layui-textarea"></textarea>
+            <textarea name="des" lay-verify="required" autocomplete="off" placeholder="请输入产品概况"
+                      class="layui-textarea"></textarea>
         </div>
     </div>
 
@@ -194,7 +198,8 @@
         <label class="layui-form-label">关键技术指标</label>
 
         <div class="layui-input-block">
-            <textarea name="quota" lay-verify="required" autocomplete="off" placeholder="请输入关键技术指标" class="layui-textarea"></textarea>
+            <textarea name="quota" lay-verify="required" autocomplete="off" placeholder="请输入关键技术指标"
+                      class="layui-textarea"></textarea>
         </div>
     </div>
 
@@ -202,7 +207,11 @@
         <label class="layui-form-label">产品创新点</label>
 
         <div class="layui-input-block">
-            <textarea name="ideaPoint" lay-verify="required" autocomplete="off" placeholder="请输入产品创新点" class="layui-textarea"></textarea>
+            <textarea name="ideaPoint" lay-verify="required" autocomplete="off" placeholder="产品创新点，可从以下几个方面进行描述：
+1，采用了何种新技术，关键技术指标达到的国内、国际水平
+2，新产品是否获得国家科技进步奖、发明奖或国际发明奖
+3，如何开拓了新的应用领域或方向
+4，外观创新，新颖设计" class="layui-textarea"></textarea>
         </div>
     </div>
 
@@ -210,55 +219,75 @@
         <label class="layui-form-label">国内外市场推广情况</label>
 
         <div class="layui-input-block">
-            <textarea name="extend" lay-verify="required" autocomplete="off" placeholder="请输入该产品国内外市场推广情况" class="layui-textarea"></textarea>
+            <textarea name="extend" lay-verify="required" autocomplete="off" placeholder="产品国内外市场推广情况
+1，在国内市场的占有率及推广空间
+2，产品在国际市场的情况。
+（请提供word文档，限500字，随相关证书打包上传）"
+                      class="layui-textarea"></textarea>
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">展品图片<br>162x162px</label>
+        <label class="layui-form-label">展品图片</label>
         <div class="layui-input-block">
             <div class="layui-upload-drag">
                 <a href=" javascript:void(0); ">
-                    <img id="productPicAvatarId" src="../../image/default_upload_z.png" alt="上传图片" width="162" height="162">
+                    <img id="productPicAvatarId" src="../../image/default_upload_z.png" alt="上传图片" width="162"
+                         height="162">
                 </a>
                 <input type="hidden" id="productPic" name="productPic" value="">
             </div>
 
-            <button type="button" class="layui-btn" id="productPicBtn">
-                <i class="layui-icon"></i>
-                上传图片
-            </button>
+            <div class="fr">
+                <div>图片要求：大小 6cm×6cm，分辨率300pixels/inch，使用jpeg、tiff格式。</div>
+                <button type="button" class="layui-btn" id="productPicBtn">
+                    <i class="layui-icon"></i>
+                    上传图片
+                </button>
+            </div>
+
+
             <input class="layui-upload-file" type="file" name="file">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">公司logo<br>162x162px</label>
+        <label class="layui-form-label">公司logo</label>
         <div class="layui-input-block">
             <div class="layui-upload-drag">
                 <a href=" javascript:void(0); ">
-                    <img id="comLogoAvatarId" src="../../image/default_upload_z.png" alt="上传图片" width="162" height="162">
+                    <img id="comLogoAvatarId" src="../../image/default_upload_z.png" alt="上传图片" width="162"
+                         height="162">
                 </a>
                 <input type="hidden" id="comLogo" name="comLogo" value="">
             </div>
 
-            <button type="button" class="layui-btn" id="comLogoBtn">
-                <i class="layui-icon"></i>
-                上传图片
-            </button>
+            <div class="fr">
+                <div>图片要求：大小 6cm×6cm，分辨率300pixels/inch，使用jpeg、tiff格式。</div>
+                <button type="button" class="layui-btn" id="comLogoBtn">
+                    <i class="layui-icon"></i>
+                    上传图片
+                </button>
+            </div>
+
             <input class="layui-upload-file" type="file" name="file">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">相关证书(打包rar,zip格式上传)</label>
+        <label class="layui-form-label">相关证书</label>
 
         <div class="layui-input-inline" style="width: 400px;">
             <input type="text" name="ext" id="ext" autocomplete="off" placeholder="" class="layui-input">
         </div>
 
+
         <div class="layui-input-inline">
             <button type="button" class="layui-btn" id="extBtn"><i class="layui-icon"></i>上传压缩文件(最大10M)</button>
+
+        </div>
+        <div class="fl">
+            如：新产品鉴定证书、技术总结报告、专利证书、奖励证书、用户意见、检测报告及其它知识产权证明材料（电子文件）。统一打包成rar或zip格式上传。
         </div>
     </div>
 

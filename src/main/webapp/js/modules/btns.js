@@ -21,6 +21,11 @@ layui.define(function(exports) {
             icon: '&#xe654;',
             name: '添加'
         },
+        'add_product': {
+            className: baseBtnClass + 'add_product',
+            icon: '&#xe604;',
+            name: '申请创新产品'
+        },
         'refresh': {
             className: baseBtnClass + 'layui-btn-normal refresh',
             icon: '&#x1002;',

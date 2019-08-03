@@ -327,9 +327,10 @@ layui.use(requireModules, function(layer,element,util,authority,login,laytpl,aja
 
     var user = login.getLoginInfo();
     if (user) {
-        $("#iframe").attr('src', 'views/welcome/welcome.html');
+        // $("#iframe").attr('src', 'views/welcome/welcome.html');
+        $("#iframe").attr('src', 'views/exhibition/exhibition-list.html?navId=242');
     } else {
-        $("#iframe").attr('src', 'demo/welcome.html');
+        $("#iframe").attr('src', 'views/welcome/welcome.html');
     }
 
     // 初始化
