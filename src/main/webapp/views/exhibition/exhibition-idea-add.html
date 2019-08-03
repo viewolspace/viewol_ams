@@ -222,7 +222,7 @@
             <textarea name="extend" lay-verify="required" autocomplete="off" placeholder="产品国内外市场推广情况
 1，在国内市场的占有率及推广空间
 2，产品在国际市场的情况。
-（请提供word文档，限500字，随相关证书打包上传）"
+（请提供文档，限500字，随相关证书打包上传）"
                       class="layui-textarea"></textarea>
         </div>
     </div>
@@ -238,13 +238,11 @@
                 <input type="hidden" id="productPic" name="productPic" value="">
             </div>
 
-            <div class="fr">
-                <div>图片要求：大小 6cm×6cm，分辨率300pixels/inch，使用jpeg、tiff格式。</div>
-                <button type="button" class="layui-btn" id="productPicBtn">
-                    <i class="layui-icon"></i>
-                    上传图片
-                </button>
-            </div>
+            <button type="button" class="layui-btn" id="productPicBtn">
+                <i class="layui-icon"></i>
+                上传图片
+            </button>
+            <div>图片要求：大小 6cm×6cm，分辨率300pixels/inch，使用jpeg、tiff格式。</div>
 
 
             <input class="layui-upload-file" type="file" name="file">
@@ -262,13 +260,12 @@
                 <input type="hidden" id="comLogo" name="comLogo" value="">
             </div>
 
-            <div class="fr">
-                <div>图片要求：大小 6cm×6cm，分辨率300pixels/inch，使用jpeg、tiff格式。</div>
-                <button type="button" class="layui-btn" id="comLogoBtn">
-                    <i class="layui-icon"></i>
-                    上传图片
-                </button>
-            </div>
+            <button type="button" class="layui-btn" id="comLogoBtn">
+                <i class="layui-icon"></i>
+                上传图片
+            </button>
+            <div>图片要求：大小 6cm×6cm，分辨率300pixels/inch，使用jpeg、tiff格式。</div>
+
 
             <input class="layui-upload-file" type="file" name="file">
         </div>
@@ -279,15 +276,15 @@
 
         <div class="layui-input-inline" style="width: 400px;">
             <input type="text" name="ext" id="ext" autocomplete="off" placeholder="" class="layui-input">
+            <div>
+                如：新产品鉴定证书、技术总结报告、专利证书、奖励证书、用户意见、检测报告及其它知识产权证明材料（电子文件）。统一打包成rar或zip格式上传。
+            </div>
         </div>
 
 
         <div class="layui-input-inline">
             <button type="button" class="layui-btn" id="extBtn"><i class="layui-icon"></i>上传压缩文件(最大10M)</button>
 
-        </div>
-        <div class="fl">
-            如：新产品鉴定证书、技术总结报告、专利证书、奖励证书、用户意见、检测报告及其它知识产权证明材料（电子文件）。统一打包成rar或zip格式上传。
         </div>
     </div>
 

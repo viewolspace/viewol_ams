@@ -548,6 +548,12 @@ public class ExhibitionController {
         productIdea.setModel(model);
         productIdea.setStatus(status);
 
+        int count = productIdeaService.countByCompanyId(companyId);
+        if(count > 4){
+            rs.setStatus(false);
+            rs.setMsg("最多申请4个创新产品");
+            return rs;
+        }
         int result = 0;
         if (addFlag) {
             result = productIdeaService.addProductIdea(productIdea);
