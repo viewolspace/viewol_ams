@@ -25,6 +25,8 @@ public class CompanyShowVO {
      */
     private List<String> productUrl;
 
+    private String showFlag;
+
     public List<String> getImgUrl() {
         return imgUrl;
     }
@@ -47,5 +49,13 @@ public class CompanyShowVO {
 
     public void setProductUrl(List<String> productUrl) {
         this.productUrl = productUrl;
+    }
+
+    public String getShowFlag() {
+        return showFlag;
+    }
+
+    public void setShowFlag(String showFlag) {
+        this.showFlag = showFlag;
     }
 }

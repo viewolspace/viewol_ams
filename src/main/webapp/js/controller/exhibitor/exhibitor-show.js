@@ -38,6 +38,9 @@ layui.use(requireModules, function (form,
 
     ajax.request(exhibitorApi.getUrl('getShow'), null, function (result) {
         var data = result.data;
+        if(!$.isEmptyObject(data)) {
+            formUtil.renderData($('#show-form'), data);
+        }
 
         var imgurls;
         $.each(data.imgUrl, function (index, element) {
@@ -66,7 +69,6 @@ layui.use(requireModules, function (form,
                 $('#qiyefazhanlicheng').append(html);
             }
         });
-
     });
 
     //上传企业宣传图

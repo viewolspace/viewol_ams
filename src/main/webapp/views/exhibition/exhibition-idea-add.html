@@ -145,15 +145,31 @@
             <label class="layui-form-label">展品分类</label>
 
             <div class="layui-input-inline">
-                <select id="categoryId" name="categoryId">
-                    <option value="防护">防护</option>
-                    <option value="救援">救援</option>
-                    <option value="车辆机械">车辆机械</option>
-                    <option value="灭火">灭火</option>
-                    <option value="报警及监控">报警及监控</option>
-                    <option value="防火及灭火">防火及灭火</option>
-                    <option value="其他">其他</option>
+                <select lay-filter="categoryId" id="categoryId" name="categoryId">
+                    <option value="消防装备类">消防装备类</option>
+                    <option value="建筑防火类">建筑防火类</option>
+
+                    <optgroup label="消防装备类">
+                        <option value="防护">防护</option>
+                        <option value="救援">救援</option>
+                        <option value="车辆机械">车辆机械</option>
+                        <option value="灭火">灭火</option>
+                        <option value="其它">其它</option>
+                    </optgroup>
+                    <optgroup label="建筑防火类">
+                        <option value="报警及监控">报警及监控</option>
+                        <option value="防火及灭火">防火及灭火</option>
+                        <option value="其它">其它</option>
+                    </optgroup>
                 </select>
+            </div>
+        </div>
+
+        <div class="layui-inline" id="otherCategoryDiv" style="display: none">
+            <label class="layui-form-label">其它分类</label>
+
+            <div class="layui-input-inline">
+                <input type="text" name="otherCategory" placeholder="请输入其它分类" class="layui-input">
             </div>
         </div>
 
@@ -215,7 +231,7 @@
         </div>
     </div>
 
-    <div class="layui-form-item">
+    <!--<div class="layui-form-item">
         <label class="layui-form-label">国内外市场推广情况</label>
 
         <div class="layui-input-block">
@@ -225,7 +241,7 @@
 （请提供文档，限500字，随相关证书打包上传）"
                       class="layui-textarea"></textarea>
         </div>
-    </div>
+    </div>-->
 
     <div class="layui-form-item">
         <label class="layui-form-label">展品图片</label>

@@ -41,6 +41,13 @@ layui.use(requireModules, function (form,
         if (!$.isEmptyObject(productIdeaData)) {
             formUtil.renderData($('#exhibition-idea-add-form'), productIdeaData);
 
+            if(productIdeaData.categoryId == '其它'){
+                $("#otherCategoryDiv").show();
+            } else {
+                $("#otherCategoryDiv").hide();
+                $("#otherCategoryDiv").val("");
+            }
+
             $('#logoAvatarId').attr('src', param.image);
             $('#logo').val(param.image);
 
@@ -164,6 +171,15 @@ layui.use(requireModules, function (form,
         error: function () {
             layer.closeAll('loading');
             return layer.msg('数据请求异常');
+        }
+    });
+
+    f.on('select(categoryId)', function(data){
+        if(data.value == '其它'){
+            $("#otherCategoryDiv").show();
+        } else {
+            $("#otherCategoryDiv").hide();
+            $("#otherCategoryDiv").val("");
         }
     });
 

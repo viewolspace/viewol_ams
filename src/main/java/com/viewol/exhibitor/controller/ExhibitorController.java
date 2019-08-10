@@ -22,6 +22,7 @@ import com.viewol.sys.interceptor.Repeat;
 import com.viewol.sys.log.annotation.MethodLog;
 import com.viewol.sys.utils.Constants;
 import com.viewol.sys.utils.HtmlUtil;
+import com.viewol.util.WordsStatUtil;
 import com.youguu.core.pojo.Response;
 import com.youguu.core.util.HttpUtil;
 import com.youguu.core.util.PropertiesUtil;
@@ -357,6 +358,12 @@ public class ExhibitorController {
                                       @RequestParam(value = "content", defaultValue = "") String content) {
 
         BaseResponse rs = new BaseResponse();
+        int count = WordsStatUtil.wordCount(content);
+        if(count>120){
+            rs.setStatus(false);
+            rs.setMsg("展商介绍不能多余120字");
+            return rs;
+        }
         Company company = companyService.getCompany(id);
 
         company.setContentView(HtmlUtil.stringFilter(content));
@@ -548,7 +555,8 @@ public class ExhibitorController {
     @ResponseBody
     public BaseResponse updateShow(@RequestParam(value = "publicityImgUrls", defaultValue = "") String publicityImgUrls,
                                    @RequestParam(value = "productImgUrls", defaultValue = "") String productImgUrls,
-                                   @RequestParam(value = "progress", defaultValue = "") String progress) {
+                                   @RequestParam(value = "progress", defaultValue = "") String progress,
+                                   @RequestParam(value = "showFlag", defaultValue = "") String showFlag) {
 
         BaseResponse rs = new BaseResponse();
         List<String> imgUrl = new ArrayList<>(); //宣传图
@@ -577,6 +585,7 @@ public class ExhibitorController {
         companyShow.setImgUrl(imgUrl);
         companyShow.setProgresses(progresses);
         companyShow.setProductUrl(productUrl);
+        companyShow.setShowFlag(showFlag);
 
         int companyId = TokenManager.getCompanyId();
         String json = JSONObject.toJSONString(companyShow);

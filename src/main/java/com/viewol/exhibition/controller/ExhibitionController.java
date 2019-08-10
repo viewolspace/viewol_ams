@@ -25,6 +25,7 @@ import com.viewol.sys.interceptor.Repeat;
 import com.viewol.sys.log.annotation.MethodLog;
 import com.viewol.sys.utils.Constants;
 import com.viewol.sys.utils.HtmlUtil;
+import com.viewol.util.WordsStatUtil;
 import com.youguu.core.pojo.Response;
 import com.youguu.core.util.HttpUtil;
 import com.youguu.core.util.PageHolder;
@@ -203,6 +204,14 @@ public class ExhibitionController {
                                       @RequestParam(value = "pdfUrl", defaultValue = "") String pdfUrl) {
 
         BaseResponse rs = new BaseResponse();
+
+        int count = WordsStatUtil.wordCount(content);
+        if (count > 120) {
+            rs.setStatus(false);
+            rs.setMsg("展品介绍不能多余120字");
+            return rs;
+        }
+
         Product product = new Product();
         product.setCompanyId(TokenManager.getCompanyId());
         product.setCategoryId(ids[0]);
@@ -254,6 +263,14 @@ public class ExhibitionController {
                                          @RequestParam(value = "pdfUrl", defaultValue = "") String pdfUrl) {
 
         BaseResponse rs = new BaseResponse();
+
+        int count = WordsStatUtil.wordCount(content);
+        if (count > 120) {
+            rs.setStatus(false);
+            rs.setMsg("展品介绍不能多余120字");
+            return rs;
+        }
+
         Product product = productService.getProduct(id);
         product.setCategoryId(ids[0]);
         product.setName(name);
@@ -508,7 +525,8 @@ public class ExhibitionController {
                                        @RequestParam(value = "comLogo", defaultValue = "") String comLogo,
                                        @RequestParam(value = "ext", defaultValue = "") String ext,
                                        @RequestParam(value = "model", defaultValue = "") String model,
-                                       @RequestParam(value = "status", defaultValue = "") int status) {
+                                       @RequestParam(value = "status", defaultValue = "") int status,
+                                       @RequestParam(value = "otherCategory", defaultValue = "") String otherCategory) {
 
         BaseResponse rs = new BaseResponse();
         ProductIdea productIdea = productIdeaService.getProductIdea(productId);
@@ -537,6 +555,7 @@ public class ExhibitionController {
         productIdea.setWebsite(website);
         productIdea.setEmail(email);
         productIdea.setCategoryId(categoryId);
+        productIdea.setOtherCategory(otherCategory);
         productIdea.setLogo(logo);
         productIdea.setDes(des);
         productIdea.setQuota(quota);
@@ -549,7 +568,7 @@ public class ExhibitionController {
         productIdea.setStatus(status);
 
         int count = productIdeaService.countByCompanyId(companyId);
-        if(count > 4){
+        if (count > 4) {
             rs.setStatus(false);
             rs.setMsg("最多申请4个创新产品");
             return rs;
