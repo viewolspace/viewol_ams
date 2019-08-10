@@ -37,9 +37,9 @@ public class CategoryController {
 
         List<Category> list = null;
         if(type==1){
-            list = categoryService.listAll("0001");
+            list = categoryService.listAll("0003");
         } else if(type == 2) {
-            list = categoryService.listAll("0002");
+            list = categoryService.listAll("0004");
         }
 
         if(list!=null && list.size()>0){

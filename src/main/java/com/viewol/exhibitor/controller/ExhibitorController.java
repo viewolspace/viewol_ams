@@ -566,7 +566,7 @@ public class ExhibitorController {
         if (!StringUtils.isEmpty(publicityImgUrls)) {
             String[] imgUrlArray = publicityImgUrls.split(",");
             for (int i = 0; i < imgUrlArray.length; i++) {
-                if (!StringUtils.isEmpty(imgUrlArray[i])) {
+                if (!StringUtils.isEmpty(imgUrlArray[i]) && imgUrlArray[i].startsWith("http")) {
                     imgUrl.add(imgUrlArray[i]);
                 }
             }
@@ -575,7 +575,7 @@ public class ExhibitorController {
         if (!StringUtils.isEmpty(productImgUrls)) {
             String[] productUrlArray = productImgUrls.split(",");
             for (int i = 0; i < productUrlArray.length; i++) {
-                if (!StringUtils.isEmpty(productUrlArray[i])) {
+                if (!StringUtils.isEmpty(productUrlArray[i]) && productUrlArray[i].startsWith("http")) {
                     productUrl.add(productUrlArray[i]);
                 }
             }
