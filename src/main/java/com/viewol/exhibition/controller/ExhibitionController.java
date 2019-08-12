@@ -25,6 +25,7 @@ import com.viewol.sys.interceptor.Repeat;
 import com.viewol.sys.log.annotation.MethodLog;
 import com.viewol.sys.utils.Constants;
 import com.viewol.sys.utils.HtmlUtil;
+import com.viewol.util.FilterHtmlUtil;
 import com.viewol.util.WordsStatUtil;
 import com.youguu.core.pojo.Response;
 import com.youguu.core.util.HttpUtil;
@@ -205,7 +206,7 @@ public class ExhibitionController {
 
         BaseResponse rs = new BaseResponse();
 
-        int count = WordsStatUtil.wordCount(content);
+        int count = WordsStatUtil.wordCount(FilterHtmlUtil.html2Text(content));
         if (count > 120) {
             rs.setStatus(false);
             rs.setMsg("展品介绍不能多余120字");
@@ -264,7 +265,7 @@ public class ExhibitionController {
 
         BaseResponse rs = new BaseResponse();
 
-        int count = WordsStatUtil.wordCount(content);
+        int count = WordsStatUtil.wordCount(FilterHtmlUtil.html2Text(content));
         if (count > 120) {
             rs.setStatus(false);
             rs.setMsg("展品介绍不能多余120字");
