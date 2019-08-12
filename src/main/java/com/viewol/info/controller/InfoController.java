@@ -129,6 +129,7 @@ public class InfoController {
         BaseResponse rs = new BaseResponse();
         Info info = new Info();
         info.setTitle(title);
+        info.setSite(1);//1-站内，只有管理员版才能发站外资讯
         info.setSummary(summary);
         info.setPubTime(new Date());
         info.setPicUrl(imageAvatar);
