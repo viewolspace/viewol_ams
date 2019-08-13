@@ -38,13 +38,13 @@ layui.use(requireModules, function (form,
 
     ajax.request(exhibitorApi.getUrl('getShow'), null, function (result) {
         var data = result.data;
-        if(!$.isEmptyObject(data)) {
+        if (!$.isEmptyObject(data)) {
             formUtil.renderData($('#show-form'), data);
         }
 
         var imgurls;
         $.each(data.imgUrl, function (index, element) {
-            if(element != 'undefined'){
+            if (element != 'undefined') {
                 $('#publicityDiv').append('<img src="' + element + '" class="layui-upload-img">');
                 imgurls = imgurls + "," + element;
             }
@@ -53,7 +53,7 @@ layui.use(requireModules, function (form,
 
         var proImgUrls;
         $.each(data.productUrl, function (index, element) {
-            if(element != 'undefined') {
+            if (element != 'undefined') {
                 $('#productDiv').append('<img src="' + element + '" class="layui-upload-img">');
                 proImgUrls = proImgUrls + "," + element;
             }
@@ -65,7 +65,7 @@ layui.use(requireModules, function (form,
                 $('#times').val(element.times);
                 $('#des').val(element.des);
             } else {
-                var html = '<div class="layui-form-item"><div class="layui-inline"><label class="layui-form-label">年份</label><div class="layui-input-inline"><input type="text" name="times" lay-verify="required" value="' + element.times + '" autocomplete="off" class="layui-input"></div></div><div class="layui-inline"><label class="layui-form-label">事件</label><div class="layui-input-inline"><input type="text" name="des" lay-verify="required" value="' + element.des + '" autocomplete="off" class="layui-input" style="width: 450px"></div></div></div>';
+                var html = '<div class="layui-form-item"><div class="layui-inline"><label class="layui-form-label">年份</label><div class="layui-input-inline"><input type="text" name="times" lay-verify="required" value="' + element.times + '" autocomplete="off" class="layui-input"></div></div><div class="layui-inline"><label class="layui-form-label">事件</label><div class="layui-input-inline" style="width: 450px"><input type="text" name="des" lay-verify="required" value="' + element.des + '" autocomplete="off" class="layui-input" style="width: 450px"></div></div><button class="layui-btn layui-btn-danger" type="button" id="del">删除</button></div>';
                 $('#qiyefazhanlicheng').append(html);
             }
         });
@@ -160,8 +160,19 @@ layui.use(requireModules, function (form,
     });
 
     $("#addInput").click(function () {
-        var html = '<div class="layui-form-item"><div class="layui-inline"><label class="layui-form-label">年份</label><div class="layui-input-inline"><input type="text" name="times" lay-verify="required" autocomplete="off" class="layui-input"></div></div><div class="layui-inline"><label class="layui-form-label">事件</label><div class="layui-input-inline"><input type="text" name="des" lay-verify="required" autocomplete="off" class="layui-input" style="width: 450px"></div></div></div>';
+        var len = $("#qiyefazhanlicheng .layui-form-item").length;
+        if (len > 4) {
+            toast.msg("最多添加5条发展历程");
+            return;
+        }
+
+        var html = '<div class="layui-form-item"><div class="layui-inline"><label class="layui-form-label">年份</label><div class="layui-input-inline"><input type="text" name="times" lay-verify="required" autocomplete="off" class="layui-input"></div></div><div class="layui-inline"><label class="layui-form-label">事件</label><div class="layui-input-inline" style="width: 450px"><input type="text" name="des" lay-verify="required" autocomplete="off" class="layui-input" style="width: 450px"></div></div><button class="layui-btn layui-btn-danger" type="button" id="del">删除</button></div>';
         $('#qiyefazhanlicheng').append(html);
+    });
+
+    $(document).on('click', '#del', function () {
+        $(this).parent().remove();
+        toast.msg('删除成功，请点击下方《保存》按钮保存！');
     });
 
     //保存展商秀

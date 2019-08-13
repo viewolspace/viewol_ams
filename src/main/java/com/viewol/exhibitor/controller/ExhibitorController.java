@@ -360,9 +360,9 @@ public class ExhibitorController {
 
         BaseResponse rs = new BaseResponse();
         int count = WordsStatUtil.wordCount(FilterHtmlUtil.html2Text(content));
-        if(count>120){
+        if(count>80){
             rs.setStatus(false);
-            rs.setMsg("展商介绍不能多余120字");
+            rs.setMsg("展商介绍不能多余80字");
             return rs;
         }
         Company company = companyService.getCompany(id);
