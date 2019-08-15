@@ -109,19 +109,19 @@
             </div>
         </div>
 
-        <div class="layui-inline">
+        <!--<div class="layui-inline">
             <label class="layui-form-label">座机</label>
 
             <div class="layui-input-inline">
                 <input type="text" name="landLine" lay-verify="required" autocomplete="off" placeholder="010-66660000"
                        class="layui-input">
             </div>
-        </div>
+        </div>-->
     </div>
 
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">网站</label>
+            <label class="layui-form-label">展商网站</label>
 
             <div class="layui-input-inline">
                 <input type="text" name="website" lay-verify="required" autocomplete="off"
@@ -183,7 +183,7 @@
         </div>
     </div>
 
-    <div class="layui-form-item">
+   <!-- <div class="layui-form-item">
         <label class="layui-form-label">产品商标<br>162x162px</label>
         <div class="layui-input-block">
             <div class="layui-upload-drag">
@@ -199,27 +199,29 @@
             </button>
             <input class="layui-upload-file" type="file" name="file">
         </div>
-    </div>
+    </div>-->
 
     <div class="layui-form-item">
-        <label class="layui-form-label">产品概况</label>
+        <label class="layui-form-label">申报技术产品的名称及规格型号</label>
 
         <div class="layui-input-block">
-            <textarea name="des" lay-verify="required" autocomplete="off" placeholder="请输入产品概况"
+            <textarea name="quota" lay-verify="required" autocomplete="off" placeholder="请输入申报技术产品的名称及规格型号"
                       class="layui-textarea"></textarea>
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">关键技术指标</label>
+        <label class="layui-form-label">申报技术产品概述</label>
 
         <div class="layui-input-block">
-            <textarea name="quota" lay-verify="required" autocomplete="off" placeholder="请输入关键技术指标"
+            <textarea name="des" lay-verify="required" autocomplete="off" placeholder="1、核心、关键技术及创新点（限1000字）
+2、与当前国内外同类技术产品主要技术性能的比较（限500字）
+3、在促进科技进步方面的作用（限100字）"
                       class="layui-textarea"></textarea>
         </div>
     </div>
 
-    <div class="layui-form-item">
+<!--    <div class="layui-form-item">
         <label class="layui-form-label">产品创新点</label>
 
         <div class="layui-input-block">
@@ -229,7 +231,7 @@
 3，如何开拓了新的应用领域或方向
 4，外观创新，新颖设计" class="layui-textarea"></textarea>
         </div>
-    </div>
+    </div>-->
 
     <!--<div class="layui-form-item">
         <label class="layui-form-label">国内外市场推广情况</label>
@@ -244,7 +246,8 @@
     </div>-->
 
     <div class="layui-form-item">
-        <label class="layui-form-label">展品图片</label>
+        <label class="layui-form-label">申报技术产品图片</label>
+        图片要求：大小 6cm×6cm，分辨率300pixels/inch，使用jpeg、tiff格式。
         <div class="layui-input-block">
             <div class="layui-upload-drag">
                 <a href=" javascript:void(0); ">
@@ -258,15 +261,14 @@
                 <i class="layui-icon"></i>
                 上传图片
             </button>
-            <div>图片要求：大小 6cm×6cm，分辨率300pixels/inch，使用jpeg、tiff格式。</div>
-
 
             <input class="layui-upload-file" type="file" name="file">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">公司logo</label>
+        <label class="layui-form-label">申报单位LOGO</label>
+        图片要求：大小 6cm×6cm，分辨率300pixels/inch，使用jpeg、tiff格式。
         <div class="layui-input-block">
             <div class="layui-upload-drag">
                 <a href=" javascript:void(0); ">
@@ -280,27 +282,43 @@
                 <i class="layui-icon"></i>
                 上传图片
             </button>
-            <div>图片要求：大小 6cm×6cm，分辨率300pixels/inch，使用jpeg、tiff格式。</div>
-
-
             <input class="layui-upload-file" type="file" name="file">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">相关证书</label>
+        <label class="layui-form-label">相关证明文件</label>
 
+        1、检测报告、知识产权证明材料（扫描件）<br>
+        2、鉴定证书、技术总结报告、专利证书、奖励证书、用户证明等（扫描件）<br>
+        3、以上要求文件打包成rar或zip格式上传。<br>
         <div class="layui-input-inline" style="width: 400px;">
             <input type="text" name="ext" id="ext" autocomplete="off" placeholder="" class="layui-input">
-            <div>
-                如：新产品鉴定证书、技术总结报告、专利证书、奖励证书、用户意见、检测报告及其它知识产权证明材料（电子文件）。统一打包成rar或zip格式上传。
-            </div>
         </div>
 
 
         <div class="layui-input-inline">
             <button type="button" class="layui-btn" id="extBtn"><i class="layui-icon"></i>上传压缩文件(最大10M)</button>
 
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">申报单位承诺</label>
+        本单位承诺：上述申报资料全部真实有效。加盖单位公章，日期。拍照上传
+        <div class="layui-input-block">
+            <div class="layui-upload-drag">
+                <a href=" javascript:void(0); ">
+                    <img id="promisePicAvatarId" src="../../image/default_upload_z.png" alt="上传图片" width="162" height="162">
+                </a>
+                <input type="hidden" id="promisePic" name="promisePic" value="">
+            </div>
+
+            <button type="button" class="layui-btn" id="promisePicBtn">
+                <i class="layui-icon"></i>
+                上传图片
+            </button>
+            <input class="layui-upload-file" type="file" name="file">
         </div>
     </div>
 

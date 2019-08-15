@@ -195,19 +195,19 @@ layui.use(requireModules, function (
         },
 
         apply: function (rowdata) {
-            toast.success('创新产品系统升级，请等待再次开放！');
-            //var url = request.composeUrl(webName + '/views/exhibition/exhibition-idea-add.html', rowdata);
-            //var index = layer.open({
-            //    type: 2,
-            //    title: "申请创新产品",
-            //    area: ['1100px', '450px'],
-            //    offset: '5%',
-            //    scrollbar: false,
-            //    content: url,
-            //    success: function (ly, index) {
-            //        // layer.iframeAuto(index);
-            //    }
-            //});
+            // toast.success('创新产品系统升级，请等待再次开放！');
+            var url = request.composeUrl(webName + '/views/exhibition/exhibition-idea-add.html', rowdata);
+            var index = layer.open({
+               type: 2,
+               title: "申请创新产品",
+               area: ['1100px', '500px'],
+               offset: '5%',
+               scrollbar: false,
+               content: url,
+               success: function (ly, index) {
+                   // layer.iframeAuto(index);
+               }
+            });
         },
 
         refresh: function () {

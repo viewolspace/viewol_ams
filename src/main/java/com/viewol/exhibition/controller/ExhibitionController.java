@@ -527,7 +527,8 @@ public class ExhibitionController {
                                        @RequestParam(value = "ext", defaultValue = "") String ext,
                                        @RequestParam(value = "model", defaultValue = "") String model,
                                        @RequestParam(value = "status", defaultValue = "") int status,
-                                       @RequestParam(value = "otherCategory", defaultValue = "") String otherCategory) {
+                                       @RequestParam(value = "otherCategory", defaultValue = "") String otherCategory,
+                                       @RequestParam(value = "promisePic", defaultValue = "") String promisePic) {
 
         BaseResponse rs = new BaseResponse();
         ProductIdea productIdea = productIdeaService.getProductIdea(productId);
@@ -567,6 +568,7 @@ public class ExhibitionController {
         productIdea.setExt(ext);
         productIdea.setModel(model);
         productIdea.setStatus(status);
+        productIdea.setPromisePic(promisePic);
 
         int count = productIdeaService.countByCompanyId(companyId);
         if (count > 4) {

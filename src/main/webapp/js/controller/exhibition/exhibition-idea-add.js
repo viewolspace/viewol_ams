@@ -48,20 +48,20 @@ layui.use(requireModules, function (form,
                 $("#otherCategoryDiv").val("");
             }
 
-            $('#logoAvatarId').attr('src', param.image);
-            $('#logo').val(param.image);
+            $('#promisePicAvatarId').attr('src', param.promisePic);
+            $('#promisePic').val(param.promisePic);
 
-            $('#productPicAvatarId').attr('src', param.image);
-            $('#productPic').val(param.image);
+            $('#productPicAvatarId').attr('src', param.productPic);
+            $('#productPic').val(param.productPic);
 
-            $('#comLogoAvatarId').attr('src', param.image);
-            $('#comLogo').val(param.image);
+            $('#comLogoAvatarId').attr('src', param.comLogo);
+            $('#comLogo').val(param.comLogo);
         }
     });
 
-    //上传产品商标
+    //上传申报单位承诺,单位盖章图片
     upload.render({
-        elem: '#logoBtn'
+        elem: '#promisePicBtn'
         , url: exhibitionApi.getUrl('uploadImg').url
         , ext: 'jpg|png|gif|bmp'
         , type: 'image'
@@ -77,8 +77,8 @@ layui.use(requireModules, function (form,
             if (res.status == false) {
                 return layer.msg('上传失败');
             } else {
-                $('#logoAvatarId').attr('src', res.imageUrl);
-                $('#logo').val(res.imageUrl);
+                $('#promisePicAvatarId').attr('src', res.imageUrl);
+                $('#promisePic').val(res.imageUrl);
                 toast.msg("上传成功");
             }
         }
