@@ -15,11 +15,12 @@ var requireModules = [
     'request',
     'key-bind',
     'valid-login',
-    'toast'
+    'toast',
+    'exhibitor-api'
 ]
 window.top.registeModule(window, requireModules,'');
 
-layui.use(requireModules, function(layer,element,util,authority,login,laytpl,ajax,keyBind,validLogin,toast) {
+layui.use(requireModules, function(layer,element,util,authority,login,laytpl,ajax,keyBind,validLogin,toast,exhibitorApi) {
 
     var $ = layui.jquery;
 
@@ -329,6 +330,31 @@ layui.use(requireModules, function(layer,element,util,authority,login,laytpl,aja
     if (user) {
         // $("#iframe").attr('src', 'views/welcome/welcome.html');
         $("#iframe").attr('src', 'views/exhibition/exhibition-list.html?navId=242');
+
+        //如果展商没有设置分类，弹出修改分类弹窗
+        ajax.request(exhibitorApi.getUrl('getExhibitor'), null, function(result) {
+            if(result.status == true){
+                var company = result.data;
+                var categoryIds = company.categoryIds;
+
+                if(categoryIds == undefined || categoryIds == ''){
+                    var url = ajax.composeUrl(webName + '/views/exhibitor/exhibitor-category-update.html');
+
+                    var index = layer.open({
+                        type: 2,
+                        title: "设置展商分类，会提高企业在小程序里搜索，曝光的概率。",
+                        area: ['700px', '450px'],
+                        offset: '20%',
+                        scrollbar: false,
+                        content: url,
+                        success: function (ly, index) {
+                            // layer.iframeAuto(index);
+                        }
+                    });
+                }
+            }
+        });
+
     } else {
         $("#iframe").attr('src', 'views/welcome/welcome.html');
     }
