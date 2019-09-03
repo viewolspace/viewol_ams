@@ -96,7 +96,7 @@ public class ExhibitorController {
             try {
                 properties = PropertiesUtil.getProperties("properties/config.properties");
                 String inviteUrl = properties.getProperty("invite.url");
-                inviteUrl = MessageFormat.format(inviteUrl, company.getId());
+                inviteUrl = String.format(inviteUrl, company.getId());
                 vo.setInviteErUrl(inviteUrl);
             } catch (IOException e) {
                 e.printStackTrace();
