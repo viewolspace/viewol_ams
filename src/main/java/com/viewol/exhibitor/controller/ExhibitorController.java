@@ -497,6 +497,62 @@ public class ExhibitorController {
         return rs;
     }
 
+    /**
+     * 获取展商邀请函小程序码
+     *
+     * @return
+     */
+    @RequestMapping(value = "/getInviteMaErCode", method = RequestMethod.GET)
+    @ResponseBody
+    public ErcodeResponse getInviteMaErCode(@RequestParam(value = "width", defaultValue = "430") int width) {
+        ErcodeResponse rs = new ErcodeResponse();
+
+        Properties properties = null;
+        String url = null;
+        try {
+            properties = PropertiesUtil.getProperties("properties/config.properties");
+            url = properties.getProperty("company.ercode.url");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (url == null || "".equals(url)) {
+            rs.setStatus(false);
+            rs.setMsg("小程序码URL未配置");
+            return rs;
+        }
+
+        Map<String, String> params = new HashMap<>();
+        //小程序 1 观展通  3 观展讯
+        params.put("maNum", "3");
+        params.put("type", "2");
+        params.put("companyId", String.valueOf(TokenManager.getCompanyId()));
+        params.put("bUserId", "0");
+        params.put("width", String.valueOf(width));
+
+        Response<String> response = HttpUtil.sendPost(url, params, "UTF-8");
+
+        if ("0000".equals(response.getCode())) {
+            String result = response.getT();
+            JSONObject object = JSONObject.parseObject(result);
+            if ("0000".equals(object.getString("status"))) {
+                String ercode = object.getString("ercode");
+
+                rs.setStatus(true);
+                rs.setMsg("ok");
+                rs.setErcode(ercode);
+            } else {
+                rs.setStatus(false);
+                rs.setMsg("获取小程序码失败");
+            }
+        } else {
+            rs.setStatus(false);
+            rs.setMsg("获取小程序码失败");
+        }
+
+        return rs;
+    }
+
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public ImgResult uplpad(MultipartFile file, HttpServletRequest request) {

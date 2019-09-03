@@ -167,7 +167,7 @@ layui.use(requireModules, function (form,
         }
 
         var html = '<div class="layui-form-item"><div class="layui-inline"><label class="layui-form-label">年份</label><div class="layui-input-inline"><input type="text" name="times" lay-verify="required" autocomplete="off" class="layui-input"></div></div><div class="layui-inline"><label class="layui-form-label">事件</label><div class="layui-input-inline" style="width: 450px"><input type="text" name="des" lay-verify="required" autocomplete="off" class="layui-input" style="width: 450px"></div></div><button class="layui-btn layui-btn-danger" type="button" id="del">删除</button></div>';
-        $('#qiyefazhanlicheng').append(html);
+        $(this).parent().append(html);
     });
 
     $(document).on('click', '#del', function () {
