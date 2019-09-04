@@ -99,7 +99,7 @@
 	</tr>
 
     <tr>
-        <td>展商logo<br>174x174px(仅限一张图)</td>
+        <td>展商logo<br>174x72px(仅限一张图)</td>
         <td colspan="3">
             <div class="layui-upload-drag">
                 <a href=" javascript:void(0); ">
