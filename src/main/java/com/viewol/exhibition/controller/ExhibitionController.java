@@ -7,7 +7,11 @@ import com.viewol.exhibition.response.ExhibitionResponse;
 import com.viewol.exhibition.response.ProductIdeaResponse;
 import com.viewol.exhibition.vo.ExhibitionCategoryVO;
 import com.viewol.exhibition.vo.ExhibitionVO;
-import com.viewol.pojo.*;
+import com.viewol.exhibition.word.WordUtil;
+import com.viewol.pojo.Category;
+import com.viewol.pojo.Company;
+import com.viewol.pojo.Product;
+import com.viewol.pojo.ProductIdeaNew;
 import com.viewol.pojo.query.ProductQuery;
 import com.viewol.service.*;
 import com.viewol.shiro.token.TokenManager;
@@ -22,10 +26,7 @@ import com.youguu.core.util.HttpUtil;
 import com.youguu.core.util.PageHolder;
 import com.youguu.core.util.PropertiesUtil;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -300,9 +301,10 @@ public class ExhibitionController {
 
     @RequestMapping(value = "/uploadImg", method = RequestMethod.POST)
     @ResponseBody
-//    @MethodLog(module = Constants.EXHIBITION, desc = "上传产品图片")
     @Repeat
-    public UploadResponse uploadImg(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
+    public UploadResponse uploadImg(@RequestParam(value = "productName", defaultValue = "") String productName,
+                                    @RequestParam(value = "categoryId", defaultValue = "") String categoryId,
+                                    @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 
         UploadResponse rs = new UploadResponse();
 
@@ -312,11 +314,10 @@ public class ExhibitionController {
             String fileName = dft.format(new Date()) + Integer.toHexString(new Random().nextInt()) + "." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
 
             Properties properties = PropertiesUtil.getProperties("properties/config.properties");
-            String path = properties.getProperty("img.path");
-            String imageUrl = properties.getProperty("imageUrl");
+            String path = properties.getProperty("product.path");
+            String pdfUrl = properties.getProperty("productUrl");
 
-            SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
-            String midPath = yyyyMMdd.format(new Date());
+            String midPath = categoryId + File.separator + productName;
             File fileDir = new File(path + midPath);
             if (!fileDir.exists()) { //如果不存在 则创建
                 fileDir.mkdirs();
@@ -328,7 +329,7 @@ public class ExhibitionController {
 
                 rs.setStatus(true);
                 rs.setMsg("上传成功");
-                String httpUrl = imageUrl + File.separator + midPath + File.separator + fileName;
+                String httpUrl = pdfUrl + File.separator + midPath + File.separator + fileName;
                 rs.setImageUrl(httpUrl);
 
             } catch (IllegalStateException e) {
@@ -404,26 +405,28 @@ public class ExhibitionController {
     }
 
 
-    @RequestMapping(value = "/uploadPdf", method = RequestMethod.POST)
+    @PostMapping(value = "/uploadPdf")
     @ResponseBody
     @Repeat
-    public UploadPdfResponse uploadPdf(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
-
+    public UploadPdfResponse uploadPdf(@RequestParam(value = "productName", defaultValue = "") String productName,
+                                       @RequestParam(value = "categoryId", defaultValue = "") String categoryId,
+                                       @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
         UploadPdfResponse rs = new UploadPdfResponse();
 
         if (null != file) {
-            String myFileName = file.getOriginalFilename();// 文件原名称
+            // 文件原名称
+            String myFileName = file.getOriginalFilename();
             SimpleDateFormat dft = new SimpleDateFormat("yyyyMMddHHmmss");
             String fileName = dft.format(new Date()) + Integer.toHexString(new Random().nextInt()) + "." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
 
             Properties properties = PropertiesUtil.getProperties("properties/config.properties");
-            String path = properties.getProperty("pdf.path");
-            String pdfUrl = properties.getProperty("pdfUrl");
+            String path = properties.getProperty("product.path");
+            String pdfUrl = properties.getProperty("productUrl");
 
-            SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
-            String midPath = yyyyMMdd.format(new Date());
+            String midPath = categoryId + File.separator + productName;
             File fileDir = new File(path + midPath);
-            if (!fileDir.exists()) { //如果不存在 则创建
+            //如果不存在 则创建
+            if (!fileDir.exists()) {
                 fileDir.mkdirs();
             }
             path = path + midPath + File.separator + fileName;
@@ -589,6 +592,7 @@ public class ExhibitionController {
         }
 
         if (result > 0) {
+            exportWord(productIdea);
             rs.setStatus(true);
             rs.setMsg("修改成功");
         } else {
@@ -597,6 +601,39 @@ public class ExhibitionController {
         }
 
         return rs;
+    }
+
+    private void exportWord(final ProductIdeaNew productIdea) {
+        //模板、文件、图片路径
+        final String workPath = "word/";
+        String templateName = "template.docx";
+
+        Properties properties = null;
+        try {
+            properties = PropertiesUtil.getProperties("properties/config.properties");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String path = properties.getProperty("product.path");
+
+        String outFilePath = path + File.separator + productIdea.getCategoryId() + File.separator + productIdea.getProductName();
+        //模板替换数据封装
+        Map<String, Object> datas = new HashMap<String, Object>() {
+            {
+                put("companyName", productIdea.getCompanyName());
+                put("address", productIdea.getAddress());
+                put("phone", productIdea.getPhone());
+                put("des", productIdea.getDes());
+                put("quota", productIdea.getQuota());
+                put("ideaPoint", productIdea.getIdeaPoint());
+                put("achievement", productIdea.getAchievement());
+                put("standard", productIdea.getStandard());
+                put("core", productIdea.getCore());
+
+            }
+        };
+        //生成word文档
+        File file = WordUtil.generateWord(datas, workPath + templateName, outFilePath);
     }
 
     /**

@@ -66,6 +66,14 @@ layui.use(requireModules, function (form,
         , ext: 'jpg|png|gif|bmp'
         , type: 'image'
         , size: 1024 //最大允许上传的文件大小kb
+        , data: {
+            productName: function(){
+                return $('#productName').val();
+            },
+            categoryId: function(){
+                return $('#categoryId').val();
+            }
+        }
         , before: function (obj) {
             //预读本地文件
             layer.load(0, {
@@ -95,6 +103,14 @@ layui.use(requireModules, function (form,
         , ext: 'jpg|png|gif|bmp'
         , type: 'image'
         , size: 1024 //最大允许上传的文件大小kb
+        , data: {
+            productName: function(){
+                return $('#productName').val();
+            },
+            categoryId: function(){
+                return $('#categoryId').val();
+            }
+        }
         , before: function (obj) {
             //预读本地文件
             layer.load(0, {
@@ -124,6 +140,14 @@ layui.use(requireModules, function (form,
         , ext: 'jpg|png|gif|bmp'
         , type: 'image'
         , size: 1024 //最大允许上传的文件大小kb
+        , data: {
+            productName: function(){
+                return $('#productName').val();
+            },
+            categoryId: function(){
+                return $('#categoryId').val();
+            }
+        }
         , before: function (obj) {
             //预读本地文件
             layer.load(0, {
@@ -153,6 +177,14 @@ layui.use(requireModules, function (form,
         accept: 'file',
         ext: 'rar|zip',
         size: 10240, //最大允许上传的文件大小kb
+        data: {
+            productName: function(){
+                return $('#productName').val();
+            },
+            categoryId: function(){
+                return $('#categoryId').val();
+            }
+        },
         before: function (obj) {
             //预读本地文件
             layer.load(0, {
@@ -181,6 +213,14 @@ layui.use(requireModules, function (form,
         accept: 'file',
         ext: 'rar|zip',
         size: 10240, //最大允许上传的文件大小kb
+        data: {
+            productName: function(){
+                return $('#productName').val();
+            },
+            categoryId: function(){
+                return $('#categoryId').val();
+            }
+        },
         before: function (obj) {
             //预读本地文件
             layer.load(0, {
