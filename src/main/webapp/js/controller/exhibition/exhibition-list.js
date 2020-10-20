@@ -200,7 +200,7 @@ layui.use(requireModules, function (
             var index = layer.open({
                type: 2,
                title: "申请创新产品",
-               area: ['1100px', '500px'],
+               area: ['80%', '80%'],
                offset: '5%',
                scrollbar: false,
                content: url,

@@ -32,110 +32,109 @@
             cursor: pointer;
             color: #999;
         }
+
+        .layui-form-label{
+            width: 180px;
+        }
+
+        .layui-input-block {
+            margin-left: 210px;
+        }
     </style>
 </head>
 
 <body class="body">
 <form id="exhibition-idea-add-form" class="layui-form" action="">
     <div class="layui-form-item">
-        <div class="layui-inline">
+        <div class="layui-form-item">
             <label class="layui-form-label">产品ID</label>
 
-            <div class="layui-input-inline">
-                <input type="text" name="productId" disabled lay-verify="required" autocomplete="off"
-                       placeholder="请输入产品ID"
-                       class="layui-input">
+            <div class="layui-input-block">
+                <input type="text" name="productId" lay-verify="required" autocomplete="off" placeholder="请输入产品ID" class="layui-input">
             </div>
         </div>
-
-        <div class="layui-inline">
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-form-item">
             <label class="layui-form-label">产品名称</label>
 
-            <div class="layui-input-inline">
-                <input type="text" name="productName" lay-verify="required" autocomplete="off" placeholder="请输入产品名称"
-                       class="layui-input">
+            <div class="layui-input-block">
+                <input type="text" name="productName" lay-verify="required" autocomplete="off" placeholder="请输入产品名称" class="layui-input">
             </div>
         </div>
     </div>
 
     <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">展商ID</label>
+        <label class="layui-form-label">申报技术产品图片</label>
+        <div class="layui-input-block">
+            <div class="layui-upload-drag">
+                <a href=" javascript:void(0); ">
+                    <img id="productPicAvatarId" src="../../image/default_upload_z.png" alt="上传图片" width="80" height="80">
+                </a>
+                <input type="hidden" id="productPic" name="productPic" value="">
+            </div>
 
-            <div class="layui-input-inline">
-                <input type="text" name="companyId" disabled lay-verify="required" autocomplete="off"
-                       placeholder="请输入展商ID"
-                       class="layui-input">
+            <button type="button" class="layui-btn" id="productPicBtn">
+                <i class="layui-icon"></i>
+                上传图片
+            </button>
+
+            <input class="layui-upload-file" type="file" name="file">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-form-item">
+            <label class="layui-form-label">申报单位ID</label>
+
+            <div class="layui-input-block">
+                <input type="text" name="companyId" lay-verify="required" autocomplete="off" placeholder="请输入申报单位ID" class="layui-input">
             </div>
         </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-form-item">
+            <label class="layui-form-label">申报单位全称</label>
 
-        <div class="layui-inline">
-            <label class="layui-form-label">展商名称</label>
-
-            <div class="layui-input-inline">
-                <input type="text" name="companyName" lay-verify="required" autocomplete="off" placeholder="请输入展商名称"
-                       class="layui-input">
+            <div class="layui-input-block">
+                <input type="text" name="companyName" lay-verify="required" autocomplete="off" placeholder="请输入申报单位全称" class="layui-input">
             </div>
         </div>
     </div>
 
     <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">展位号</label>
-
-            <div class="layui-input-inline">
-                <input type="text" name="companyPlace" lay-verify="required" autocomplete="off" placeholder="请输入展位号"
-                       class="layui-input">
+        <label class="layui-form-label">申报单位LOGO</label>
+        <div class="layui-input-block">
+            <div class="layui-upload-drag">
+                <a href=" javascript:void(0); ">
+                    <img id="comLogoAvatarId" src="../../image/default_upload_z.png" alt="上传图片" width="80" height="80">
+                </a>
+                <input type="hidden" id="comLogo" name="comLogo" value="">
             </div>
-        </div>
 
-        <div class="layui-inline">
-            <label class="layui-form-label">联系人</label>
-
-            <div class="layui-input-inline">
-                <input type="text" name="liaisonMan" lay-verify="required" autocomplete="off" placeholder="张三"
-                       class="layui-input">
-            </div>
+            <button type="button" class="layui-btn" id="comLogoBtn">
+                <i class="layui-icon"></i>
+                上传图片
+            </button>
+            <input class="layui-upload-file" type="file" name="file">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">手机</label>
+        <div class="layui-form-item">
+            <label class="layui-form-label">通信地址和邮编</label>
 
-            <div class="layui-input-inline">
-                <input type="text" name="phone" lay-verify="required" autocomplete="off" placeholder="18866669999"
-                       class="layui-input">
+            <div class="layui-input-block">
+                <input type="text" name="address" lay-verify="required" autocomplete="off" placeholder="请输入通信地址和邮编" class="layui-input">
             </div>
         </div>
-
-        <!--<div class="layui-inline">
-            <label class="layui-form-label">座机</label>
-
-            <div class="layui-input-inline">
-                <input type="text" name="landLine" lay-verify="required" autocomplete="off" placeholder="010-66660000"
-                       class="layui-input">
-            </div>
-        </div>-->
     </div>
-
     <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">展商网站</label>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系人及移动电话</label>
 
-            <div class="layui-input-inline">
-                <input type="text" name="website" lay-verify="required" autocomplete="off"
-                       placeholder="http://www.baidu.com"
-                       class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label">邮箱</label>
-
-            <div class="layui-input-inline">
-                <input type="text" name="email" lay-verify="required" autocomplete="off" placeholder="zhangsan@163.com"
-                       class="layui-input">
+            <div class="layui-input-block">
+                <input type="text" name="phone" lay-verify="required" autocomplete="off" placeholder="请输入联系人及移动电话" class="layui-input">
             </div>
         </div>
     </div>
@@ -172,144 +171,90 @@
                 <input type="text" name="otherCategory" placeholder="请输入其它分类" class="layui-input">
             </div>
         </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label">型号</label>
-
-            <div class="layui-input-inline">
-                <input type="text" name="model" lay-verify="required" autocomplete="off" placeholder="M11"
-                       class="layui-input">
-            </div>
-        </div>
     </div>
 
-   <!-- <div class="layui-form-item">
-        <label class="layui-form-label">产品商标<br>162x162px</label>
-        <div class="layui-input-block">
-            <div class="layui-upload-drag">
-                <a href=" javascript:void(0); ">
-                    <img id="logoAvatarId" src="../../image/default_upload_z.png" alt="上传图片" width="162" height="162">
-                </a>
-                <input type="hidden" id="logo" name="logo" value="">
-            </div>
-
-            <button type="button" class="layui-btn" id="logoBtn">
-                <i class="layui-icon"></i>
-                上传图片
-            </button>
-            <input class="layui-upload-file" type="file" name="file">
-        </div>
-    </div>-->
-
     <div class="layui-form-item">
-        <label class="layui-form-label">申报技术产品的名称及规格型号</label>
+        <label class="layui-form-label">申报消防技术产品的具体名称和规格、型号（每张申报表填写1项）</label>
 
         <div class="layui-input-block">
-            <textarea name="quota" lay-verify="required" autocomplete="off" placeholder="请输入申报技术产品的名称及规格型号"
-                      class="layui-textarea"></textarea>
+            <textarea name="des" lay-verify="required" autocomplete="off" placeholder="" class="layui-textarea"></textarea>
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">申报技术产品概述</label>
+        <label class="layui-form-label">采用了哪些新技术、新材料、新工艺，实现了哪些新功能或者开辟了哪些新的应用领域</label>
 
         <div class="layui-input-block">
-            <textarea name="des" lay-verify="required" autocomplete="off" placeholder="1、核心、关键技术及创新点（限1000字）
-2、与当前国内外同类技术产品主要技术性能的比较（限500字）
-3、在促进科技进步方面的作用（限100字）"
-                      class="layui-textarea"></textarea>
+            <textarea name="quota" lay-verify="required" autocomplete="off" placeholder="请输入申报技术产品的名称及规格型号" class="layui-textarea"></textarea>
         </div>
     </div>
 
-<!--    <div class="layui-form-item">
-        <label class="layui-form-label">产品创新点</label>
 
-        <div class="layui-input-block">
-            <textarea name="ideaPoint" lay-verify="required" autocomplete="off" placeholder="产品创新点，可从以下几个方面进行描述：
-1，采用了何种新技术，关键技术指标达到的国内、国际水平
-2，新产品是否获得国家科技进步奖、发明奖或国际发明奖
-3，如何开拓了新的应用领域或方向
-4，外观创新，新颖设计" class="layui-textarea"></textarea>
-        </div>
-    </div>-->
-
-    <!--<div class="layui-form-item">
-        <label class="layui-form-label">国内外市场推广情况</label>
-
-        <div class="layui-input-block">
-            <textarea name="extend" lay-verify="required" autocomplete="off" placeholder="产品国内外市场推广情况
-1，在国内市场的占有率及推广空间
-2，产品在国际市场的情况。
-（请提供文档，限500字，随相关证书打包上传）"
-                      class="layui-textarea"></textarea>
-        </div>
-    </div>-->
 
     <div class="layui-form-item">
-        <label class="layui-form-label">申报技术产品图片</label>
-        图片要求：大小 6cm×6cm，分辨率300pixels/inch，使用jpeg、tiff格式。
+        <label class="layui-form-label">与同类技术产品比较，主要包括：性价比，适用性，安全性、可靠性，市场和应用前景如何</label>
+
         <div class="layui-input-block">
-            <div class="layui-upload-drag">
-                <a href=" javascript:void(0); ">
-                    <img id="productPicAvatarId" src="../../image/default_upload_z.png" alt="上传图片" width="162"
-                         height="162">
-                </a>
-                <input type="hidden" id="productPic" name="productPic" value="">
-            </div>
-
-            <button type="button" class="layui-btn" id="productPicBtn">
-                <i class="layui-icon"></i>
-                上传图片
-            </button>
-
-            <input class="layui-upload-file" type="file" name="file">
+            <textarea name="ideaPoint" lay-verify="required" autocomplete="off" placeholder="" class="layui-textarea"></textarea>
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">申报单位LOGO</label>
-        图片要求：大小 6cm×6cm，分辨率300pixels/inch，使用jpeg、tiff格式。
-        <div class="layui-input-block">
-            <div class="layui-upload-drag">
-                <a href=" javascript:void(0); ">
-                    <img id="comLogoAvatarId" src="../../image/default_upload_z.png" alt="上传图片" width="162"
-                         height="162">
-                </a>
-                <input type="hidden" id="comLogo" name="comLogo" value="">
-            </div>
+        <label class="layui-form-label">2019年1月1日至今，获得的发明专利或实用新型专利授权、软件著作权等</label>
 
-            <button type="button" class="layui-btn" id="comLogoBtn">
-                <i class="layui-icon"></i>
-                上传图片
-            </button>
-            <input class="layui-upload-file" type="file" name="file">
+        <div class="layui-input-block">
+            <textarea name="achievement" lay-verify="required" autocomplete="off" placeholder="" class="layui-textarea"></textarea>
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">相关证明文件</label>
+        <label class="layui-form-label">专利，软著相关图片（ZIP压缩包）</label>
 
-        1、检测报告、知识产权证明材料（扫描件）<br>
-        2、鉴定证书、技术总结报告、专利证书、奖励证书、用户证明等（扫描件）<br>
-        3、以上要求文件打包成rar或zip格式上传。<br>
         <div class="layui-input-inline" style="width: 400px;">
-            <input type="text" name="ext" id="ext" autocomplete="off" placeholder="" class="layui-input">
+            <input type="text" name="achievementZip" id="achievementZip" autocomplete="off" placeholder="" class="layui-input">
         </div>
-
 
         <div class="layui-input-inline">
-            <button type="button" class="layui-btn" id="extBtn"><i class="layui-icon"></i>上传压缩文件(最大10M)</button>
-
+            <button type="button" class="layui-btn" id="achievementZipBtn"><i class="layui-icon"></i>上传压缩文件(最大10M)</button>
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">申报单位承诺</label>
-        本单位承诺：上述申报资料全部真实有效。加盖单位公章，日期。拍照上传
+        <label class="layui-form-label">针对申报的消防技术产品，是否已经编制发布了企业标准，标准名称、发布时间及编号</label>
+
+        <div class="layui-input-block">
+            <textarea name="standard" lay-verify="required" autocomplete="off" placeholder="" class="layui-textarea"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">何时通过何种评价机构和评定方式，证明核心、关键技术指标达到国内领先或国际先进水平</label>
+
+        <div class="layui-input-block">
+            <textarea name="core" lay-verify="required" autocomplete="off" placeholder="" class="layui-textarea"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">相关证明（ZIP压缩包）</label>
+
+        <div class="layui-input-inline" style="width: 400px;">
+            <input type="text" name="corePic" id="corePic" autocomplete="off" placeholder="" class="layui-input">
+        </div>
+
+        <div class="layui-input-inline">
+            <button type="button" class="layui-btn" id="corePicBtn"><i class="layui-icon"></i>上传压缩文件(最大10M)</button>
+
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">申报单位承诺（上述申报资料全部真实有效。加盖单位公章，日期。拍照上传）</label>
         <div class="layui-input-block">
             <div class="layui-upload-drag">
                 <a href=" javascript:void(0); ">
-                    <img id="promisePicAvatarId" src="../../image/default_upload_z.png" alt="上传图片" width="162" height="162">
+                    <img id="promisePicAvatarId" src="../../image/default_upload_z.png" alt="上传图片" width="160" height="80">
                 </a>
                 <input type="hidden" id="promisePic" name="promisePic" value="">
             </div>

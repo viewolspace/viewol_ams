@@ -1,25 +1,15 @@
 package com.viewol.exhibition.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.viewol.common.BaseResponse;
-import com.viewol.common.GridBaseResponse;
-import com.viewol.common.LayeditResponse;
-import com.viewol.common.UploadPdfResponse;
-import com.viewol.common.UploadResponse;
+import com.viewol.common.*;
 import com.viewol.exhibition.response.ExhibitionCategoryResponse;
 import com.viewol.exhibition.response.ExhibitionResponse;
 import com.viewol.exhibition.response.ProductIdeaResponse;
 import com.viewol.exhibition.vo.ExhibitionCategoryVO;
 import com.viewol.exhibition.vo.ExhibitionVO;
-import com.viewol.pojo.Category;
-import com.viewol.pojo.Company;
-import com.viewol.pojo.Product;
-import com.viewol.pojo.ProductIdea;
+import com.viewol.pojo.*;
 import com.viewol.pojo.query.ProductQuery;
-import com.viewol.service.ICategoryService;
-import com.viewol.service.ICompanyService;
-import com.viewol.service.IProductIdeaService;
-import com.viewol.service.IProductService;
+import com.viewol.service.*;
 import com.viewol.shiro.token.TokenManager;
 import com.viewol.sys.interceptor.Repeat;
 import com.viewol.sys.log.annotation.MethodLog;
@@ -42,13 +32,7 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Random;
+import java.util.*;
 
 /**
  * 展品(产品)管理，最多上传五个展品
@@ -64,6 +48,8 @@ public class ExhibitionController {
     private IProductIdeaService productIdeaService;
     @Resource
     private ICompanyService companyService;
+    @Resource
+    private IProductIdeaNewService productIdeaNewService;
 
     @RequestMapping(value = "/exhibitionList", method = RequestMethod.POST)
     @ResponseBody
@@ -368,7 +354,6 @@ public class ExhibitionController {
      */
     @RequestMapping(value = "/uploadContentImage", method = RequestMethod.POST)
     @ResponseBody
-//    @MethodLog(module = Constants.EXHIBITION, desc = "展商富文本上传图片")
     @Repeat
     public LayeditResponse uploadContentImage(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 
@@ -421,7 +406,6 @@ public class ExhibitionController {
 
     @RequestMapping(value = "/uploadPdf", method = RequestMethod.POST)
     @ResponseBody
-//    @MethodLog(module = Constants.EXHIBITION, desc = "上传产品PDF")
     @Repeat
     public UploadPdfResponse uploadPdf(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 
@@ -510,31 +494,31 @@ public class ExhibitionController {
                                        @RequestParam(value = "productName", defaultValue = "") String productName,
                                        @RequestParam(value = "companyId", defaultValue = "") int companyId,
                                        @RequestParam(value = "companyName", defaultValue = "") String companyName,
-                                       @RequestParam(value = "companyPlace", defaultValue = "") String companyPlace,
-                                       @RequestParam(value = "liaisonMan", defaultValue = "") String liaisonMan,
                                        @RequestParam(value = "phone", defaultValue = "") String phone,
-                                       @RequestParam(value = "landLine", defaultValue = "") String landLine,
-                                       @RequestParam(value = "website", defaultValue = "") String website,
-                                       @RequestParam(value = "email", defaultValue = "") String email,
+
+                                       @RequestParam(value = "address", defaultValue = "") String address,
+                                       @RequestParam(value = "achievement", defaultValue = "") String achievement,
+                                       @RequestParam(value = "achievementZip", defaultValue = "") String achievementZip,
+                                       @RequestParam(value = "standard", defaultValue = "") String standard,
+                                       @RequestParam(value = "corePic", defaultValue = "") String corePic,
+                                       @RequestParam(value = "core", defaultValue = "") String core,
+
                                        @RequestParam(value = "categoryId", defaultValue = "") String categoryId,
                                        @RequestParam(value = "logo", defaultValue = "") String logo,
                                        @RequestParam(value = "des", defaultValue = "") String des,
                                        @RequestParam(value = "quota", defaultValue = "") String quota,
                                        @RequestParam(value = "ideaPoint", defaultValue = "") String ideaPoint,
-                                       @RequestParam(value = "extend", defaultValue = "") String extend,
                                        @RequestParam(value = "productPic", defaultValue = "") String productPic,
                                        @RequestParam(value = "comLogo", defaultValue = "") String comLogo,
-                                       @RequestParam(value = "ext", defaultValue = "") String ext,
-                                       @RequestParam(value = "model", defaultValue = "") String model,
                                        @RequestParam(value = "status", defaultValue = "") int status,
                                        @RequestParam(value = "otherCategory", defaultValue = "") String otherCategory,
                                        @RequestParam(value = "promisePic", defaultValue = "") String promisePic) {
 
         BaseResponse rs = new BaseResponse();
-        ProductIdea productIdea = productIdeaService.getProductIdea(productId);
+        ProductIdeaNew productIdea = productIdeaNewService.getProductIdea(productId);
         boolean addFlag = true;
         if (null == productIdea) {
-            productIdea = new ProductIdea();
+            productIdea = new ProductIdeaNew();
             productIdea.setcTime(new Date());
         } else {
             if (1 == productIdea.getStatus()) {
@@ -550,27 +534,48 @@ public class ExhibitionController {
         productIdea.setProductName(productName);
         productIdea.setCompanyId(companyId);
         productIdea.setCompanyName(companyName);
-        productIdea.setCompanyPlace(companyPlace);
-        productIdea.setLiaisonMan(liaisonMan);
         productIdea.setPhone(phone);
-        productIdea.setLandLine(landLine);
-        productIdea.setWebsite(website);
-        productIdea.setEmail(email);
         productIdea.setCategoryId(categoryId);
         productIdea.setOtherCategory(otherCategory);
         productIdea.setLogo(logo);
         productIdea.setDes(des);
         productIdea.setQuota(quota);
         productIdea.setIdeaPoint(ideaPoint);
-        productIdea.setExtend(extend);
         productIdea.setProductPic(productPic);
         productIdea.setComLogo(comLogo);
-        productIdea.setExt(ext);
-        productIdea.setModel(model);
+
         productIdea.setStatus(status);
+        //申报单位承诺，加盖图片地址
         productIdea.setPromisePic(promisePic);
 
-        int count = productIdeaService.countByCompanyId(companyId);
+        /** 以下为2020.10.19号删除字段，原创新产品中需要的字段 start **/
+
+        /*productIdea.setCompanyPlace(companyPlace);//展位号
+        productIdea.setLiaisonMan(liaisonMan);//联系人
+        productIdea.setLandLine(landLine);//座机
+        productIdea.setWebsite(website);//网站
+        productIdea.setEmail(email);//邮箱
+        productIdea.setExtend(extend);//国内外市场推广情况
+        productIdea.setExt(ext);//相关证书(证书打包上传)
+        productIdea.setModel(model);//型号*/
+        /** 以下为2020.10.19号删除字段，原创新产品中需要的字段 end **/
+
+        /** 以下为2020.10.19号新增创新产品字段 start **/
+        //通信地址和邮编
+        productIdea.setAddress(address);
+        //2019年1月1日至今，获得的发明专利或实用新型专利授权、软件著作权等
+        productIdea.setAchievement(achievement);
+        //专利，软著相关图片，多个请合并到一个图片上传
+        productIdea.setAchievementZip(achievementZip);
+        //针对申报的消防技术产品，是否已经编制发布了企业标准，标准名称、发布时间及编号
+        productIdea.setStandard(standard);
+        //何时通过何种评价机构和评定方式，证明核心、关键技术指标达到国内领先或国际先进水平
+        productIdea.setCorePic(corePic);
+        //相关证明，多个图片合并
+        productIdea.setCore(core);
+        /** 以下为2020.10.19号新增创新产品字段 end **/
+
+        int count = productIdeaNewService.countByCompanyId(companyId);
         if (count > 4) {
             rs.setStatus(false);
             rs.setMsg("最多申请4个创新产品");
@@ -578,9 +583,9 @@ public class ExhibitionController {
         }
         int result = 0;
         if (addFlag) {
-            result = productIdeaService.addProductIdea(productIdea);
+            result = productIdeaNewService.addProductIdea(productIdea);
         } else {
-            result = productIdeaService.updateProductIdea(productIdea);
+            result = productIdeaNewService.updateProductIdea(productIdea);
         }
 
         if (result > 0) {
@@ -605,10 +610,10 @@ public class ExhibitionController {
     public ProductIdeaResponse getProductIdea(@RequestParam(value = "id", defaultValue = "") int id) {
         ProductIdeaResponse rs = new ProductIdeaResponse();
         try {
-            ProductIdea productIdea = productIdeaService.getProductIdea(id);
+            ProductIdeaNew productIdea = productIdeaNewService.getProductIdea(id);
 
             if (null == productIdea) {
-                productIdea = new ProductIdea();
+                productIdea = new ProductIdeaNew();
                 Product product = productService.getProduct(id);
                 if (null == product) {
                     rs.setStatus(false);
@@ -625,7 +630,6 @@ public class ExhibitionController {
                 productIdea.setProductName(product.getName());
                 productIdea.setCompanyId(product.getCompanyId());
                 productIdea.setCompanyName(company.getName());
-                productIdea.setCompanyPlace(company.getPlace());
             }
 
             rs.setStatus(true);

@@ -146,9 +146,9 @@ layui.use(requireModules, function (form,
         }
     });
 
-    //上传pdf
+    //专利，软著相关图片（ZIP压缩包）
     upload.render({
-        elem: '#extBtn',
+        elem: '#achievementZipBtn',
         url: exhibitionApi.getUrl('uploadPdf').url,
         accept: 'file',
         ext: 'rar|zip',
@@ -164,7 +164,35 @@ layui.use(requireModules, function (form,
             if (res.status == false) {
                 return layer.msg('上传失败');
             } else {
-                $('#ext').val(res.pdfUrl);
+                $('#achievementZip').val(res.pdfUrl);
+                toast.msg("上传成功");
+            }
+        },
+        error: function () {
+            layer.closeAll('loading');
+            return layer.msg('数据请求异常');
+        }
+    });
+
+    //相关证明（ZIP压缩包）
+    upload.render({
+        elem: '#corePicBtn',
+        url: exhibitionApi.getUrl('uploadPdf').url,
+        accept: 'file',
+        ext: 'rar|zip',
+        size: 10240, //最大允许上传的文件大小kb
+        before: function (obj) {
+            //预读本地文件
+            layer.load(0, {
+                shade: 0.5
+            });
+        },
+        done: function (res) {
+            layer.closeAll('loading');
+            if (res.status == false) {
+                return layer.msg('上传失败');
+            } else {
+                $('#corePic').val(res.pdfUrl);
                 toast.msg("上传成功");
             }
         },
