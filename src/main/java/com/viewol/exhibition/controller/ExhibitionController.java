@@ -304,6 +304,7 @@ public class ExhibitionController {
     @Repeat
     public UploadResponse uploadImg(@RequestParam(value = "productName", defaultValue = "") String productName,
                                     @RequestParam(value = "categoryId", defaultValue = "") String categoryId,
+                                    @RequestParam(value = "type", defaultValue = "") String type,
                                     @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 
         UploadResponse rs = new UploadResponse();
@@ -311,7 +312,17 @@ public class ExhibitionController {
         if (null != file) {
             String myFileName = file.getOriginalFilename();// 文件原名称
             SimpleDateFormat dft = new SimpleDateFormat("yyyyMMddHHmmss");
-            String fileName = dft.format(new Date()) + Integer.toHexString(new Random().nextInt()) + "." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
+
+            String fileName = null;
+            if("1".equals(type)){
+                fileName = "申报单位承诺书." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
+            } else if("2".equals(type)){
+                fileName = "创新产品图片." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
+            } else if("3".equals(type)){
+                fileName = "申报单位LOGO." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
+            } else {
+                fileName = dft.format(new Date()) + Integer.toHexString(new Random().nextInt()) + "." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
+            }
 
             Properties properties = PropertiesUtil.getProperties("properties/config.properties");
             String path = properties.getProperty("product.path");
@@ -410,6 +421,7 @@ public class ExhibitionController {
     @Repeat
     public UploadPdfResponse uploadPdf(@RequestParam(value = "productName", defaultValue = "") String productName,
                                        @RequestParam(value = "categoryId", defaultValue = "") String categoryId,
+                                       @RequestParam(value = "type", defaultValue = "") String type,
                                        @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
         UploadPdfResponse rs = new UploadPdfResponse();
 
@@ -417,7 +429,15 @@ public class ExhibitionController {
             // 文件原名称
             String myFileName = file.getOriginalFilename();
             SimpleDateFormat dft = new SimpleDateFormat("yyyyMMddHHmmss");
-            String fileName = dft.format(new Date()) + Integer.toHexString(new Random().nextInt()) + "." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
+
+            String fileName = null;
+            if("1".equals(type)){
+                fileName = "专利软著相关图片." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
+            } else if("2".equals(type)){
+                fileName = "相关证明." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
+            } else {
+                fileName = dft.format(new Date()) + Integer.toHexString(new Random().nextInt()) + "." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
+            }
 
             Properties properties = PropertiesUtil.getProperties("properties/config.properties");
             String path = properties.getProperty("product.path");

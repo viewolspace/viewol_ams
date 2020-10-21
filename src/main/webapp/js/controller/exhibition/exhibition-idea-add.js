@@ -72,7 +72,8 @@ layui.use(requireModules, function (form,
             },
             categoryId: function(){
                 return $('#categoryId').val();
-            }
+            },
+            type: '1'
         }
         , before: function (obj) {
             //预读本地文件
@@ -109,7 +110,8 @@ layui.use(requireModules, function (form,
             },
             categoryId: function(){
                 return $('#categoryId').val();
-            }
+            },
+            type: '2'
         }
         , before: function (obj) {
             //预读本地文件
@@ -146,7 +148,8 @@ layui.use(requireModules, function (form,
             },
             categoryId: function(){
                 return $('#categoryId').val();
-            }
+            },
+            type: '3'
         }
         , before: function (obj) {
             //预读本地文件
@@ -183,7 +186,8 @@ layui.use(requireModules, function (form,
             },
             categoryId: function(){
                 return $('#categoryId').val();
-            }
+            },
+            type: '1'
         },
         before: function (obj) {
             //预读本地文件
@@ -219,7 +223,8 @@ layui.use(requireModules, function (form,
             },
             categoryId: function(){
                 return $('#categoryId').val();
-            }
+            },
+            type: '2'
         },
         before: function (obj) {
             //预读本地文件
