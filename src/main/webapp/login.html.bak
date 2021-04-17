@@ -32,7 +32,7 @@
 					<label class="layui-form-label">账号：</label>
 
 					<div class="layui-input-inline">
-						<input type="text" name="userName" class="layui-input" lay-verify="account" placeholder="账号" value="" autocomplete="on" maxlength="200" />
+						<input type="text" name="userName" class="layui-input" lay-verify="account" placeholder="账号" value="" autocomplete="on" maxlength="20" />
 					</div>
 				</div>
 				<div class="layui-form-item">
