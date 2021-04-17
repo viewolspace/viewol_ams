@@ -304,6 +304,7 @@ public class ExhibitionController {
     @Repeat
     public UploadResponse uploadImg(@RequestParam(value = "productName", defaultValue = "") String productName,
                                     @RequestParam(value = "categoryId", defaultValue = "") String categoryId,
+                                    @RequestParam(value = "companyName", defaultValue = "") String companyName,
                                     @RequestParam(value = "type", defaultValue = "") String type,
                                     @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 
@@ -314,11 +315,11 @@ public class ExhibitionController {
             SimpleDateFormat dft = new SimpleDateFormat("yyyyMMddHHmmss");
 
             String fileName = null;
-            if("1".equals(type)){
+            if ("1".equals(type)) {
                 fileName = "申报单位承诺书." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
-            } else if("2".equals(type)){
+            } else if ("2".equals(type)) {
                 fileName = "创新产品图片." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
-            } else if("3".equals(type)){
+            } else if ("3".equals(type)) {
                 fileName = "申报单位LOGO." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
             } else {
                 fileName = dft.format(new Date()) + Integer.toHexString(new Random().nextInt()) + "." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
@@ -328,7 +329,7 @@ public class ExhibitionController {
             String path = properties.getProperty("product.path");
             String pdfUrl = properties.getProperty("productUrl");
 
-            String midPath = categoryId + File.separator + productName;
+            String midPath = categoryId + File.separator + companyName + "_" + productName;
             File fileDir = new File(path + midPath);
             if (!fileDir.exists()) { //如果不存在 则创建
                 fileDir.mkdirs();
@@ -421,6 +422,7 @@ public class ExhibitionController {
     @Repeat
     public UploadPdfResponse uploadPdf(@RequestParam(value = "productName", defaultValue = "") String productName,
                                        @RequestParam(value = "categoryId", defaultValue = "") String categoryId,
+                                       @RequestParam(value = "companyName", defaultValue = "") String companyName,
                                        @RequestParam(value = "type", defaultValue = "") String type,
                                        @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
         UploadPdfResponse rs = new UploadPdfResponse();
@@ -431,9 +433,9 @@ public class ExhibitionController {
             SimpleDateFormat dft = new SimpleDateFormat("yyyyMMddHHmmss");
 
             String fileName = null;
-            if("1".equals(type)){
+            if ("1".equals(type)) {
                 fileName = "专利软著相关图片." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
-            } else if("2".equals(type)){
+            } else if ("2".equals(type)) {
                 fileName = "相关证明." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
             } else {
                 fileName = dft.format(new Date()) + Integer.toHexString(new Random().nextInt()) + "." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
@@ -443,7 +445,7 @@ public class ExhibitionController {
             String path = properties.getProperty("product.path");
             String pdfUrl = properties.getProperty("productUrl");
 
-            String midPath = categoryId + File.separator + productName;
+            String midPath = categoryId + File.separator + companyName + "_" + productName;
             File fileDir = new File(path + midPath);
             //如果不存在 则创建
             if (!fileDir.exists()) {
@@ -636,7 +638,7 @@ public class ExhibitionController {
         }
         String path = properties.getProperty("product.path");
 
-        String outFilePath = path + File.separator + productIdea.getCategoryId() + File.separator + productIdea.getProductName();
+        String outFilePath = path + File.separator + productIdea.getCategoryId() + File.separator + productIdea.getCompanyName() + "_" + productIdea.getProductName();
         //模板替换数据封装
         Map<String, Object> datas = new HashMap<String, Object>() {
             {

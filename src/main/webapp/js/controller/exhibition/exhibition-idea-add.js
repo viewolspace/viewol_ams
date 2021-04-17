@@ -73,6 +73,9 @@ layui.use(requireModules, function (form,
             categoryId: function(){
                 return $('#categoryId').val();
             },
+            companyName: function(){
+                return $('#companyName').val();
+            },
             type: '1'
         }
         , before: function (obj) {
@@ -110,6 +113,9 @@ layui.use(requireModules, function (form,
             },
             categoryId: function(){
                 return $('#categoryId').val();
+            },
+            companyName: function(){
+                return $('#companyName').val();
             },
             type: '2'
         }
@@ -149,6 +155,9 @@ layui.use(requireModules, function (form,
             categoryId: function(){
                 return $('#categoryId').val();
             },
+            companyName: function(){
+                return $('#companyName').val();
+            },
             type: '3'
         }
         , before: function (obj) {
@@ -187,6 +196,9 @@ layui.use(requireModules, function (form,
             categoryId: function(){
                 return $('#categoryId').val();
             },
+            companyName: function(){
+                return $('#companyName').val();
+            },
             type: '1'
         },
         before: function (obj) {
@@ -223,6 +235,9 @@ layui.use(requireModules, function (form,
             },
             categoryId: function(){
                 return $('#categoryId').val();
+            },
+            companyName: function(){
+                return $('#companyName').val();
             },
             type: '2'
         },

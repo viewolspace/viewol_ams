@@ -45,15 +45,11 @@
 
 <body class="body">
 <form id="exhibition-idea-add-form" class="layui-form" action="">
-    <div class="layui-form-item">
-        <div class="layui-form-item">
-            <label class="layui-form-label">产品ID</label>
+    <!--产品ID-->
+    <input type="hidden" id="productId" name="productId" value="">
+    <!--申报单位ID-->
+    <input type="hidden" id="companyId" name="companyId" value="">
 
-            <div class="layui-input-block">
-                <input type="text" name="productId" lay-verify="required" autocomplete="off" placeholder="请输入产品ID" class="layui-input">
-            </div>
-        </div>
-    </div>
     <div class="layui-form-item">
         <div class="layui-form-item">
             <label class="layui-form-label">产品名称</label>
@@ -85,19 +81,10 @@
 
     <div class="layui-form-item">
         <div class="layui-form-item">
-            <label class="layui-form-label">申报单位ID</label>
-
-            <div class="layui-input-block">
-                <input type="text" name="companyId" lay-verify="required" autocomplete="off" placeholder="请输入申报单位ID" class="layui-input">
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-form-item">
             <label class="layui-form-label">申报单位全称</label>
 
             <div class="layui-input-block">
-                <input type="text" name="companyName" lay-verify="required" autocomplete="off" placeholder="请输入申报单位全称" class="layui-input">
+                <input type="text" name="companyName" id="companyName" lay-verify="required" autocomplete="off" placeholder="请输入申报单位全称" class="layui-input">
             </div>
         </div>
     </div>
@@ -145,19 +132,54 @@
 
             <div class="layui-input-inline">
                 <select lay-filter="categoryId" id="categoryId" name="categoryId">
-                    <option value="消防装备类">消防装备类</option>
-                    <option value="建筑防火类">建筑防火类</option>
+                    <option value="">请选择分类</option>
 
-                    <optgroup label="消防装备类">
-                        <option value="防护">防护</option>
-                        <option value="救援">救援</option>
-                        <option value="车辆机械">车辆机械</option>
-                        <option value="灭火">灭火</option>
-                        <option value="其它">其它</option>
+                    <optgroup label="智慧消防">
+                        <option value="智慧消防技术产品">智慧消防技术产品</option>
+                        <option value="消防信息化技术产品">消防信息化技术产品</option>
                     </optgroup>
-                    <optgroup label="建筑防火类">
-                        <option value="报警及监控">报警及监控</option>
-                        <option value="防火及灭火">防火及灭火</option>
+                    <optgroup label="灭火系统和消防器具">
+                        <option value="喷水灭火产品">喷水灭火产品</option>
+                        <option value="泡沫灭火设备产品">泡沫灭火设备产品</option>
+                        <option value="干粉灭火设备产品">干粉灭火设备产品</option>
+                        <option value="气体灭火设备产品">气体灭火设备产品</option>
+                        <option value="灭火剂">灭火剂</option>
+                        <option value="灭火器">灭火器</option>
+                        <option value="消防给水设备产品">消防给水设备产品</option>
+                    </optgroup>
+                    <optgroup label="应急救援装备及职业健康">
+                        <option value="消防车辆">消防车辆</option>
+                        <option value="消防灭火装备">消防灭火装备</option>
+                        <option value="消防员防护装备">消防员防护装备</option>
+                        <option value="消防抢险救援装备">消防抢险救援装备</option>
+                        <option value="消防特种装备">消防特种装备</option>
+                        <option value="消防训练装备">消防训练装备</option>
+                        <option value="消防员职业健康">消防员职业健康</option>
+                        <option value="应急救援装备">应急救援装备</option>
+                        <option value="消防通信产品">消防通信产品</option>
+                    </optgroup>
+                    <optgroup label="火灾防护及逃生自救">
+                        <option value="火灾探测器">火灾探测器</option>
+                        <option value="电气火灾监控系统">电气火灾监控系统</option>
+                        <option value="消防联动控制系统">消防联动控制系统</option>
+                        <option value="可燃气体报警产品">可燃气体报警产品</option>
+                        <option value="消防应急照明产品">消防应急照明产品</option>
+                        <option value="消防安全疏散指示产品">消防安全疏散指示产品</option>
+                        <option value="消防安全标志">消防安全标志</option>
+                        <option value="防火涂料">防火涂料</option>
+                        <option value="防火堵料">防火堵料</option>
+                        <option value="防火门">防火门</option>
+                        <option value="防火窗">防火窗</option>
+                        <option value="防火卷帘">防火卷帘</option>
+                        <option value="防火玻璃">防火玻璃</option>
+                        <option value="建筑防烟排烟设施">建筑防烟排烟设施</option>
+                        <option value="逃生自救">逃生自救</option>
+                    </optgroup>
+                    <optgroup label="消防科研及火灾事故调查">
+                        <option value="消防科研技术设备">消防科研技术设备</option>
+                        <option value="火灾事故调查技术设备">火灾事故调查技术设备</option>
+                    </optgroup>
+                    <optgroup label="其它">
                         <option value="其它">其它</option>
                     </optgroup>
                 </select>

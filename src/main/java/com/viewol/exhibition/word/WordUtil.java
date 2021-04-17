@@ -69,7 +69,7 @@ public class WordUtil {
      * @return 生成的word文件
      */
     public static File generateWord(Map<String, Object> paramData, String templatePath, String outFilePath) {
-        String outFileName = "word_" + System.currentTimeMillis() + "_" + random.nextInt(100) + ".doc";
+        String outFileName = "2021年创新消防技术产品评选活动.docx";
         return generateWord(paramData, templatePath, outFilePath, outFileName);
     }
 
