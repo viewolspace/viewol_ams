@@ -2,6 +2,13 @@ package com.viewol.sys.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.viewol.common.BaseResponse;
+import com.viewol.pojo.CfpaCompany;
+import com.viewol.pojo.CfpaProduct;
+import com.viewol.pojo.Company;
+import com.viewol.pojo.Product;
+import com.viewol.service.CfpaService;
+import com.viewol.service.ICompanyService;
+import com.viewol.service.IProductService;
 import com.viewol.shiro.token.TokenManager;
 import com.viewol.sys.pojo.SysUser;
 import com.viewol.sys.pojo.SysUserRole;
@@ -27,7 +34,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 @Controller
@@ -42,6 +51,12 @@ public class LoginController {
     @Resource
     private SysUserRoleService sysUserRoleService;
 
+    @Resource
+    private CfpaService cfpaService;
+    @Resource
+    private ICompanyService companyService;
+    @Resource
+    private IProductService productService;
 
     /**
      * 跳转到登录页面
@@ -119,6 +134,130 @@ public class LoginController {
         return rs;
     }
 
+
+    /**
+     * 单点登录，统一信用代码登录
+     *
+     * @param userNum
+     * @return
+     */
+    @RequestMapping(value = "/ssoLogin", method = RequestMethod.POST)
+    @ResponseBody
+    public LoginResponse ssoLogin(String userNum) {
+        LoginResponse rs = new LoginResponse();
+        rs.setStatus(true);
+        rs.setMsg("登录成功");
+
+
+        Company company = companyService.getCompanyByUserNum(userNum);
+        if (null == company) {
+            /**
+             * 1、实时同步展商信息
+             */
+            CfpaCompany cfpaCompany = cfpaService.getCfpaCompany(userNum);
+
+            Company cp = new Company();
+            cp.setName(cfpaCompany.getZwgsmc());
+            cp.setShortName(cfpaCompany.getZwgsmc());
+            cp.setLogo("/" + cfpaCompany.getSrc());
+            cp.setContent(cfpaCompany.getQyjj());
+            cp.setProductNum(100);
+            cp.setCanApply(1);
+            cp.setPlace(cfpaCompany.getZwh());
+            cp.setPlaceSvg(cfpaCompany.getZwh());
+            cp.setcTime(new Date());
+
+            List<String> cList = new ArrayList<>();
+            cList.add("00010009");
+            int companyId = companyService.addCompany(2, cp, cList);
+
+            /**
+             * 2、给展商自动注册用户
+             */
+            SysUser sysUser = new SysUser();
+            sysUser.setPswd(new MD5().getMD5ofStr("123456").toLowerCase());
+            sysUser.setUserName(company.getName());
+            sysUser.setRealName(company.getName());
+            sysUser.setCompanyId(companyId);
+            sysUser.setUserStatus(1);
+            sysUser.setCreateTime(new Date());
+            sysUser.setEmail("");
+            sysUser.setPhone("");
+            sysUserService.saveSysUser(sysUser);
+
+            /**
+             * 3、给用户分配权限
+             */
+            SysUserRole sysUserRole = new SysUserRole();
+            sysUserRole.setRid(8);
+            sysUserRole.setUid(sysUser.getId());
+            sysUserRole.setCreateTime(new Date());
+            sysUserRoleService.saveSysUserRole(sysUserRole);
+
+            /**
+             * 4、同步展商下的展品列表
+             */
+            //统一信用代码（唯一标识）
+            String tyshxydm = cfpaCompany.getTyshxydm();
+            List<CfpaProduct> cfpaProductList = cfpaService.getCfpaProduct(tyshxydm);
+            for (CfpaProduct cfpaProduct : cfpaProductList) {
+                Product product = new Product();
+                product.setName(cfpaProduct.getCplxmc());
+                product.setCompanyId(companyId);
+                product.setContent(cfpaProduct.getCpjj());
+                product.setImage("/" + cfpaProduct.getSrc());
+                product.setCategoryId("00020009");
+                product.setStatus(0);//0上架
+                product.setcTime(new Date());
+
+                productService.addProduct(2, product);
+            }
+
+            company = companyService.getCompanyByUserNum(userNum);
+            if (null == company) {
+                rs.setStatus(false);
+                rs.setMsg("统一信用代码错误");
+                logger.error("统一信用代码错误， userNum=" + userNum);
+                return rs;
+            }
+        }
+
+        SysUser user = sysUserService.findSysUserByUserName(company.getName());
+        if (null == user) {
+            rs.setStatus(false);
+            rs.setMsg("登录账号错误");
+            logger.error("登录账号错误， userName=" + company.getName());
+            return rs;
+        }
+
+        try {
+            Properties properties = PropertiesUtil.getProperties("properties/config.properties");
+            String expoIdStr = properties.getProperty("expoId");
+            Integer expoId = Integer.parseInt(expoIdStr);
+            user.setExpoId(expoId);
+            TokenManager.login(user, true);
+        } catch (DisabledAccountException e) {
+            rs.setStatus(false);
+            rs.setMsg(e.getMessage());
+        } catch (AccountException e) {
+            rs.setStatus(false);
+            rs.setMsg(e.getMessage());
+        } catch (IOException e) {
+            rs.setStatus(false);
+            rs.setMsg("展会ID配置异常");
+        }
+
+        if (rs.isStatus()) {
+            JSONObject userJson = new JSONObject();
+            userJson.put("id", user.getId());
+            userJson.put("name", user.getRealName());
+            userJson.put("userName", user.getRealName());
+            userJson.put("roleCode", user.getRoleCode());
+
+            rs.setData(userJson);
+        }
+        return rs;
+    }
 
     /**
      * 解锁校验用户名，密码

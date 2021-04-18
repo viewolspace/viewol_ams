@@ -51,6 +51,13 @@ layui.define(requireModules,function(exports) {
 			},true,errorCall);
 		},
 
+		ssoLogin: function(userData,errorCall){
+			ajax.request(loginApi.getUrl('ssoLogin'), userData, function(result) {
+				login.setLoginInfo(result.data);
+				redirect('index.html');
+			},true,errorCall);
+		},
+
         register: function(userData,errorCall){
             ajax.request(loginApi.getUrl('register'), userData, function(result) {
                 login.setLoginInfo(result.data);

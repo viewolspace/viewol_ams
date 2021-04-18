@@ -19,6 +19,10 @@ layui.define(requireModules, function(exports) {
 			type: 'POST',
 			url: 'submitLogin.do'
 		},
+		'ssoLogin': {
+			type: 'POST',
+			url: 'ssoLogin.do'
+		},
 		'logout': {
 			url: 'logout.do'
 		},
