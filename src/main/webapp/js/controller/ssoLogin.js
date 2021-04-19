@@ -28,7 +28,6 @@ layui.use(requireModules, function (
     toast) {
 
     var param = ajax.getAllUrlParam();
-    alert(JSON.stringify(param));
 
     login.ssoLogin(param, function () {
         toast.msg("统一信用代码登录失败");

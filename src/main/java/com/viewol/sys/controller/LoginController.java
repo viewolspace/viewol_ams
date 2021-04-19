@@ -172,9 +172,11 @@ public class LoginController {
                 cList.add("00010009");
                 int companyId = companyService.addCompany(2, cp, cList);
 
+                cfpaService.downloadImg(cfpaCompany.getSrc());
                 /**
                  * 2、给展商自动注册用户
                  */
+                company = companyService.getCompanyByUserNum(userNum);
                 SysUser sysUser = new SysUser();
                 sysUser.setPswd(new MD5().getMD5ofStr("123456").toLowerCase());
                 sysUser.setUserName(company.getName());
@@ -215,6 +217,7 @@ public class LoginController {
                     product.setUuid(cfpaProduct.getUuid());
 
                     productService.addProduct(2, product);
+                    cfpaService.downloadImg(cfpaProduct.getSrc());
                 }
             }
         } catch (Exception e) {
