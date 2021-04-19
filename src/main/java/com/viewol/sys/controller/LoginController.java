@@ -166,6 +166,7 @@ public class LoginController {
                 cp.setPlace(cfpaCompany.getZwh());
                 cp.setPlaceSvg(cfpaCompany.getZwh());
                 cp.setcTime(new Date());
+                cp.setUserNum(cfpaCompany.getTyshxydm());
 
                 List<String> cList = new ArrayList<>();
                 cList.add("00010009");
@@ -211,6 +212,7 @@ public class LoginController {
                     //0上架
                     product.setStatus(0);
                     product.setcTime(new Date());
+                    product.setUuid(cfpaProduct.getUuid());
 
                     productService.addProduct(2, product);
                 }
