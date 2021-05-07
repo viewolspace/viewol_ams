@@ -41,7 +41,7 @@ layui.use(requireModules, function (form,
         if (!$.isEmptyObject(productIdeaData)) {
             formUtil.renderData($('#exhibition-idea-add-form'), productIdeaData);
 
-            if(productIdeaData.categoryId == '其它'){
+            if (productIdeaData.categoryId == '其它') {
                 $("#otherCategoryDiv").show();
             } else {
                 $("#otherCategoryDiv").hide();
@@ -67,13 +67,13 @@ layui.use(requireModules, function (form,
         , type: 'image'
         , size: 1024 //最大允许上传的文件大小kb
         , data: {
-            productName: function(){
+            productName: function () {
                 return $('#productName').val();
             },
-            categoryId: function(){
+            categoryId: function () {
                 return $('#categoryId').val();
             },
-            companyName: function(){
+            companyName: function () {
                 return $('#companyName').val();
             },
             type: '1'
@@ -108,13 +108,13 @@ layui.use(requireModules, function (form,
         , type: 'image'
         , size: 1024 //最大允许上传的文件大小kb
         , data: {
-            productName: function(){
+            productName: function () {
                 return $('#productName').val();
             },
-            categoryId: function(){
+            categoryId: function () {
                 return $('#categoryId').val();
             },
-            companyName: function(){
+            companyName: function () {
                 return $('#companyName').val();
             },
             type: '2'
@@ -149,13 +149,13 @@ layui.use(requireModules, function (form,
         , type: 'image'
         , size: 1024 //最大允许上传的文件大小kb
         , data: {
-            productName: function(){
+            productName: function () {
                 return $('#productName').val();
             },
-            categoryId: function(){
+            categoryId: function () {
                 return $('#categoryId').val();
             },
-            companyName: function(){
+            companyName: function () {
                 return $('#companyName').val();
             },
             type: '3'
@@ -190,13 +190,13 @@ layui.use(requireModules, function (form,
         ext: 'rar|zip',
         size: 10240, //最大允许上传的文件大小kb
         data: {
-            productName: function(){
+            productName: function () {
                 return $('#productName').val();
             },
-            categoryId: function(){
+            categoryId: function () {
                 return $('#categoryId').val();
             },
-            companyName: function(){
+            companyName: function () {
                 return $('#companyName').val();
             },
             type: '1'
@@ -230,13 +230,13 @@ layui.use(requireModules, function (form,
         ext: 'rar|zip',
         size: 10240, //最大允许上传的文件大小kb
         data: {
-            productName: function(){
+            productName: function () {
                 return $('#productName').val();
             },
-            categoryId: function(){
+            categoryId: function () {
                 return $('#categoryId').val();
             },
-            companyName: function(){
+            companyName: function () {
                 return $('#companyName').val();
             },
             type: '2'
@@ -262,8 +262,48 @@ layui.use(requireModules, function (form,
         }
     });
 
-    f.on('select(categoryId)', function(data){
-        if(data.value == '其它'){
+    //视频上传
+    upload.render({
+        elem: '#videoBtn',
+        url: exhibitionApi.getUrl('uploadPdf').url,
+        accept: 'file',
+        ext: 'mp4|MP4',
+        size: 10240, //最大允许上传的文件大小kb
+        data: {
+            productName: function () {
+                return $('#productName').val();
+            },
+            categoryId: function () {
+                return $('#categoryId').val();
+            },
+            companyName: function () {
+                return $('#companyName').val();
+            },
+            type: '3'
+        },
+        before: function (obj) {
+            //预读本地文件
+            layer.load(0, {
+                shade: 0.5
+            });
+        },
+        done: function (res) {
+            layer.closeAll('loading');
+            if (res.status == false) {
+                return layer.msg('上传失败');
+            } else {
+                $('#video').val(res.pdfUrl);
+                toast.msg("上传成功");
+            }
+        },
+        error: function () {
+            layer.closeAll('loading');
+            return layer.msg('数据请求异常');
+        }
+    });
+
+    f.on('select(categoryId)', function (data) {
+        if (data.value == '其它') {
             $("#otherCategoryDiv").show();
         } else {
             $("#otherCategoryDiv").hide();
@@ -271,8 +311,21 @@ layui.use(requireModules, function (form,
         }
     });
 
+    f.on('radio(proVideo)', function (data) {
+        var value = data.value;   //  当前选中的value值
+        if(value==0){
+            $("#publicityVideoDiv").hide();
+            $("#publicityVideoDiv").val("");
+        } else {
+            $("#publicityVideoDiv").show();
+        }
+    });
+
     //提交form表单
     f.on('submit(exhibition-idea-add-form)', function (data) {
+        // $("form#exhibition-idea-add-form input[type='radio']:checked").each(function(){
+        //     data.field[$(this).attr('name')] = $(this).val();
+        // });
         ajax.request(exhibitionApi.getUrl('addProductIdea'), data.field, function () {
             var index = parent.layer.getFrameIndex(window.name);
             parent.layer.close(index);

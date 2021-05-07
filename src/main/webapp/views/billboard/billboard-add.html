@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>添加资讯</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../frame/layui/css/layui.css">
+    <link href="../../frame/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+</head>
+<body class="body">
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>消防展广告位置及价格</legend>
+</fieldset>
+<form id="billboard-form" class="layui-form" action="">
+
+    <div class="layui-form">
+        <table class="layui-table" id="billboardTable">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col width="1000">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>展厅</th>
+                <th>项目名称</th>
+                <th>序号</th>
+                <th>尺寸</th>
+                <th>单价、展期（元）</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 南登录厅开始-->
+            <tr>
+                <td rowspan="6">南登录厅</td>
+                <td rowspan="2">南登录厅正面吊旗广告</td>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="南登录厅正面吊旗广告" value="W-1" title="W-11">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅正面吊旗广告" value="W-2" title="W-2">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅正面吊旗广告" value="W-3" title="W-3">
+
+                </td>
+                <td rowspan="2">长6米x高5米</td>
+                <td rowspan="2">48000/副</td>
+            </tr>
+            <tr>
+                <!--            <td>南登录厅</td>-->
+                <!--            <td>南登录厅正面吊旗广告</td>-->
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="南登录厅正面吊旗广告" value="E-1" title="E-1">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅正面吊旗广告" value="E-2" title="E-2" CHECKED>
+                    <input type="checkbox" lay-skin="primary" name="南登录厅正面吊旗广告" value="E-3" title="E-3">
+                </td>
+                <!--            <td>长6米x高5米</td>-->
+                <!--            <td>48000/副</td>-->
+            </tr>
+            <tr>
+                <td rowspan="2">南登录厅东、西两侧吊旗广告</td>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="南登录厅东、西两侧吊旗广告" value="W-1" title="W-1">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅东、西两侧吊旗广告" value="W-2" title="W-2">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅东、西两侧吊旗广告" value="E-1" title="E-1">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅东、西两侧吊旗广告" value="E-2" title="E-2">
+                </td>
+                <td>长5米x高5米</td>
+                <td rowspan="2">30000/副</td>
+            </tr>
+            <tr>
+                <!--            <td>南登录厅东、西两侧吊旗广告</td>-->
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="南登录厅东、西两侧吊旗广告" value="W-3" title="W-3">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅东、西两侧吊旗广告" value="W-4" title="W-4">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅东、西两侧吊旗广告" value="W-5" title="W-5">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅东、西两侧吊旗广告" value="W-6" title="W-6">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅东、西两侧吊旗广告" value="E-3" title="E-3">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅东、西两侧吊旗广告" value="E-4" title="E-4">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅东、西两侧吊旗广告" value="E-5" title="E-5">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅东、西两侧吊旗广告" value="E-6" title="E-6">
+                </td>
+                <td>长6米x高5米</td>
+                <!--            <td>30000/副</td>-->
+            </tr>
+
+            <tr>
+                <td rowspan="2">南登录厅两侧圆柱广告</td>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="南登录厅两侧圆柱广告" value="W-1" title="W-1">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅两侧圆柱广告" value="W-2" title="W-2">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅两侧圆柱广告" value="W-3" title="W-3">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅两侧圆柱广告" value="W-4" title="W-4">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅两侧圆柱广告" value="W-5" title="W-5">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅两侧圆柱广告" value="W-6" title="W-6">
+                </td>
+                <td rowspan="2">长5.4米x高3米</td>
+                <td rowspan="2">15000/根</td>
+            </tr>
+            <tr>
+                <!--            <td>南登录厅两侧圆柱广告</td>-->
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="南登录厅两侧圆柱广告" value="E-1" title="E-1">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅两侧圆柱广告" value="E-2" title="E-2">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅两侧圆柱广告" value="E-3" title="E-3">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅两侧圆柱广告" value="E-4" title="E-4">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅两侧圆柱广告" value="E-5" title="E-5">
+                    <input type="checkbox" lay-skin="primary" name="南登录厅两侧圆柱广告" value="E-6" title="E-6">
+                </td>
+                <!--            <td>长5.4米x高3米</td>-->
+                <!--            <td>15000/根</td>-->
+            </tr>
+            <!-- 南登录厅结束-->
+
+
+            <!-- 东/西登录厅开始-->
+            <tr>
+                <td rowspan="9">东/西登录厅</td>
+                <td>东、西登录厅两侧吊旗广告</td>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅两侧吊旗广告" value="E(W)-1" title="E(W)-1">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅两侧吊旗广告" value="E(W)-2" title="E(W)-2">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅两侧吊旗广告" value="E(W)-3" title="E(W)-3">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅两侧吊旗广告" value="E(W)-4" title="E(W)-4">
+                </td>
+                <td>长5米x高12米</td>
+                <td>35000/2副</td>
+            </tr>
+
+            <tr>
+                <td rowspan="2">东、西登录厅正面吊旗广告</td>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅正面吊旗广告" value="E-1" title="E-1">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅正面吊旗广告" value="E-2" title="E-2">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅正面吊旗广告" value="E-3" title="E-3">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅正面吊旗广告" value="E-4" title="E-4">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅正面吊旗广告" value="E-5" title="E-5">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅正面吊旗广告" value="E-6" title="E-6">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅正面吊旗广告" value="E-7" title="E-7">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅正面吊旗广告" value="E-8" title="E-8">
+                </td>
+                <td rowspan="2">长3米x高5米</td>
+                <td rowspan="2">12000/副（正背）</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅正面吊旗广告" value="W-1" title="W-1">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅正面吊旗广告" value="W-2" title="W-2">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅正面吊旗广告" value="W-3" title="W-3">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅正面吊旗广告" value="W-4" title="W-4">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅正面吊旗广告" value="W-5" title="W-5">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅正面吊旗广告" value="W-6" title="W-6">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅正面吊旗广告" value="W-7" title="W-7">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅正面吊旗广告" value="W-8" title="W-8">
+                </td>
+            </tr>
+
+            <tr>
+                <td rowspan="2">东、西登录厅墙体广告</td>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅墙体广告" value="E-1" title="E-1">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅墙体广告" value="E-2" title="E-2">
+                </td>
+                <td rowspan="2">长12米x高6米</td>
+                <td rowspan="2">30000/副</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅墙体广告" value="W-1" title="W-1">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅墙体广告" value="W-2" title="W-2">
+                </td>
+            </tr>
+
+            <tr>
+                <td rowspan="2">东、西登录厅圆柱广告</td>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="E-1" title="E-1">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="E-2" title="E-2">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="E-3" title="E-3">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="E-4" title="E-4">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="E-5" title="E-5">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="E-6" title="E-6">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="E-7" title="E-7">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="E-8" title="E-8">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="E-9" title="E-9">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="E-10" title="E-10">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="E-11" title="E-11">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="E-12" title="E-12">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="E-13" title="E-13">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="E-14" title="E-14">
+                </td>
+                <td rowspan="2">长2.7米x高3米</td>
+                <td rowspan="2">5000/根</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="W-1" title="W-1">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="W-2" title="W-2">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="W-3" title="W-3">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="W-4" title="W-4">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="W-5" title="W-5">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="W-6" title="W-6">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="W-7" title="W-7">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="W-8" title="W-8">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="W-9" title="W-9">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="W-10" title="W-10">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="W-11" title="W-11">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="W-12" title="W-12">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="W-13" title="W-13">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅圆柱广告" value="W-14" title="W-14">
+                </td>
+            </tr>
+
+            <tr>
+                <td rowspan="2">东、西登录厅方柱广告</td>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅方柱广告" value="E2-1" title="E2-1">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅方柱广告" value="E2-2" title="E2-2">
+                </td>
+                <td rowspan="2">长1.1米x宽0.86米x高3米</td>
+                <td rowspan="2">5000/根</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅方柱广告" value="W2-1" title="W2-1">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅方柱广告" value="W2-2" title="W2-2">
+                </td>
+            </tr>
+            <!-- 东/西登录厅结束-->
+
+
+            <!--馆内连廊广告媒体开始-->
+            <tr>
+                <td rowspan="4">馆内连廊广告媒体</td>
+                <td rowspan="2">连廊吊旗广告</td>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-1" title="W-1">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-2" title="W-2">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-3" title="W-3">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-4" title="W-4">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-5" title="W-5">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-6" title="W-6">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-7" title="W-7">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-8" title="W-8">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-9" title="W-9">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-10" title="W-10">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-11" title="W-11">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-12" title="W-12">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-13" title="W-13">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-14" title="W-14">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-15" title="W-15">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-16" title="W-16">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-17" title="W-17">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="W-18" title="W-18">
+                </td>
+                <td rowspan="2">长6米x高4米</td>
+                <td rowspan="2">24000/副（正背）</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-1" title="E-1">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-2" title="E-2">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-3" title="E-3">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-4" title="E-4">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-5" title="E-5">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-6" title="E-6">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-7" title="E-7">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-8" title="E-8">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-9" title="E-9">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-10" title="E-10">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-11" title="E-11">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-12" title="E-12">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-13" title="E-13">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-14" title="E-14">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-15" title="E-15">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-16" title="E-16">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-17" title="E-17">
+                    <input type="checkbox" lay-skin="primary" name="连廊吊旗广告" value="E-18" title="E-18">
+                </td>
+            </tr>
+
+            <tr>
+                <td rowspan="2">连廊方柱广告</td>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-1" title="W-1">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-2" title="W-2">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-3" title="W-3">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-4" title="W-4">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-5" title="W-5">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-6" title="W-6">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-7" title="W-7">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-8" title="W-8">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-9" title="W-9">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-10" title="W-10">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-11" title="W-11">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-12" title="W-12">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-13" title="W-13">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-14" title="W-14">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-15" title="W-15">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-16" title="W-16">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-17" title="W-17">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-18" title="W-18">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-19" title="W-19">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-20" title="W-20">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-21" title="W-21">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-22" title="W-22">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-23" title="W-23">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-24" title="W-24">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-25" title="W-25">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-26" title="W-26">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-27" title="W-27">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-28" title="W-28">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-29" title="W-29">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-30" title="W-30">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-31" title="W-31">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-32" title="W-32">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-33" title="W-33">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-34" title="W-34">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-35" title="W-35">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-36" title="W-36">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-37" title="W-37">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-38" title="W-38">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-39" title="W-39">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="W-40" title="W-40">
+                </td>
+                <td rowspan="2">长0.96米x宽0.76米x高3.5米</td>
+                <td rowspan="2">5000/根</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-1" title="E-1">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-2" title="E-2">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-3" title="E-3">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-4" title="E-4">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-5" title="E-5">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-6" title="E-6">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-7" title="E-7">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-8" title="E-8">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-9" title="E-9">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-10" title="E-10">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-11" title="E-11">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-12" title="E-12">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-13" title="E-13">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-14" title="E-14">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-15" title="E-15">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-16" title="E-16">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-17" title="E-17">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-18" title="E-18">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-19" title="E-19">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-20" title="E-20">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-21" title="E-21">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-22" title="E-22">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-23" title="E-23">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-24" title="E-24">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-25" title="E-25">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-26" title="E-26">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-27" title="E-27">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-28" title="E-28">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-29" title="E-29">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-30" title="E-30">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-31" title="E-31">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-32" title="E-32">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-33" title="E-33">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-34" title="E-34">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-35" title="E-35">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-36" title="E-36">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-37" title="E-37">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-38" title="E-38">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-39" title="E-39">
+                    <input type="checkbox" lay-skin="primary" name="连廊方柱广告" value="E-40" title="E-40">
+                </td>
+            </tr>
+            <!-- 馆内连廊广告媒体结束-->
+
+
+            <!--南广场广告媒体开始-->
+            <tr>
+                <td rowspan="3">南广场广告媒体</td>
+                <td>南广场正门墙体广告</td>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="南广场正门墙体广告" value="W-1" title="W-1">
+                    <input type="checkbox" lay-skin="primary" name="南广场正门墙体广告" value="E-2" title="E-2">
+                </td>
+                <td>长12米x高13米</td>
+                <td>120000/副</td>
+            </tr>
+            <tr>
+                <td rowspan="2">南广场南墙体广告</td>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="南广场南墙体广告" value="W-2" title="W-2">
+                    <input type="checkbox" lay-skin="primary" name="南广场南墙体广告" value="W-3" title="W-3">
+                    <input type="checkbox" lay-skin="primary" name="南广场南墙体广告" value="E-1" title="E-1">
+                    <input type="checkbox" lay-skin="primary" name="南广场南墙体广告" value="E-2" title="E-2">
+                </td>
+                <td>长28米x高6米</td>
+                <td>68000/副</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="南广场南墙体广告" value="W-1" title="W-1">
+                    <input type="checkbox" lay-skin="primary" name="南广场南墙体广告" value="E-3" title="E-3">
+                </td>
+                <td>长20米x高6米</td>
+                <td>48000/副</td>
+            </tr>
+            <!--南广场广告媒体结束-->
+
+
+            <!--东、西登录厅外墙广告开始-->
+            <tr>
+                <td rowspan="8">东、西登录厅外墙广告</td>
+                <td rowspan="2">东、西登录厅外墙广告</td>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅外墙广告" value="W-1" title="W-1">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅外墙广告" value="W-2" title="W-2">
+                </td>
+                <td rowspan="2">长16米x高10米</td>
+                <td rowspan="2">50000/副</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅外墙广告" value="E-1" title="E-1">
+                    <input type="checkbox" lay-skin="primary" name="东、西登录厅外墙广告" value="E-2" title="E-2">
+                </td>
+            </tr>
+
+            <tr>
+                <td rowspan="6">东、西展馆外墙广告</td>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="东、西展馆外墙广告" value="E-1" title="E-1">
+                    <input type="checkbox" lay-skin="primary" name="东、西展馆外墙广告" value="W-1" title="W-1">
+                </td>
+                <td>长30米x高5米</td>
+                <td>39000/副</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="东、西展馆外墙广告" value="E-2" title="E-2">
+                    <input type="checkbox" lay-skin="primary" name="东、西展馆外墙广告" value="W-2" title="W-2">
+                    <input type="checkbox" lay-skin="primary" name="东、西展馆外墙广告" value="E-6" title="E-6">
+                    <input type="checkbox" lay-skin="primary" name="东、西展馆外墙广告" value="W-6" title="W-6">
+                </td>
+                <td>长44米x高5米</td>
+                <td>57000/副</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="东、西展馆外墙广告" value="E-3" title="E-3">
+                    <input type="checkbox" lay-skin="primary" name="东、西展馆外墙广告" value="W-3" title="W-3">
+                    <input type="checkbox" lay-skin="primary" name="东、西展馆外墙广告" value="E-7" title="E-7">
+                    <input type="checkbox" lay-skin="primary" name="东、西展馆外墙广告" value="W-7" title="W-7">
+                </td>
+                <td>长38米x高5米</td>
+                <td>49000/副</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="东、西展馆外墙广告" value="E-4" title="E-4">
+                    <input type="checkbox" lay-skin="primary" name="东、西展馆外墙广告" value="W-4" title="W-4">
+                </td>
+                <td>长24米x高5米</td>
+                <td>32000/副</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="东、西展馆外墙广告" value="E-5" title="E-5">
+                    <input type="checkbox" lay-skin="primary" name="东、西展馆外墙广告" value="W-5" title="W-5">
+                </td>
+                <td>长22米x高5米</td>
+                <td>30000/副</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" lay-skin="primary" name="东、西展馆外墙广告" value="E-8" title="E-8">
+                    <input type="checkbox" lay-skin="primary" name="东、西展馆外墙广告" value="W-8" title="W-8">
+                </td>
+                <td>长28米x高5米</td>
+                <td>35000/副</td>
+            </tr>
+            <!--东、西登录厅外墙广告结束-->
+            </tbody>
+        </table>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">广告联系人</label>
+            <div class="layui-input-inline">
+                <input id="name" type="text" name="name" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">联系方式</label>
+            <div class="layui-input-inline">
+                <input id="phone" type="text" name="phone" placeholder="请输入手机号码" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <button class="layui-btn" type="button" lay-submit lay-filter="billboard-form">
+                <i class="layui-icon">&#xe605;</i>
+                保存
+            </button>
+        </div>
+    </div>
+</form>
+
+<script id="container" name="content" type="text/plain"></script>
+<script type="text/javascript" src="../../js/common/module-manage.js"></script>
+<script type="text/javascript" src="../../frame/layui/layui.js"></script>
+<script type="text/javascript" charset="utf8" src="../../frame/jquery-1.12.4.js"></script>
+<script type="text/javascript" charset="utf8" src="../../frame/moment.js"></script>
+<script type="text/javascript" charset="utf8" src="../../frame/form-srializeJSON.js"></script>
+
+<script type="text/javascript" charset="utf8" src="../../js/controller/billboard/billboard-add.js"></script>
+</body>
+</html>

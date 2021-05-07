@@ -26,6 +26,7 @@ import com.youguu.core.util.HttpUtil;
 import com.youguu.core.util.PageHolder;
 import com.youguu.core.util.PropertiesUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -437,6 +438,8 @@ public class ExhibitionController {
                 fileName = "专利软著相关图片." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
             } else if ("2".equals(type)) {
                 fileName = "相关证明." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
+            } else if ("3".equals(type)) {
+                fileName = "宣传视频." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
             } else {
                 fileName = dft.format(new Date()) + Integer.toHexString(new Random().nextInt()) + "." + myFileName.substring(myFileName.lastIndexOf(".") + 1);
             }
@@ -537,7 +540,12 @@ public class ExhibitionController {
                                        @RequestParam(value = "comLogo", defaultValue = "") String comLogo,
                                        @RequestParam(value = "status", defaultValue = "") int status,
                                        @RequestParam(value = "otherCategory", defaultValue = "") String otherCategory,
-                                       @RequestParam(value = "promisePic", defaultValue = "") String promisePic) {
+                                       @RequestParam(value = "promisePic", defaultValue = "") String promisePic,
+                                       @RequestParam(value = "ask", defaultValue = "") String ask,
+                                       @RequestParam(value = "proView", defaultValue = "") String proView,
+                                       @RequestParam(value = "proEvent", defaultValue = "") String proEvent,
+                                       @RequestParam(value = "proVideo", defaultValue = "") String proVideo,
+                                       @RequestParam(value = "video", defaultValue = "") String video) {
 
         BaseResponse rs = new BaseResponse();
         ProductIdeaNew productIdea = productIdeaNewService.getProductIdea(productId);
@@ -572,6 +580,11 @@ public class ExhibitionController {
         productIdea.setStatus(status);
         //申报单位承诺，加盖图片地址
         productIdea.setPromisePic(promisePic);
+
+        productIdea.setAsk(ask);
+        productIdea.setProView(proView);
+        productIdea.setProEvent(proEvent);
+        productIdea.setVideo(video);
 
         /** 以下为2020.10.19号删除字段，原创新产品中需要的字段 start **/
 
@@ -689,6 +702,12 @@ public class ExhibitionController {
                 productIdea.setProductName(product.getName());
                 productIdea.setCompanyId(product.getCompanyId());
                 productIdea.setCompanyName(company.getName());
+            } else {
+                if (StringUtils.isEmpty(productIdea.getVideo())) {
+                    productIdea.setProVideo("0");
+                } else {
+                    productIdea.setProVideo("1");
+                }
             }
 
             rs.setStatus(true);

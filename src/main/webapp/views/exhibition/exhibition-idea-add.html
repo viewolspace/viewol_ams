@@ -290,6 +290,51 @@
     </div>
 
     <div class="layui-form-item">
+        <label class="layui-form-label">是否提供现场答疑</label>
+        <div class="layui-input-block">
+            <input type="radio" name="ask" value="01" title="是">
+            <input type="radio" name="ask" value="00" title="否">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否提供现场产品演示</label>
+        <div class="layui-input-block">
+            <input type="radio" name="proView" value="01" title="是">
+            <input type="radio" name="proView" value="00" title="否">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否参与产品展示推介活动</label>
+        <div class="layui-input-block">
+            <input type="radio" name="proEvent" value="01" title="是">
+            <input type="radio" name="proEvent" value="00" title="否">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">所提供视频是否可以在媒体公开宣传</label>
+        <div class="layui-input-block">
+            <input type="radio" lay-filter="proVideo" name="proVideo" value="01" title="是">
+            <input type="radio" lay-filter="proVideo" name="proVideo" value="00" title="否" checked="">
+            选择是，需要上传宣传视频
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="publicityVideoDiv" style="display: none">
+        <label class="layui-form-label">上传视频（分辨率：1920x1080 （横版）；时长：10分钟以内；格式：mp4；内容：仅限参选产品介绍）</label>
+
+        <div class="layui-input-inline" style="width: 400px;">
+            <input type="text" name="video" id="video" autocomplete="off" placeholder="" class="layui-input">
+        </div>
+
+        <div class="layui-input-inline">
+            <button type="button" class="layui-btn" id="videoBtn"><i class="layui-icon"></i>上传视频(1920x1080/10分钟以内/mp4)</button>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">评审状态</label>
 
