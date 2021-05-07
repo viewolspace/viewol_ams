@@ -34,54 +34,46 @@ layui.use(requireModules, function (form,
     var $ = layui.jquery;
     var f = layui.form;
 
-    /**
-     * 动态选择Checkbox
-     */
-    $('input:checkbox[name="南登录厅正面吊旗广告"]').each(function (i) {
-        if($(this).val()==='W-2'){
-            $(this).prop("checked", true);
-        }
+    ajax.request(billboardApi.getUrl('billboardList'), null, function (result) {
+        formUtil.renderData($('#billboard-form'), result.data);
 
+        formUtil.renderData($('#billboard-form'), result.adMedia);
+
+        form.render();
     });
-    f.render();
+
+
     //提交form表单
     f.on('submit(billboard-form)', function (data) {
-
-
-        html = '';
+        var dataHtml = '';
         $('#billboardTable').find('tbody').each(function () {
             $(this).find('tr').each(function () {
                 $(this).find('td').each(function (index, element) {
-                    console.log(element);
-                    html += index + '=' + $(this).text() + ',';
+                    dataHtml += $(this).text() + '@';
                 });
-                html += '|';
+                dataHtml += '|';
             });
 
-            console.log('html= ' + html);
+            console.log('dataHtml= ' + dataHtml);
             return false;
         });
 
-        // var TVGoods = $('input[name="南登录厅正面吊旗广告"]:checked').map(function () {
-        //     return this.value;
-        // }).get().join(",");
-        // console.log(TVGoods)
-        //
-        // $(this).attr("checked"))
 
-
+        var selectHtml = '';
         $.each($('input:checkbox:checked'), function () {
-            console.log($('input[type=checkbox]:checked').length + "个，其中有：" + $(this).attr("name") + ', ' + $(this).val());
+            selectHtml += $(this).attr("name") + '=' + $(this).val() + '|';
+        });
+        console.log('selectHtml= ' + selectHtml);
+
+        ajax.request(billboardApi.getUrl('addBillBoard'), {
+            dataHtml: dataHtml,
+            selectHtml: selectHtml,
+            name: $("#name").val(),
+            phone: $("#phone").val()
+        }, function (result) {
+
         });
 
-
-        // ajax.request(exhibitionApi.getUrl('addProductIdea'), data.field, function () {
-        //     var index = parent.layer.getFrameIndex(window.name);
-        //     parent.layer.close(index);
-        //     parent.list.refresh();
-        //     toast.success('修改成功');
-        //
-        // });
         return false;
     });
 

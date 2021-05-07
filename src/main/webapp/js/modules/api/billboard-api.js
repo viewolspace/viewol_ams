@@ -11,13 +11,14 @@ layui.define('base-url', function (exports) {
     var baseApi = layui['base-url'];
 
     var url = {
-        namespace: '../billboard/',
+        namespace: '../billBoard/',
         "billboardList": {
+            type: 'POST',
             url: "billboardList.do"
         },
-        "addBillboard": {
+        "addBillBoard": {
             type: 'POST',
-            url: "addBillboard.do"
+            url: "addBillBoard.do"
         }
     };
 

@@ -541,10 +541,10 @@ public class ExhibitionController {
                                        @RequestParam(value = "status", defaultValue = "") int status,
                                        @RequestParam(value = "otherCategory", defaultValue = "") String otherCategory,
                                        @RequestParam(value = "promisePic", defaultValue = "") String promisePic,
-                                       @RequestParam(value = "ask", defaultValue = "") String ask,
-                                       @RequestParam(value = "proView", defaultValue = "") String proView,
-                                       @RequestParam(value = "proEvent", defaultValue = "") String proEvent,
-                                       @RequestParam(value = "proVideo", defaultValue = "") String proVideo,
+                                       @RequestParam(value = "proAsk") String proAsk,
+                                       @RequestParam(value = "proView") String proView,
+                                       @RequestParam(value = "proEvent") String proEvent,
+                                       @RequestParam(value = "proVideo") String proVideo,
                                        @RequestParam(value = "video", defaultValue = "") String video) {
 
         BaseResponse rs = new BaseResponse();
@@ -581,7 +581,7 @@ public class ExhibitionController {
         //申报单位承诺，加盖图片地址
         productIdea.setPromisePic(promisePic);
 
-        productIdea.setAsk(ask);
+        productIdea.setProAsk(proAsk);
         productIdea.setProView(proView);
         productIdea.setProEvent(proEvent);
         productIdea.setVideo(video);
@@ -704,9 +704,9 @@ public class ExhibitionController {
                 productIdea.setCompanyName(company.getName());
             } else {
                 if (StringUtils.isEmpty(productIdea.getVideo())) {
-                    productIdea.setProVideo("0");
+                    productIdea.setProVideo("否");
                 } else {
-                    productIdea.setProVideo("1");
+                    productIdea.setProVideo("是");
                 }
             }
 

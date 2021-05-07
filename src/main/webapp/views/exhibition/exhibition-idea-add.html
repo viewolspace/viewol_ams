@@ -44,7 +44,7 @@
 </head>
 
 <body class="body">
-<form id="exhibition-idea-add-form" class="layui-form" action="">
+<form id="exhibition-idea-add-form" class="layui-form" action="" lay-filter="example">
     <!--产品ID-->
     <input type="hidden" id="productId" name="productId" value="">
     <!--申报单位ID-->
@@ -292,32 +292,32 @@
     <div class="layui-form-item">
         <label class="layui-form-label">是否提供现场答疑</label>
         <div class="layui-input-block">
-            <input type="radio" name="ask" value="01" title="是">
-            <input type="radio" name="ask" value="00" title="否">
+            <input type="radio" lay-filter="proAsk1" name="proAsk" value="是" title="是">
+            <input type="radio" lay-filter="proAsk1" name="proAsk" value="否" title="否">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">是否提供现场产品演示</label>
         <div class="layui-input-block">
-            <input type="radio" name="proView" value="01" title="是">
-            <input type="radio" name="proView" value="00" title="否">
+            <input type="radio" name="proView" value="是" title="是">
+            <input type="radio" name="proView" value="否" title="否">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">是否参与产品展示推介活动</label>
         <div class="layui-input-block">
-            <input type="radio" name="proEvent" value="01" title="是">
-            <input type="radio" name="proEvent" value="00" title="否">
+            <input type="radio" name="proEvent" value="是" title="是">
+            <input type="radio" name="proEvent" value="否" title="否">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">所提供视频是否可以在媒体公开宣传</label>
         <div class="layui-input-block">
-            <input type="radio" lay-filter="proVideo" name="proVideo" value="01" title="是">
-            <input type="radio" lay-filter="proVideo" name="proVideo" value="00" title="否" checked="">
+            <input type="radio" lay-filter="proVideo1" name="proVideo" value="是" title="是">
+            <input type="radio" lay-filter="proVideo1" name="proVideo" value="否" title="否" checked="true">
             选择是，需要上传宣传视频
         </div>
     </div>

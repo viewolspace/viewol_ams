@@ -39,7 +39,21 @@ layui.use(requireModules, function (form,
     }, function (result) {
         productIdeaData = result.data;
         if (!$.isEmptyObject(productIdeaData)) {
+            productIdeaData.proAsk = [productIdeaData.proAsk];
+            productIdeaData.proView = [productIdeaData.proView];
+            productIdeaData.proEvent = [productIdeaData.proEvent];
+            productIdeaData.proVideo = [productIdeaData.proVideo];
+
+            if (productIdeaData.proVideo[0] == '否') {
+                $("#publicityVideoDiv").hide();
+                $("#video").val("");
+            } else {
+                $("#publicityVideoDiv").show();
+            }
+
             formUtil.renderData($('#exhibition-idea-add-form'), productIdeaData);
+
+            form.render(); //更新全部
 
             if (productIdeaData.categoryId == '其它') {
                 $("#otherCategoryDiv").show();
@@ -311,11 +325,11 @@ layui.use(requireModules, function (form,
         }
     });
 
-    f.on('radio(proVideo)', function (data) {
+    f.on('radio(proVideo1)', function (data) {
         var value = data.value;   //  当前选中的value值
-        if(value==0){
+        if (value == '否') {
             $("#publicityVideoDiv").hide();
-            $("#publicityVideoDiv").val("");
+            $("#video").val("");
         } else {
             $("#publicityVideoDiv").show();
         }
@@ -323,9 +337,6 @@ layui.use(requireModules, function (form,
 
     //提交form表单
     f.on('submit(exhibition-idea-add-form)', function (data) {
-        // $("form#exhibition-idea-add-form input[type='radio']:checked").each(function(){
-        //     data.field[$(this).attr('name')] = $(this).val();
-        // });
         ajax.request(exhibitionApi.getUrl('addProductIdea'), data.field, function () {
             var index = parent.layer.getFrameIndex(window.name);
             parent.layer.close(index);
