@@ -1,11 +1,17 @@
 package com.viewol.billboard.controller;
 
 import com.viewol.billboard.response.BillBoardResponse;
+import com.viewol.billboard.vo.AdExcelModel;
 import com.viewol.common.BaseResponse;
+import com.viewol.exhibitor.controller.ExhibitorController;
 import com.viewol.pojo.AdMedia;
 import com.viewol.service.IAdMediaService;
 import com.viewol.shiro.token.TokenManager;
 import com.viewol.sys.interceptor.Repeat;
+import com.viewol.util.ExcelUtil;
+import jdk.nashorn.internal.runtime.ECMAException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +20,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.io.InputStream;
 import java.util.*;
 
 @Controller
 @RequestMapping("billBoard")
 public class BillBoardController {
+    private static final Logger logger = LoggerFactory.getLogger(BillBoardController.class);
+
     @Resource
     private IAdMediaService adMediaService;
 
@@ -51,6 +60,8 @@ public class BillBoardController {
 
             }
         }*/
+        InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("properties/广告位.xlsx");
+        List<AdExcelModel> excelList = (List<AdExcelModel>)ExcelUtil.readExcel(inputStream, AdExcelModel.class, 1, 1);
 
         String[] selectHtmlArr = selectHtml.split("\\|");
         List<AdMedia> adMediaList = new ArrayList<>();
@@ -65,12 +76,29 @@ public class BillBoardController {
             adMedia.setcTime(new Date()); //申请时间
             adMedia.setCompanyId(TokenManager.getCompanyId());
             adMedia.setCompanyName(TokenManager.getRealName());
+
+            try {
+                for (AdExcelModel adExcelModel : excelList) {
+                    if(adMedia.getItemName().equals(adExcelModel.getItemName())){
+                        List<String> numList = Arrays.asList(adExcelModel.getNum().split(","));
+                        if(numList.contains(adMedia.getNum())){
+                            adMedia.setShowRoom(adExcelModel.getShowRoom());
+                            adMedia.setPrice(adExcelModel.getPrice());
+                            adMedia.setSize(adExcelModel.getSize());
+                        }
+                    }
+                }
+            } catch (Exception e){
+                logger.error("关联展厅，报价异常", e);
+            }
+
             adMediaList.add(adMedia);
         }
 
         BaseResponse rs = new BaseResponse();
 
         if (adMediaList.size() > 0) {
+            adMediaService.delAdmedia(TokenManager.getCompanyId());
             int result = adMediaService.addAdMedias(adMediaList);
             if (result > 0) {
                 rs.setStatus(true);
