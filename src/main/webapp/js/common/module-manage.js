@@ -63,7 +63,9 @@ function registeModule(window,modulesYouWanted,otherModules) {
 			'category-api':'api/category-api',
             'buser-api':'api/buser-api',
 			'info-api':'api/info-api',
-			'billboard-api':'api/billboard-api'
+			'billboard-api':'api/billboard-api',
+			'performance-api':'api/performance-api',
+			'tech-report-api':'api/tech-report-api'
 		}
 
 		//刨除系统自带modules
