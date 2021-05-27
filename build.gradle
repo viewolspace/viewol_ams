@@ -105,7 +105,7 @@ task copyDevResources(type: Copy) {
     into 'dist'
 }
 
-def env = System.getProperty("profile") ?: "test"
+def env = System.getProperty("profile") ?: "prod"
 
 sourceSets {
     main {
