@@ -17,6 +17,8 @@ public class ExhibitionVO {
     private Date mTime;
     private String ercode;//产品小程序码
 
+    private int sqcx; // 0 未申请   1 已申请审核中
+
     public int getId() {
         return id;
     }
@@ -119,5 +121,13 @@ public class ExhibitionVO {
 
     public void setErcode(String ercode) {
         this.ercode = ercode;
+    }
+
+    public int getSqcx() {
+        return sqcx;
+    }
+
+    public void setSqcx(int sqcx) {
+        this.sqcx = sqcx;
     }
 }

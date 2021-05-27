@@ -85,6 +85,15 @@ layui.use(requireModules, function (
                             }
                         }
                     },
+                    {
+                                field: 'sqcx', title: '是否申请创新', width: 155, templet: function (d) {
+                                    if (d.sqcx == 0) {
+                                        return '<span>未申请创新产品</span>';
+                                    } else {
+                                        return '<span  style="color:red;">已申请，审核中</span>';
+                                    }
+                                }
+                            },
 
                     {field: 'categoryId', title: '分类id', width: 100},
                     {

@@ -76,6 +76,7 @@ public class ExhibitionController {
 
         if (null != pageHolder && null != pageHolder.getList() && pageHolder.getList().size() > 0) {
             for (Product product : pageHolder.getList()) {
+                ProductIdeaNew productIdeaNew = productIdeaNewService.getProductIdea(product.getId());
                 ExhibitionVO vo = new ExhibitionVO();
                 vo.setId(product.getId());
                 vo.setName(product.getName());
@@ -88,6 +89,11 @@ public class ExhibitionController {
                 vo.setRegImage(product.getReImgView());
                 vo.setcTime(product.getcTime());
                 vo.setmTime(product.getmTime());
+                if(productIdeaNew==null){
+                    vo.setSqcx(0);
+                }else{
+                    vo.setSqcx(1);
+                }
 
                 voList.add(vo);
             }
