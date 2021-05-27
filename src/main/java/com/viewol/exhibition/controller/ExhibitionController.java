@@ -548,6 +548,12 @@ public class ExhibitionController {
                                        @RequestParam(value = "video", defaultValue = "") String video) {
 
         BaseResponse rs = new BaseResponse();
+
+        if(StringUtils.isEmpty(productPic)){
+            rs.setStatus(false);
+            rs.setMsg("请上传申报技术产品图片");
+            return rs;
+        }
         ProductIdeaNew productIdea = productIdeaNewService.getProductIdea(productId);
         boolean addFlag = true;
         if (null == productIdea) {
