@@ -54,6 +54,12 @@ public class SysUserServiceImpl implements SysUserService {
 	}
 
 	@Override
+	public SysUser findSysUserByCompanyId(int companyId) {
+		SysUser sysUser = sysUserDAO.findSysUserByCompanyId(companyId);
+		return sysUser;
+	}
+
+	@Override
 	public int updateLastLoginTime(String userName, Date lastLoginTime) {
 		return sysUserDAO.updateLastLoginTime(userName, lastLoginTime);
 	}

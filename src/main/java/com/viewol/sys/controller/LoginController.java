@@ -159,7 +159,7 @@ public class LoginController {
                 Company cp = new Company();
                 cp.setName(cfpaCompany.getZwgsmc());
                 cp.setShortName(cfpaCompany.getZwgsmc());
-                cp.setLogo("/" + cfpaCompany.getSrc());
+                cp.setLogo("/" + cfpaCompany.getQyjsSrc());
                 cp.setContent(cfpaCompany.getQyjj());
                 cp.setProductNum(100);
                 cp.setCanApply(1);
@@ -172,7 +172,7 @@ public class LoginController {
                 cList.add("00010009");
                 int companyId = companyService.addCompany(2, cp, cList);
 
-                cfpaService.downloadImg(cfpaCompany.getSrc());
+                cfpaService.downloadImg(cfpaCompany.getQyjsSrc());
                 /**
                  * 2、给展商自动注册用户
                  */
@@ -239,13 +239,63 @@ public class LoginController {
         }
 
         /**
-         * 6、查询到展商后，用户展商名称模拟登录过程。
+         * 6、查询到展商后，用户展商名称模拟登录过程。user为空，修改sys_user表数据
          */
-        SysUser user = sysUserService.findSysUserByUserName(company.getName());
+        SysUser user = sysUserService.findSysUserByCompanyId(company.getId());
+        if (null == user) {
+            /**
+             * 2、给展商自动注册用户
+             */
+            company = companyService.getCompanyByUserNum(userNum);
+            SysUser sysUser = new SysUser();
+            sysUser.setPswd(new MD5().getMD5ofStr("123456").toLowerCase());
+            sysUser.setUserName(company.getName());
+            sysUser.setRealName(company.getName());
+            sysUser.setCompanyId(company.getId());
+            sysUser.setUserStatus(1);
+            sysUser.setCreateTime(new Date());
+            sysUser.setEmail("");
+            sysUser.setPhone("");
+            sysUserService.saveSysUser(sysUser);
+
+            /**
+             * 3、给用户分配权限
+             */
+            SysUserRole sysUserRole = new SysUserRole();
+            //rid=8 展商管理员
+            sysUserRole.setRid(8);
+            sysUserRole.setUid(sysUser.getId());
+            sysUserRole.setCreateTime(new Date());
+            sysUserRoleService.saveSysUserRole(sysUserRole);
+
+            /**
+             * 4、同步展商下的产品列表
+             */
+            //统一信用代码（唯一标识）
+            List<CfpaProduct> cfpaProductList = cfpaService.getCfpaProduct(company.getUserNum());
+            for (CfpaProduct cfpaProduct : cfpaProductList) {
+                Product product = new Product();
+                product.setName(cfpaProduct.getCplxmc());
+                product.setCompanyId(company.getId());
+                product.setContent(cfpaProduct.getCpjj());
+                product.setImage("/" + cfpaProduct.getSrc());
+                product.setCategoryId("00020009");
+                //0上架
+                product.setStatus(0);
+                product.setcTime(new Date());
+                product.setUuid(cfpaProduct.getUuid());
+
+                productService.addProduct(2, product);
+                cfpaService.downloadImg(cfpaProduct.getSrc());
+            }
+        }
+
+        user = sysUserService.findSysUserByCompanyId(company.getId());
+
         if (null == user) {
             rs.setStatus(false);
-            rs.setMsg("登录账号错误");
-            logger.error("登录账号错误， userName=" + company.getName());
+            rs.setMsg("统一信用代码登录错误");
+            logger.error("统一信用代码错误， userNum=" + company.getUserNum());
             return rs;
         }
 

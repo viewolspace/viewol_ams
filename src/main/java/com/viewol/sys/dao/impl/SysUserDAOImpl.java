@@ -42,6 +42,11 @@ public class SysUserDAOImpl extends ViewolMsDAO<SysUser> implements SysUserDAO {
 	}
 
 	@Override
+	public SysUser findSysUserByCompanyId(int companyId) {
+		return this.findUniqueBy("findSysUserByCompanyId", companyId);
+	}
+
+	@Override
 	public int updateLastLoginTime(String userName, Date lastLoginTime) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("lastLoginTime", lastLoginTime);

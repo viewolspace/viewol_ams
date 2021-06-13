@@ -20,6 +20,8 @@ public interface SysUserDAO {
 
 	public SysUser findSysUserByUserName(String username);
 
+	public SysUser findSysUserByCompanyId(int companyId);
+
 	public int updateLastLoginTime(String userName, Date lastLoginTime);
 
 	int updatePwd(String userName, String oldPwd, String newPwd);
