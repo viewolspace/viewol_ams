@@ -308,7 +308,6 @@ public class ExhibitionController {
 
     @RequestMapping(value = "/uploadImg", method = RequestMethod.POST)
     @ResponseBody
-    @Repeat
     public UploadResponse uploadImg(@RequestParam(value = "productName", defaultValue = "") String productName,
                                     @RequestParam(value = "categoryId", defaultValue = "") String categoryId,
                                     @RequestParam(value = "companyName", defaultValue = "") String companyName,
@@ -551,7 +550,10 @@ public class ExhibitionController {
                                        @RequestParam(value = "proView") String proView,
                                        @RequestParam(value = "proEvent") String proEvent,
                                        @RequestParam(value = "proVideo") String proVideo,
-                                       @RequestParam(value = "video", defaultValue = "") String video) {
+                                       @RequestParam(value = "video", defaultValue = "") String video,
+                                       @RequestParam(value = "vLogo", defaultValue = "") String vLogo,
+                                       @RequestParam(value = "vPic", defaultValue = "") String vPic,
+                                       @RequestParam(value = "vDes", defaultValue = "") String vDes) {
 
         BaseResponse rs = new BaseResponse();
 
@@ -624,6 +626,10 @@ public class ExhibitionController {
         //相关证明，多个图片合并
         productIdea.setCore(core);
         /** 以下为2020.10.19号新增创新产品字段 end **/
+
+        productIdea.setvLogo(vLogo);
+        productIdea.setvPic(vPic);
+        productIdea.setvDes(vDes);
 
         int count = productIdeaNewService.countByCompanyId(companyId);
         if (count > 4) {

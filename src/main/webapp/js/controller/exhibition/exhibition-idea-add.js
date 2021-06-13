@@ -70,6 +70,21 @@ layui.use(requireModules, function (form,
 
             $('#comLogoAvatarId').attr('src', productIdeaData.comLogo);
             $('#comLogo').val(productIdeaData.comLogo);
+
+            $('#vLogoAvatarId').attr('src', productIdeaData.vLogo);
+            $('#vLogo').val(productIdeaData.vLogo);
+
+            if(productIdeaData.vPic != undefined){
+                var imgurls = productIdeaData.vPic.split(",");
+
+                for (var i = 0; i < imgurls.length; i++) {
+                    vpic = imgurls[i];
+                    if (vpic != "" && vpic.length > 0) {
+                        $('#v_pic').append('<img src="' + vpic + '" height="92px" width="92px" class="layui-upload-img uploadImgPreView">')
+                    }
+                }
+                $('#vPic').val(productIdeaData.vPic);
+            }
         }
     });
 
@@ -334,6 +349,107 @@ layui.use(requireModules, function (form,
             $("#publicityVideoDiv").show();
         }
     });
+
+    //上传产品Logo，投票使用
+    upload.render({
+        elem: '#vLogoBtn'
+        , url: exhibitionApi.getUrl('uploadImg').url
+        , ext: 'jpg|png|gif|bmp'
+        , type: 'image'
+        , size: 1024 //最大允许上传的文件大小kb
+        , data: {
+            productName: function () {
+                return $('#productName').val();
+            },
+            categoryId: function () {
+                return $('#categoryId').val();
+            },
+            companyName: function () {
+                return $('#companyName').val();
+            },
+            type: '9'
+        }
+        , before: function (obj) {
+            //预读本地文件
+            layer.load(0, {
+                shade: 0.5
+            });
+        }
+        , done: function (res) {
+            layer.closeAll('loading');
+            if (res.status == false) {
+                return layer.msg('上传失败');
+            } else {
+                $('#vLogoAvatarId').attr('src', res.imageUrl);
+                $('#vLogo').val(res.imageUrl);
+                toast.msg("上传成功");
+            }
+        }
+        , error: function () {
+            layer.closeAll('loading');
+            return layer.msg('数据请求异常');
+        }
+    });
+
+    var success = 0;
+    var fail = 0;
+    var imgurls = "";
+
+    upload.render({
+        elem: '#test1',
+        url: exhibitionApi.getUrl('uploadImg').url,
+        multiple: true,
+        auto: true,
+        size: 10240,//            上传的单个图片大小
+        number: 4,//            最多上传的数量
+        field: 'file',
+        // bindAction: '#test9',
+        data: {
+            productName: function () {
+                return $('#productName').val();
+            },
+            categoryId: function () {
+                return $('#categoryId').val();
+            },
+            companyName: function () {
+                return $('#companyName').val();
+            },
+            type: '9'
+        },
+        before: function (obj) {
+            //预读本地文件示例，不支持ie8
+            obj.preview(function (index, file, result) {
+                $('#v_pic').append('<img src="' + result + '" alt="' + file.name + '"height="92px" width="92px" class="layui-upload-img uploadImgPreView">')
+            });
+        },
+        done: function (res, index, upload) {
+            //每个图片上传结束的回调，成功的话，就把新图片的名字保存起来，作为数据提交
+            if (res.status == false) {
+                fail++;
+            } else {
+                success++;
+                imgurls = imgurls + "" + res.imageUrl + ",";
+                $('#vPic').val(imgurls);
+            }
+        },
+        allDone: function (obj) {
+            layer.msg("总上传图片数为：" + (fail + success) + "\r\n"
+                + "，上传成功：" + success + "\r\n"
+                + "，上传失败：" + fail
+            )
+        }
+    });
+
+    cleanImgsPreview();
+
+    function cleanImgsPreview(){
+        $("#cleanImgs").click(function(){
+            success=0;
+            fail=0;
+            $('#v_pic').html("");
+            $('#vPic').val("");
+        });
+    }
 
     //提交form表单
     f.on('submit(exhibition-idea-add-form)', function (data) {

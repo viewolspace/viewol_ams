@@ -335,6 +335,53 @@
     </div>
 
     <div class="layui-form-item">
+        <label class="layui-form-label">产品logo</label>
+        <div class="layui-input-block">
+            <div class="layui-upload-drag">
+                <a href=" javascript:void(0); ">
+                    <img id="vLogoAvatarId" src="../../image/default_upload_z.png" alt="上传图片" width="80" height="80">
+                </a>
+                <input type="hidden" id="vLogo" name="vLogo" value="">
+            </div>
+
+            <button type="button" class="layui-btn" id="vLogoBtn">
+                <i class="layui-icon"></i>
+                上传图片（投票使用，长*宽要求：200*200像素）
+            </button>
+
+            <input class="layui-upload-file" type="file" name="file">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">投票宣传图</label>
+
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" id="test1">
+                <i class="layui-icon">&#xe67c;</i>上传图片（最多选择4张，要求630像素*630像素）
+            </button>
+<!--            <button type="button" class="layui-btn" id="test9">开始上传</button>-->
+            <button type="button" class="layui-btn" id="cleanImgs"> <i class="fa fa-trash-o fa-lg"></i>清空图片预览</button>
+        </div>
+
+        <div class="layui-input-block">
+            <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                预览图：
+                <div class="layui-upload-list" id="v_pic"></div>
+            </blockquote>
+            <input type="text" id="vPic" name="vPic" style="display: none;" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">产品介绍</label>
+
+        <div class="layui-input-block">
+            <textarea name="vDes" placeholder="请输入产品介绍，要求200字以内" class="layui-textarea"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">评审状态</label>
 
