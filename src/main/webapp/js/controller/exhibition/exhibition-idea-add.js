@@ -451,6 +451,24 @@ layui.use(requireModules, function (form,
         });
     }
 
+    //自定义验证规则
+    f.verify({
+        vDesLength: function (value) {
+            var i, sum;
+            sum = 0;
+            for (i = 0; i < value.length; i++) {
+                if ((value.charCodeAt(i) >= 0) && (value.charCodeAt(i) <= 255)) {
+                    sum = sum + 1;
+                } else {
+                    sum = sum + 2;
+                }
+            }
+            if (sum > 400) {
+                return '产品介绍最多只能输入200个中文字';
+            }
+        }
+    });
+
     //提交form表单
     f.on('submit(exhibition-idea-add-form)', function (data) {
         ajax.request(exhibitionApi.getUrl('addProductIdea'), data.field, function () {

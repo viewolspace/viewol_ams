@@ -346,8 +346,9 @@
 
             <button type="button" class="layui-btn" id="vLogoBtn">
                 <i class="layui-icon"></i>
-                上传图片（投票使用，长*宽要求：200*200像素）
+                上传图片
             </button>
+            <span style="color:red">(投票使用，要求：630*630像素)</span>
 
             <input class="layui-upload-file" type="file" name="file">
         </div>
@@ -358,10 +359,11 @@
 
         <div class="layui-input-block">
             <button type="button" class="layui-btn" id="test1">
-                <i class="layui-icon">&#xe67c;</i>上传图片（最多选择4张，要求630像素*630像素）
+                <i class="layui-icon">&#xe67c;</i>上传图片
             </button>
 <!--            <button type="button" class="layui-btn" id="test9">开始上传</button>-->
             <button type="button" class="layui-btn" id="cleanImgs"> <i class="fa fa-trash-o fa-lg"></i>清空图片预览</button>
+            <span style="color:red">(最多选择4张，要求1390*910像素)</span>
         </div>
 
         <div class="layui-input-block">
@@ -377,7 +379,8 @@
         <label class="layui-form-label">产品介绍</label>
 
         <div class="layui-input-block">
-            <textarea name="vDes" placeholder="请输入产品介绍，要求200字以内" class="layui-textarea"></textarea>
+            <textarea name="vDes" placeholder="请输入产品介绍，要求200字以内" class="layui-textarea" lay-verify="vDesLength"></textarea>
+            <span style="color:red">(产品介绍，字数要求不能超过200字)</span>
         </div>
     </div>
 

@@ -8,6 +8,7 @@ import com.viewol.exhibition.response.ProductIdeaResponse;
 import com.viewol.exhibition.vo.ExhibitionCategoryVO;
 import com.viewol.exhibition.vo.ExhibitionVO;
 import com.viewol.exhibition.word.WordUtil;
+import com.viewol.exhibitor.controller.ExhibitorController;
 import com.viewol.pojo.Category;
 import com.viewol.pojo.Company;
 import com.viewol.pojo.Product;
@@ -25,6 +26,8 @@ import com.youguu.core.pojo.Response;
 import com.youguu.core.util.HttpUtil;
 import com.youguu.core.util.PageHolder;
 import com.youguu.core.util.PropertiesUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +45,8 @@ import java.util.*;
 @Controller
 @RequestMapping("exhibition")
 public class ExhibitionController {
+    private static final Logger logger = LoggerFactory.getLogger(ExhibitionController.class);
+
     @Resource
     private IProductService productService;
     @Resource
@@ -630,13 +635,13 @@ public class ExhibitionController {
         productIdea.setvLogo(vLogo);
         productIdea.setvPic(vPic);
         productIdea.setvDes(vDes);
-
+        logger.info("申请创新产品，companyId={}，productId={}", companyId, productId);
         int count = productIdeaNewService.countByCompanyId(companyId);
-        if (count > 4) {
-            rs.setStatus(false);
-            rs.setMsg("最多申请4个创新产品");
-            return rs;
-        }
+//        if (count > 4) {
+//            rs.setStatus(false);
+//            rs.setMsg("最多申请4个创新产品");
+//            return rs;
+//        }
         int result = 0;
         if (addFlag) {
             result = productIdeaNewService.addProductIdea(productIdea);
