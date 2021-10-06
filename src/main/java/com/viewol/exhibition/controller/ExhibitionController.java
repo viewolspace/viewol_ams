@@ -637,6 +637,8 @@ public class ExhibitionController {
         productIdea.setvDes(vDes);
         logger.info("申请创新产品，companyId={}，productId={}", companyId, productId);
         int count = productIdeaNewService.countByCompanyId(companyId);
+        logger.info("申请创新产品，companyId={}，productId={}，count={}", companyId, productId, count);
+
 //        if (count > 4) {
 //            rs.setStatus(false);
 //            rs.setMsg("最多申请4个创新产品");

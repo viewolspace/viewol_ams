@@ -611,7 +611,7 @@ public class ExhibitorController {
     @RequestMapping(value = "/updateShow", method = RequestMethod.POST)
     @ResponseBody
     public BaseResponse updateShow(@RequestParam(value = "publicityImgUrls", defaultValue = "") String publicityImgUrls,
-                                   @RequestParam(value = "productImgUrls", defaultValue = "") String productImgUrls,
+//                                   @RequestParam(value = "productImgUrls", defaultValue = "") String productImgUrls,
                                    @RequestParam(value = "progress", defaultValue = "") String progress,
                                    @RequestParam(value = "showFlag", defaultValue = "") String showFlag) {
 
@@ -629,19 +629,19 @@ public class ExhibitorController {
             }
         }
 
-        if (!StringUtils.isEmpty(productImgUrls)) {
-            String[] productUrlArray = productImgUrls.split(",");
-            for (int i = 0; i < productUrlArray.length; i++) {
-                if (!StringUtils.isEmpty(productUrlArray[i]) && productUrlArray[i].startsWith("http")) {
-                    productUrl.add(productUrlArray[i]);
-                }
-            }
-        }
+//        if (!StringUtils.isEmpty(productImgUrls)) {
+//            String[] productUrlArray = productImgUrls.split(",");
+//            for (int i = 0; i < productUrlArray.length; i++) {
+//                if (!StringUtils.isEmpty(productUrlArray[i]) && productUrlArray[i].startsWith("http")) {
+//                    productUrl.add(productUrlArray[i]);
+//                }
+//            }
+//        }
 
         CompanyShow companyShow = new CompanyShow();
         companyShow.setImgUrl(imgUrl);
         companyShow.setProgresses(progresses);
-        companyShow.setProductUrl(productUrl);
+//        companyShow.setProductUrl(productUrl);
         companyShow.setShowFlag(showFlag);
 
         int companyId = TokenManager.getCompanyId();

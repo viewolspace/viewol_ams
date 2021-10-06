@@ -51,14 +51,14 @@ layui.use(requireModules, function (form,
         });
         $('#publicityImgUrls').val(imgurls);
 
-        var proImgUrls;
-        $.each(data.productUrl, function (index, element) {
-            if (element != 'undefined') {
-                $('#productDiv').append('<img src="' + element + '" class="layui-upload-img">');
-                proImgUrls = proImgUrls + "," + element;
-            }
-        });
-        $('#productImgUrls').val(proImgUrls);
+        // var proImgUrls;
+        // $.each(data.productUrl, function (index, element) {
+        //     if (element != 'undefined') {
+        //         $('#productDiv').append('<img src="' + element + '" class="layui-upload-img">');
+        //         proImgUrls = proImgUrls + "," + element;
+        //     }
+        // });
+        // $('#productImgUrls').val(proImgUrls);
 
         $.each(data.progresses, function (index, element) {
             if (index == 0) {

@@ -1,5 +1,6 @@
 package com.viewol.sys.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.viewol.common.BaseResponse;
 import com.viewol.pojo.CfpaCompany;
@@ -25,6 +26,7 @@ import org.apache.shiro.authc.DisabledAccountException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -267,6 +269,23 @@ public class LoginController {
             sysUserRole.setUid(sysUser.getId());
             sysUserRole.setCreateTime(new Date());
             sysUserRoleService.saveSysUserRole(sysUserRole);
+
+            try {
+                CfpaCompany fCompany = cfpaService.getCfpaCompany(userNum);
+                company.setName(fCompany.getZwgsmc());
+                company.setShortName(fCompany.getZwgsmc());
+                company.setLogo("/" + fCompany.getQyjsSrc());
+                if(StringUtils.isEmpty(company.getContent())){
+                    company.setContent(fCompany.getQyjj());
+                }
+                company.setPlace(fCompany.getZwh());
+                company.setPlaceSvg(fCompany.getZwh());
+                logger.info("更新展商：" + JSON.toJSONString(company));
+                companyService.updateByUserNum(company);
+            } catch (Exception e) {
+                logger.error("登录修改展商数据失败", e);
+            }
+
 
             /**
              * 4、同步展商下的产品列表
